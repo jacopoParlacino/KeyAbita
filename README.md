@@ -50,49 +50,75 @@ cd KeyAbita/keyabita
 
 ### Database
 
-Il database H2 è configurato in memoria. La struttura del database è organizzata nelle seguenti tabelle:
+Il database H2 è configurato in memoria per facilitare lo sviluppo e i test. La struttura è stata progettata per gestire efficacemente le tre entità principali del sistema: immobili, utenti e valutazioni.
 
-#### Tabella Properties
+#### Design del Database
+
+La struttura del database riflette le esigenze di un'agenzia immobiliare moderna:
+
+1. **Gestione Immobili** (`immobili`)
+2. **Gestione Utenti** (`utenti`)
+3. **Gestione Valutazioni** (`valutazioni`)
+
+#### Tabella Immobili
 ```sql
-CREATE TABLE properties (
+CREATE TABLE immobili (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    address VARCHAR(255),
-    type VARCHAR(50),      -- Appartamento, Villa, Ufficio, etc.
-    size INT,             -- Metri quadrati
-    rooms INT,            -- Numero di stanze
-    price DECIMAL(10,2),  -- Prezzo di vendita/affitto
-    status VARCHAR(50),   -- Disponibile, Venduto, Affittato
-    description TEXT
+    indirizzo VARCHAR(255),
+    tipo VARCHAR(50),      -- Appartamento, Villa, Ufficio, etc.
+    dimensione INT,        -- Metri quadrati
+    stanze INT,           -- Numero di stanze
+    prezzo DECIMAL(10,2), -- Prezzo di vendita/affitto
+    stato VARCHAR(50),    -- Disponibile, Venduto, Affittato
+    descrizione TEXT
 );
 ```
 
-#### Tabella Users
+La tabella `immobili` è stata progettata per:
+- Tracciare le informazioni essenziali di ogni immobile
+- Supportare diversi tipi di proprietà (appartamenti, ville, uffici)
+- Gestire lo stato dell'immobile nel ciclo di vendita/affitto
+- Fornire dettagli sufficienti per una prima valutazione
+
+#### Tabella Utenti
 ```sql
-CREATE TABLE users (
+CREATE TABLE utenti (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    username VARCHAR(50) UNIQUE,
-    password VARCHAR(255),
+    nome_utente VARCHAR(50) UNIQUE,
+    password VARCHAR(255),  -- Lunghezza per hash sicuri
     email VARCHAR(100),
-    role VARCHAR(20),     -- ADMIN, AGENT, CLIENT
-    full_name VARCHAR(100),
-    phone VARCHAR(20),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    ruolo VARCHAR(20),     -- ADMIN, AGENTE, CLIENTE
+    nome_completo VARCHAR(100),
+    telefono VARCHAR(20),
+    data_creazione TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 ```
 
-#### Tabella Valuations
+La tabella `utenti` implementa:
+- Sistema di ruoli per differenziare le responsabilità
+- Sicurezza con password hashate
+- Tracciamento temporale delle registrazioni
+- Dati di contatto essenziali
+
+#### Tabella Valutazioni
 ```sql
-CREATE TABLE valuations (
+CREATE TABLE valutazioni (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    property_id BIGINT,
-    agent_id BIGINT,
-    valuation_date DATE,
-    market_value DECIMAL(10,2),
-    notes TEXT,
-    FOREIGN KEY (property_id) REFERENCES properties(id),
-    FOREIGN KEY (agent_id) REFERENCES users(id)
+    id_immobile BIGINT,
+    id_agente BIGINT,
+    data_valutazione DATE,
+    valore_mercato DECIMAL(10,2),
+    note TEXT,
+    FOREIGN KEY (id_immobile) REFERENCES immobili(id),
+    FOREIGN KEY (id_agente) REFERENCES utenti(id)
 );
 ```
+
+La tabella `valutazioni` permette:
+- Tracciamento storico delle valutazioni
+- Responsabilità chiara (chi ha fatto la valutazione)
+- Analisi del mercato nel tempo
+- Note dettagliate per giustificare le valutazioni
 
 Gli script SQL completi per la creazione e il popolamento iniziale del database sono disponibili nella cartella `db_KeyAbita/`.
 
