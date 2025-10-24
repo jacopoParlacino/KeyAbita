@@ -60,65 +60,94 @@ La struttura del database riflette le esigenze di un'agenzia immobiliare moderna
 2. **Gestione Utenti** (`utenti`)
 3. **Gestione Valutazioni** (`valutazioni`)
 
+#### Tabella Utenti
+```sql
+CREATE TABLE utenti (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(100) NOT NULL,
+  cognome VARCHAR(100),
+  email VARCHAR(150) UNIQUE NOT NULL,
+  ruolo ENUM('PROPRIETARIO', 'AMMINISTRATORE') DEFAULT 'PROPRIETARIO',
+  telefono VARCHAR(20),
+  data_creazione TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+La tabella `utenti` è stata progettata per:
+- Gestire i dati anagrafici degli utenti
+- Differenziare i ruoli tra proprietari e amministratori
+- Mantenere i contatti essenziali
+- Tracciare la data di registrazione
+
 #### Tabella Immobili
 ```sql
 CREATE TABLE immobili (
-    id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    indirizzo VARCHAR(255),
-    tipo VARCHAR(50),      -- Appartamento, Villa, Ufficio, etc.
-    dimensione INT,        -- Metri quadrati
-    stanze INT,           -- Numero di stanze
-    prezzo DECIMAL(10,2), -- Prezzo di vendita/affitto
-    stato VARCHAR(50),    -- Disponibile, Venduto, Affittato
-    descrizione TEXT
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  proprietario_id INT NOT NULL,
+  indirizzo VARCHAR(200),
+  citta VARCHAR(100),
+  metri_quadri DECIMAL(6,2),
+  numero_stanze INT,
+  numero_bagni INT,
+  piano INT,
+  stato_immobile ENUM('nuovo', 'buono', 'da_ristrutturare') DEFAULT 'buono',
+  anno_costruzione INT,
+  prezzo_richiesto DECIMAL(12,2),
+  valutazione_stimata DECIMAL(12,2),
+  stato_pratica ENUM('in_attesa', 'valutato', 'in_contratto', 'venduto') DEFAULT 'in_attesa',
+  data_creazione TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (proprietario_id) REFERENCES utenti(id)
 );
 ```
 
 La tabella `immobili` è stata progettata per:
-- Tracciare le informazioni essenziali di ogni immobile
-- Supportare diversi tipi di proprietà (appartamenti, ville, uffici)
-- Gestire lo stato dell'immobile nel ciclo di vendita/affitto
-- Fornire dettagli sufficienti per una prima valutazione
-
-#### Tabella Utenti
-```sql
-CREATE TABLE utenti (
-    id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    nome_utente VARCHAR(50) UNIQUE,
-    password VARCHAR(255),  -- Lunghezza per hash sicuri
-    email VARCHAR(100),
-    ruolo VARCHAR(20),     -- ADMIN, AGENTE, CLIENTE
-    nome_completo VARCHAR(100),
-    telefono VARCHAR(20),
-    data_creazione TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-```
-
-La tabella `utenti` implementa:
-- Sistema di ruoli per differenziare le responsabilità
-- Sicurezza con password hashate
-- Tracciamento temporale delle registrazioni
-- Dati di contatto essenziali
+- Tracciare dettagli completi degli immobili
+- Collegare ogni immobile al suo proprietario
+- Gestire lo stato dell'immobile e della pratica di vendita
+- Monitorare prezzi e valutazioni
 
 #### Tabella Valutazioni
 ```sql
 CREATE TABLE valutazioni (
-    id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    id_immobile BIGINT,
-    id_agente BIGINT,
-    data_valutazione DATE,
-    valore_mercato DECIMAL(10,2),
-    note TEXT,
-    FOREIGN KEY (id_immobile) REFERENCES immobili(id),
-    FOREIGN KEY (id_agente) REFERENCES utenti(id)
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  immobile_id INT NOT NULL,
+  valore_stimato DECIMAL(12,2),
+  valore_minimo DECIMAL(12,2),
+  valore_massimo DECIMAL(12,2),
+  metodo ENUM('manuale', 'istantaneo') DEFAULT 'manuale',
+  data_valutazione TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (immobile_id) REFERENCES immobili(id)
 );
 ```
 
 La tabella `valutazioni` permette:
-- Tracciamento storico delle valutazioni
-- Responsabilità chiara (chi ha fatto la valutazione)
-- Analisi del mercato nel tempo
-- Note dettagliate per giustificare le valutazioni
+- Registrare valutazioni dettagliate degli immobili
+- Tracciare valori stimati, minimi e massimi
+- Distinguere tra valutazioni manuali e automatiche
+- Mantenere uno storico delle valutazioni
+
+#### Tabella Vendite
+```sql
+CREATE TABLE vendite (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  immobile_id INT NOT NULL,
+  acquirente_nome VARCHAR(100),
+  acquirente_cognome VARCHAR(100),
+  acquirente_email VARCHAR(150),
+  prezzo_finale DECIMAL(12,2),
+  data_vendita DATE,
+  commissione_agenzia DECIMAL(12,2),
+  metodo_pagamento ENUM('bonifico', 'contanti', 'mutuo', 'altro') DEFAULT 'bonifico',
+  note TEXT,
+  FOREIGN KEY (immobile_id) REFERENCES immobili(id)
+);
+```
+
+La tabella `vendite` è stata progettata per:
+- Registrare i dettagli delle transazioni di vendita
+- Tenere traccia degli acquirenti
+- Gestire i dettagli finanziari della vendita
+- Documentare le commissioni dell'agenzia
 
 Gli script SQL completi per la creazione e il popolamento iniziale del database sono disponibili nella cartella `db_KeyAbita/`.
 
