@@ -3,6 +3,7 @@ package com.keyabita.keyabita.entity;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name = "vendite")
@@ -40,5 +41,91 @@ public class Vendite {
 
     @Column(name = "note", columnDefinition = "TEXT")
     private String note;
+
+    // Getters and Setters
+
+
+    public Integer getId() {
+        return this.id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getImmobileId() {
+        return this.immobileId;
+    }
+
+    public void setImmobileId(Integer immobileId) {
+        this.immobileId = immobileId;
+    }
+
+    public String getAcquirenteNome() {
+        return this.acquirenteNome;
+    }
+
+    public void setAcquirenteNome(String acquirenteNome) {
+        this.acquirenteNome = acquirenteNome;
+    }
+
+    public String getAcquirenteCognome() {
+        return this.acquirenteCognome;
+    }
+
+    public void setAcquirenteCognome(String acquirenteCognome) {
+        this.acquirenteCognome = acquirenteCognome;
+    }
+
+    public String getAcquirenteEmail() {
+        return this.acquirenteEmail;
+    }
+
+    public void setAcquirenteEmail(String acquirenteEmail) {
+        this.acquirenteEmail = acquirenteEmail;
+    }
+
+    public BigDecimal getPrezzoFinale() {
+        return this.prezzoFinale;
+    }
+
+    public void setPrezzoFinale(BigDecimal prezzoFinale) {
+        this.prezzoFinale = prezzoFinale;
+    }
+
+    public LocalDate getDataVendita() {
+        return this.dataVendita;
+    }
+
+    public void setDataVendita(LocalDate dataVendita) {
+        this.dataVendita = dataVendita;
+    }
+
+    public BigDecimal getCommissioneAgenzia() {
+        return this.commissioneAgenzia;
+    }
+
+    public void setCommissioneAgenzia(BigDecimal commissioneAgenzia) {
+        this.commissioneAgenzia = commissioneAgenzia;
+    }
+
+    public MetodoPagamento getMetodoPagamento() {
+        return this.metodoPagamento;
+    }
+
+    public void setMetodoPagamento(MetodoPagamento metodoPagamento) {
+        this.metodoPagamento = metodoPagamento;
+    }
+
+    public String getNote() {
+        return this.note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+    
+
+    
 
 }
