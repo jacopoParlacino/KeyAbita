@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import com.keyabita.keyabita.enums.MetodoPagamento;
+
 @Entity
 @Table(name = "vendite")
 public class Vendite {
