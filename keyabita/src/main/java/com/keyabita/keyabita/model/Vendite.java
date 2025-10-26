@@ -1,15 +1,20 @@
-package com.keyabita.keyabita.entity;
+package com.keyabita.keyabita.model;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import com.keyabita.keyabita.enums.MetodoPagamento;
-
 @Entity
 @Table(name = "vendite")
 public class Vendite {
+
+    public enum MetodoPagamento {
+        BONIFICO,
+        CONTANTI,
+        MUTUO,
+        ALTRO
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,9 +49,19 @@ public class Vendite {
     @Column(name = "note", columnDefinition = "TEXT")
     private String note;
 
+    public Vendite() {
+    }
+
+    public Vendite(Integer immobileId, String acquirenteNome, String acquirenteCognome, 
+                   BigDecimal prezzoFinale, LocalDate dataVendita) {
+        this.immobileId = immobileId;
+        this.acquirenteNome = acquirenteNome;
+        this.acquirenteCognome = acquirenteCognome;
+        this.prezzoFinale = prezzoFinale;
+        this.dataVendita = dataVendita;
+    }
+
     // Getters and Setters
-
-
     public Integer getId() {
         return this.id;
     }
@@ -126,8 +141,5 @@ public class Vendite {
     public void setNote(String note) {
         this.note = note;
     }
-    
-
-    
 
 }
