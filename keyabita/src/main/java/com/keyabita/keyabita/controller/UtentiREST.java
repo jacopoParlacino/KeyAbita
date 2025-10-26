@@ -1,5 +1,8 @@
 package com.keyabita.keyabita.controller;
 
+// Controller REST che gestisce le richieste HTTP per gli utenti.
+// Espone endpoint per CRUD, ricerca e aggiornamento parziale degli utenti.
+
 import com.keyabita.keyabita.model.Utente;
 import com.keyabita.keyabita.service.UtenteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,77 +12,72 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/utenti")
-public class UtentiController {
+@RequestMapping("/utenti")
+public class UtentiREST {
     @Autowired
     private UtenteService utenteService; // Service per la logica di business
 
     // Restituisce tutti gli utenti
     @GetMapping
     public List<Utente> getAll() {
-        return utenteService.getAllUtenti();
+        return utenteService.getAll();
     }
 
     // Restituisce un utente per ID
     @GetMapping("/{id}")
     public ResponseEntity<Utente> getById(@PathVariable int id) {
-        return utenteService.getUtenteById(id)
+        return utenteService.getById(id)
             .map(ResponseEntity::ok)
             .orElse(ResponseEntity.notFound().build());
     }
 
     // Crea un nuovo utente
     @PostMapping
-    public ResponseEntity<Utente> create(@RequestBody Utente utente) {
-        Utente saved = utenteService.saveUtente(utente);
-        return ResponseEntity.ok(saved);
+    public ResponseEntity<Utente> crea(@RequestBody Utente utente) {
+        Utente salvato = utenteService.salva(utente);
+        return ResponseEntity.ok(salvato);
     }
 
     // Aggiorna un utente esistente
     @PutMapping("/{id}")
-    public ResponseEntity<Utente> update(@PathVariable int id, @RequestBody Utente utente) {
-        if (!utenteService.getUtenteById(id).isPresent()) {
+    public ResponseEntity<Utente> aggiorna(@PathVariable int id, @RequestBody Utente utente) {
+        if (!utenteService.getById(id).isPresent()) {
             return ResponseEntity.notFound().build();
         }
         utente.setId(id);
-        return ResponseEntity.ok(utenteService.saveUtente(utente));
+        return ResponseEntity.ok(utenteService.salva(utente));
     }
 
     // Elimina un utente per ID
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable int id) {
-        if (!utenteService.getUtenteById(id).isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
-        utenteService.deleteUtente(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Void> elimina(@PathVariable int id) {
+        boolean esiste = utenteService.elimina(id);
+        return esiste ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
 
     // Ricerca per email
     @GetMapping("/email/{email}")
-    public ResponseEntity<Utente> getByEmail(@PathVariable String email) {
-        return utenteService.getUtenteByEmail(email)
-            .map(ResponseEntity::ok)
-            .orElse(ResponseEntity.notFound().build());
+    public List<Utente> getByEmail(@PathVariable String email) {
+        return utenteService.getByEmail(email);
     }
 
     // Ricerca per cognome
     @GetMapping("/cognome/{cognome}")
     public List<Utente> getByCognome(@PathVariable String cognome) {
-        return utenteService.getUtentiByCognome(cognome);
+        return utenteService.getByCognome(cognome);
     }
 
     // Aggiorna parzialmente un utente esistente (PATCH)
     @PatchMapping("/{id}")
     public ResponseEntity<Utente> patchUtente(@PathVariable int id, @RequestBody Utente patch) {
-        return utenteService.getUtenteById(id)
+        return utenteService.getById(id)
             .map(existing -> {
                 if (patch.getNome() != null) existing.setNome(patch.getNome());
                 if (patch.getCognome() != null) existing.setCognome(patch.getCognome());
                 if (patch.getEmail() != null) existing.setEmail(patch.getEmail());
-                if (patch.getRuolo() != null) existing.setRuolo(patch.getRuolo());
                 if (patch.getTelefono() != null) existing.setTelefono(patch.getTelefono());
-                return ResponseEntity.ok(utenteService.saveUtente(existing));
+                if (patch.getIndirizzo() != null) existing.setIndirizzo(patch.getIndirizzo());
+                return ResponseEntity.ok(utenteService.salva(existing));
             })
             .orElse(ResponseEntity.notFound().build());
     }
