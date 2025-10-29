@@ -54,94 +54,151 @@ Il database H2 è configurato in memoria per facilitare lo sviluppo e i test. La
 
 #### Design del Database
 
-La struttura del database riflette le esigenze di un'agenzia immobiliare moderna:
+Il database è strutturato con le seguenti tabelle principali e di supporto:
 
-1. **Gestione Immobili** (`immobili`)
-2. **Gestione Utenti** (`utenti`)
-3. **Gestione Valutazioni** (`valutazioni`)
+### Tabelle Principali
 
 #### Tabella Utenti
 ```sql
 CREATE TABLE utenti (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  nome VARCHAR(100) NOT NULL,
-  cognome VARCHAR(100),
-  email VARCHAR(150) UNIQUE NOT NULL,
-  ruolo ENUM('PROPRIETARIO', 'AMMINISTRATORE') DEFAULT 'PROPRIETARIO',
-  telefono VARCHAR(20),
-  data_creazione TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome TEXT(100),
+    cognome TEXT(100),
+    email TEXT,
+    ruolo INT FK,
+    telefono TEXT(20),
+    data_creazione DATE,
+    password TEXT(255)
 );
 ```
-
-La tabella `utenti` è stata progettata per:
-- Gestire i dati anagrafici degli utenti
-- Differenziare i ruoli tra proprietari e amministratori
-- Mantenere i contatti essenziali
-- Tracciare la data di registrazione
 
 #### Tabella Immobili
 ```sql
 CREATE TABLE immobili (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  proprietario_id INT NOT NULL,
-  indirizzo VARCHAR(200),
-  citta VARCHAR(100),
-  metri_quadri DECIMAL(6,2),
-  numero_stanze INT,
-  numero_bagni INT,
-  piano INT,
-  stato_immobile ENUM('nuovo', 'buono', 'da_ristrutturare') DEFAULT 'buono',
-  anno_costruzione INT,
-  prezzo_richiesto DECIMAL(12,2),
-  valutazione_stimata DECIMAL(12,2),
-  stato_pratica ENUM('in_attesa', 'valutato', 'in_contratto', 'venduto') DEFAULT 'in_attesa',
-  data_creazione TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (proprietario_id) REFERENCES utenti(id)
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    indirizzo TEXT(255),
+    citta INT FK,
+    stato_immobile INT FK,
+    piano INT,
+    numero_stanze INT,
+    numero_bagni INT,
+    balcone BOOL,
+    garage BOOL,
+    giardino BOOL,
+    anno_costruzione DATE
 );
 ```
-
-La tabella `immobili` è stata progettata per:
-- Tracciare dettagli completi degli immobili
-- Collegare ogni immobile al suo proprietario
-- Gestire lo stato dell'immobile e della pratica di vendita
-- Monitorare prezzi e valutazioni
 
 #### Tabella Valutazioni
 ```sql
 CREATE TABLE valutazioni (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  immobile_id INT NOT NULL,
-  valore_stimato DECIMAL(12,2),
-  valore_minimo DECIMAL(12,2),
-  valore_massimo DECIMAL(12,2),
-  metodo ENUM('manuale', 'istantaneo') DEFAULT 'manuale',
-  data_valutazione TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (immobile_id) REFERENCES immobili(id)
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    valore_massimo INT,
+    valore_stimato INT,
+    valore_minimo INT,
+    id_immobiliare INT FK
 );
 ```
 
-La tabella `valutazioni` permette:
-- Registrare valutazioni dettagliate degli immobili
-- Tracciare valori stimati, minimi e massimi
-- Distinguere tra valutazioni manuali e automatiche
-- Mantenere uno storico delle valutazioni
+### Tabelle di Gestione Richieste e Contratti
 
-#### Tabella Vendite
+#### Tabella Richieste
 ```sql
-CREATE TABLE vendite (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  immobile_id INT NOT NULL,
-  acquirente_nome VARCHAR(100),
-  acquirente_cognome VARCHAR(100),
-  acquirente_email VARCHAR(150),
-  prezzo_finale DECIMAL(12,2),
-  data_vendita DATE,
-  commissione_agenzia DECIMAL(12,2),
-  metodo_pagamento ENUM('bonifico', 'contanti', 'mutuo', 'altro') DEFAULT 'bonifico',
-  note TEXT,
-  FOREIGN KEY (immobile_id) REFERENCES immobili(id)
+CREATE TABLE richieste (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome TEXT(30),
+    cognome TEXT(30),
+    email TEXT(100),
+    numero TEXT(100),
+    id_immobiliare INT FK,
+    stato_richiesta INT FK,
+    data DATE
 );
 ```
+
+#### Tabella Contratti
+```sql
+CREATE TABLE contratti (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    inizio_contratto DATE,
+    fine_contratto DATE,
+    id_richiesta INT FK,
+    stato_contratto INT FK
+);
+```
+
+### Tabelle di Supporto
+
+#### Tabella Ruoli
+```sql
+CREATE TABLE ruoli (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome TEXT(100)
+);
+```
+
+#### Tabella Città
+```sql
+CREATE TABLE citta (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome TEXT(50),
+    descrizione TEXT(255)
+);
+```
+
+#### Tabella Stati Immobili
+```sql
+CREATE TABLE stati_immobili (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome TEXT(100),
+    descrizione TEXT(255)
+);
+```
+
+#### Tabella Stati Richieste
+```sql
+CREATE TABLE stati_richieste (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome TEXT(100),
+    descrizione TEXT(255)
+);
+```
+
+#### Tabella Stati Contratti
+```sql
+CREATE TABLE stati_contratti (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome TEXT(100),
+    descrizione TEXT(255)
+);
+```
+
+### Caratteristiche del Database
+
+1. **Gestione Utenti**
+   - Autenticazione completa
+   - Gestione ruoli
+   - Tracking attività
+
+2. **Gestione Immobili**
+   - Dettagli completi proprietà
+   - Tracking stato immobile
+   - Caratteristiche dettagliate
+
+3. **Sistema Valutazioni**
+   - Valutazioni multiple
+   - Range di prezzi
+   - Storico valutazioni
+
+4. **Gestione Richieste**
+   - Tracking completo
+   - Stati multipli
+   - Dati cliente
+
+5. **Gestione Contratti**
+   - Date inizio/fine
+   - Stati contratto
+   - Collegamenti a richieste
 
 La tabella `vendite` è stata progettata per:
 - Registrare i dettagli delle transazioni di vendita
