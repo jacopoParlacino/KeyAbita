@@ -54,11 +54,8 @@ Il database H2 è configurato in memoria per facilitare lo sviluppo e i test. La
 
 #### Design del Database
 
-La struttura del database riflette le esigenze di un'agenzia immobiliare moderna:
+<img width="1318" height="586" alt="Diagramma senza titolo drawio" src="https://github.com/user-attachments/assets/20f17083-4ca8-4b78-929a-dc956ab4159f" />
 
-1. **Gestione Immobili** (`immobili`)
-2. **Gestione Utenti** (`utenti`)
-3. **Gestione Valutazioni** (`valutazioni`)
 
 #### Tabella Utenti
 ```sql
