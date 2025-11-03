@@ -1,0 +1,48 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.hero {
+  text-align: center;
+  background: $gradient-hero;
+  width: 100vw;
+  padding-top: 70px;
+  // min-height: 100vh;
+  color: $text-color;
+  @include desktop {
+    text-align: left;
+  }
+}
+
+.title {
+
+  font-size: 28px;
+  font-weight: 600;
+  margin-top: 122px;
+  margin-bottom: 24px;
+  margin-left: 24px;
+  margin-right: 24px;
+
+
+}
+
+.text {
+  margin-top: 12px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.button {
+  margin-top: 70px;
+  margin-bottom: 70px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  background-color: $cta-color;
+  filter: drop-shadow(0 2px 2px #3B0000);
+  color: $text-color;
+  font-size: 20px;
+
+  cursor: pointer;
+}
