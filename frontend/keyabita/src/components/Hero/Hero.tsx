@@ -13,7 +13,7 @@ export default function Hero() {
         valore di mercato della tua proprietà.
       </p>
 
-      <button className={styles.button} onClick={() => navigate("/valuation")}>Valuta ora</button>
+      <button className={styles.button} onClick={() => navigate("/valutazione")}>Valuta ora</button>
     </section>
   );
 }
