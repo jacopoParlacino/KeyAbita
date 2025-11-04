@@ -1,0 +1,14 @@
+@use "../../../styles/mixins.scss" as *;
+@use "../../../styles/variables.scss"  as *;
+
+.bar__container{
+    background-color: #d9d9d9;
+    height: 16px;
+    width: 100%;
+}
+
+
+.bar{
+    background-color: $yellow;
+
+}

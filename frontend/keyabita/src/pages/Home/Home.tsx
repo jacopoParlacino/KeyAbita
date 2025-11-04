@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet";
 import Hero from "../../components/Hero/Hero";
 
 import styles from "./Home.module.scss";
+import { Header } from "../../components/Header/Header";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
     </Helmet>
     <section>
       <div className={styles.home}>
+        <Header></Header>
 
           <Hero />
 

@@ -1,9 +1,13 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
 import styles from "./MultiStepForm.module.scss";
+import HeaderForm from "./HeaderForm/HeaderForm";
+import { useNavigate } from "react-router-dom";
+import ProgressBar from "./ProgressBar/ProgressBar";
 
 export default function MultiStepForm() {
   const [address, setAddress] = useState<string>("");
+  const navigate = useNavigate()
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -12,6 +16,9 @@ export default function MultiStepForm() {
   };
 
   return (
+    <>
+    <HeaderForm  title="Valuta il tuo immobile" onBack={() => navigate('/')}/>
+      <ProgressBar step={1} total={4}/>
     <form onSubmit={handleSubmit} className={styles.form}>
       <input
         type="text"
@@ -23,5 +30,6 @@ export default function MultiStepForm() {
       />
       <button type="submit" className={styles.button}>Ottieni la valutazione</button>
     </form>
+    </>
   );
 }
