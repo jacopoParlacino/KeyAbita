@@ -1,6 +1,8 @@
 package com.keyabita.keyabita.repos;
 
+import com.keyabita.keyabita.model.Citta;
 import com.keyabita.keyabita.model.Immobile;
+import com.keyabita.keyabita.model.StatoImmobile;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,13 +15,13 @@ public interface ImmobileRepository extends JpaRepository<Immobile, Integer> {
     List<Immobile> findByProprietarioId(int proprietarioId);
     
     // Trova immobili per città
-    List<Immobile> findByCitta(String citta);
+    List<Immobile> findByCitta(Citta citta);
     
     // Trova immobili per stato pratica
     List<Immobile> findByStatoPratica(String statoPratica);
     
     // Trova immobili per stato immobile
-    List<Immobile> findByStatoImmobile(String statoImmobile);
+    List<Immobile> findByStatoImmobile(StatoImmobile statoImmobile);
     
     // Trova immobili con prezzo richiesto minore o uguale a un valore
     List<Immobile> findByPrezzoRichiestoLessThanEqual(Double prezzoMax);
@@ -28,5 +30,5 @@ public interface ImmobileRepository extends JpaRepository<Immobile, Integer> {
     List<Immobile> findByNumeroStanze(Integer numeroStanze);
     
     // Trova immobili per città e stato pratica
-    List<Immobile> findByCittaAndStatoPratica(String citta, String statoPratica);
+    List<Immobile> findByCittaAndStatoPratica(Citta citta, String statoPratica);
 }

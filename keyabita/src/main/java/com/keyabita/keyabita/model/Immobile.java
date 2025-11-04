@@ -18,7 +18,14 @@ public class Immobile implements Serializable {
     private int proprietarioId; // ID del proprietario (FK verso utenti)
     
     private String indirizzo; // Indirizzo dell'immobile
-    private String citta; // Città
+    
+    @ManyToOne
+    @JoinColumn(name = "citta", nullable = false)
+    private Citta citta; // Città (FK)
+    
+    @ManyToOne
+    @JoinColumn(name = "stato_immobile", nullable = false)
+    private StatoImmobile statoImmobile; // Condizione dell'immobile (FK)
     
     @Column(name = "metri_quadri")
     private Double metriQuadri; // Superficie in metri quadri
@@ -31,8 +38,9 @@ public class Immobile implements Serializable {
     
     private Integer piano; // Piano dell'immobile
     
-    @Column(name = "stato_immobile")
-    private String statoImmobile = "buono"; // Condizione dell'immobile
+    private Boolean balcone = false; // Presenza balcone
+    private Boolean garage = false; // Presenza garage
+    private Boolean giardino = false; // Presenza giardino
     
     @Column(name = "anno_costruzione")
     private Integer annoCostruzione; // Anno di costruzione
@@ -112,8 +120,11 @@ public class Immobile implements Serializable {
     public String getIndirizzo() { return indirizzo; }
     public void setIndirizzo(String indirizzo) { this.indirizzo = indirizzo; }
     
-    public String getCitta() { return citta; }
-    public void setCitta(String citta) { this.citta = citta; }
+    public Citta getCitta() { return citta; }
+    public void setCitta(Citta citta) { this.citta = citta; }
+    
+    public StatoImmobile getStatoImmobile() { return statoImmobile; }
+    public void setStatoImmobile(StatoImmobile statoImmobile) { this.statoImmobile = statoImmobile; }
     
     public Double getMetriQuadri() { return metriQuadri; }
     public void setMetriQuadri(Double metriQuadri) { this.metriQuadri = metriQuadri; }
@@ -127,8 +138,14 @@ public class Immobile implements Serializable {
     public Integer getPiano() { return piano; }
     public void setPiano(Integer piano) { this.piano = piano; }
     
-    public String getStatoImmobile() { return statoImmobile; }
-    public void setStatoImmobile(String statoImmobile) { this.statoImmobile = statoImmobile; }
+    public Boolean getBalcone() { return balcone; }
+    public void setBalcone(Boolean balcone) { this.balcone = balcone; }
+    
+    public Boolean getGarage() { return garage; }
+    public void setGarage(Boolean garage) { this.garage = garage; }
+    
+    public Boolean getGiardino() { return giardino; }
+    public void setGiardino(Boolean giardino) { this.giardino = giardino; }
     
     public Integer getAnnoCostruzione() { return annoCostruzione; }
     public void setAnnoCostruzione(Integer annoCostruzione) { this.annoCostruzione = annoCostruzione; }
