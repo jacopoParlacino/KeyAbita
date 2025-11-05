@@ -4,8 +4,15 @@
 .btn__property {
     padding: 20px;
     background-color: $beige;
-    width: 150px;
+    width: 160px;
     border-radius: 6px;
+    border: 1px solid;
     outline: none;
-    border: none;
+    border-color: $primary-color;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    color: $primary-color;
 }
