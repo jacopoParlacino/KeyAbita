@@ -1,7 +1,11 @@
 package com.keyabita.keyabita.controller;
 
+import com.keyabita.keyabita.model.Citta;
 import com.keyabita.keyabita.model.Immobile;
-import com.keyabita.keyabita.services.ImmobileService;
+import com.keyabita.keyabita.model.StatoImmobile;
+import com.keyabita.keyabita.services.ICittaService;
+import com.keyabita.keyabita.services.IImmobileService;
+import com.keyabita.keyabita.services.IStatoImmobileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +20,13 @@ import java.util.Optional;
 public class ImmobileController {
     
     @Autowired
-    private ImmobileService immobileService;
+    private IImmobileService immobileService;
+    
+    @Autowired
+    private ICittaService cittaService;
+    
+    @Autowired
+    private IStatoImmobileService statoImmobileService;
     
     // GET: Ottieni tutti gli immobili
     @GetMapping
@@ -40,62 +50,26 @@ public class ImmobileController {
         return ResponseEntity.status(HttpStatus.CREATED).body(nuovoImmobile);
     }
     
-    // PUT: Aggiorna immobile esistente
-    @PutMapping("/{id}")
-    public ResponseEntity<Immobile> aggiornaImmobile(@PathVariable int id, @RequestBody Immobile immobile) {
-        Optional<Immobile> immobileEsistente = immobileService.trovaImmobilePerId(id);
-        if (immobileEsistente.isPresent()) {
-            immobile.setId(id);
-            Immobile immobileAggiornato = immobileService.salvaImmobile(immobile);
-            return ResponseEntity.ok(immobileAggiornato);
-        }
-        return ResponseEntity.notFound().build();
-    }
-    
-    // DELETE: Elimina immobile
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminaImmobile(@PathVariable int id) {
-        Optional<Immobile> immobile = immobileService.trovaImmobilePerId(id);
-        if (immobile.isPresent()) {
-            immobileService.eliminaImmobile(id);
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.notFound().build();
-    }
-    
-    // GET: Trova immobili per proprietario
-    @GetMapping("/proprietario/{proprietarioId}")
-    public ResponseEntity<List<Immobile>> getImmobiliPerProprietario(@PathVariable int proprietarioId) {
-        List<Immobile> immobili = immobileService.trovaImmobiliPerProprietario(proprietarioId);
-        return ResponseEntity.ok(immobili);
-    }
-    
     // GET: Trova immobili per città
-    @GetMapping("/citta/{citta}")
-    public ResponseEntity<List<Immobile>> getImmobiliPerCitta(@PathVariable String citta) {
-        List<Immobile> immobili = immobileService.trovaImmobiliPerCitta(citta);
-        return ResponseEntity.ok(immobili);
-    }
-    
-    // GET: Trova immobili per stato pratica
-    @GetMapping("/stato-pratica/{statoPratica}")
-    public ResponseEntity<List<Immobile>> getImmobiliPerStatoPratica(@PathVariable String statoPratica) {
-        List<Immobile> immobili = immobileService.trovaImmobiliPerStatoPratica(statoPratica);
-        return ResponseEntity.ok(immobili);
+    @GetMapping("/citta/{nomeCitta}")
+    public ResponseEntity<List<Immobile>> getImmobiliPerCitta(@PathVariable String nomeCitta) {
+        Optional<Citta> cittaOpt = cittaService.trovaCittaPerNome(nomeCitta);
+        if (cittaOpt.isPresent()) {
+            List<Immobile> immobili = immobileService.trovaImmobiliPerCitta(cittaOpt.get());
+            return ResponseEntity.ok(immobili);
+        }
+        return ResponseEntity.ok(List.of()); // Restituisce lista vuota se città non trovata
     }
     
     // GET: Trova immobili per stato immobile
-    @GetMapping("/stato-immobile/{statoImmobile}")
-    public ResponseEntity<List<Immobile>> getImmobiliPerStatoImmobile(@PathVariable String statoImmobile) {
-        List<Immobile> immobili = immobileService.trovaImmobiliPerStatoImmobile(statoImmobile);
-        return ResponseEntity.ok(immobili);
-    }
-    
-    // GET: Trova immobili per prezzo massimo
-    @GetMapping("/prezzo-max/{prezzoMax}")
-    public ResponseEntity<List<Immobile>> getImmobiliPerPrezzoMassimo(@PathVariable Double prezzoMax) {
-        List<Immobile> immobili = immobileService.trovaImmobiliPerPrezzoMassimo(prezzoMax);
-        return ResponseEntity.ok(immobili);
+    @GetMapping("/stato-immobile/{nomeStato}")
+    public ResponseEntity<List<Immobile>> getImmobiliPerStatoImmobile(@PathVariable String nomeStato) {
+        Optional<StatoImmobile> statoOpt = statoImmobileService.trovaStatoImmobilePerNome(nomeStato);
+        if (statoOpt.isPresent()) {
+            List<Immobile> immobili = immobileService.trovaImmobiliPerStatoImmobile(statoOpt.get());
+            return ResponseEntity.ok(immobili);
+        }
+        return ResponseEntity.ok(List.of()); // Restituisce lista vuota se stato non trovato
     }
     
     // GET: Trova immobili per numero di stanze
@@ -103,25 +77,5 @@ public class ImmobileController {
     public ResponseEntity<List<Immobile>> getImmobiliPerNumeroStanze(@PathVariable Integer numeroStanze) {
         List<Immobile> immobili = immobileService.trovaImmobiliPerNumeroStanze(numeroStanze);
         return ResponseEntity.ok(immobili);
-    }
-    
-    // PATCH: Aggiorna stato pratica
-    @PatchMapping("/{id}/stato-pratica")
-    public ResponseEntity<Immobile> aggiornaStatoPratica(@PathVariable int id, @RequestParam String statoPratica) {
-        Immobile immobileAggiornato = immobileService.aggiornaStatoPratica(id, statoPratica);
-        if (immobileAggiornato != null) {
-            return ResponseEntity.ok(immobileAggiornato);
-        }
-        return ResponseEntity.notFound().build();
-    }
-    
-    // PATCH: Aggiorna valutazione stimata
-    @PatchMapping("/{id}/valutazione")
-    public ResponseEntity<Immobile> aggiornaValutazione(@PathVariable int id, @RequestParam Double valutazione) {
-        Immobile immobileAggiornato = immobileService.aggiornaValutazioneStimata(id, valutazione);
-        if (immobileAggiornato != null) {
-            return ResponseEntity.ok(immobileAggiornato);
-        }
-        return ResponseEntity.notFound().build();
     }
 }
