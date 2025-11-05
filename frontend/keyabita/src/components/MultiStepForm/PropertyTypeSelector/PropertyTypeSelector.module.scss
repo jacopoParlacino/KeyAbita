@@ -1,0 +1,11 @@
+@use "../../../styles/mixins.scss" as *;
+@use "../../../styles/variables.scss" as *;
+
+.btn__property {
+    padding: 20px;
+    background-color: $beige;
+    width: 150px;
+    border-radius: 6px;
+    outline: none;
+    border: none;
+}

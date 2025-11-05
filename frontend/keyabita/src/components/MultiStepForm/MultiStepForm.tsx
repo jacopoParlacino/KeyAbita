@@ -4,6 +4,11 @@ import styles from "./MultiStepForm.module.scss";
 import HeaderForm from "./HeaderForm/HeaderForm";
 import { useNavigate } from "react-router-dom";
 import ProgressBar from "./ProgressBar/ProgressBar";
+import StepCounter from "./StepCounter/StepCounter";
+import PropertyTypeSelector from "./PropertyTypeSelector/PropertyTypeSelector";
+import { House } from "lucide-react";
+import { Building } from "lucide-react";
+
 
 export default function MultiStepForm() {
   const [address, setAddress] = useState<string>("");
@@ -19,6 +24,11 @@ export default function MultiStepForm() {
     <>
     <HeaderForm  title="Valuta il tuo immobile" onBack={() => navigate('/')}/>
       <ProgressBar step={1} total={4}/>
+      <StepCounter step={1}/>
+      <div className={styles.div__property__selection}>
+      <PropertyTypeSelector icon={House} label="Casa"/>
+      <PropertyTypeSelector icon={Building} label="Appartamento"/>
+      </div>
     <form onSubmit={handleSubmit} className={styles.form}>
       <input
         type="text"
