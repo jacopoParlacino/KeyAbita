@@ -13,14 +13,14 @@ public interface IImmobileService {
     // Restituisce tutti gli immobili
     List<Immobile> trovaTuttiImmobili();
     
+    // Trova un immobile per ID
+    Optional<Immobile> trovaImmobilePerId(int id);
+    
     // Salva o aggiorna un immobile
     Immobile salvaImmobile(Immobile immobile);
     
     // Elimina un immobile per ID
     void eliminaImmobile(int id);
-    
-    // Restituisce un immobile per ID
-    Optional<Immobile> trovaImmobilePerId(int id);
     
     // Trova immobili per città
     List<Immobile> trovaImmobiliPerCitta(Citta citta);
