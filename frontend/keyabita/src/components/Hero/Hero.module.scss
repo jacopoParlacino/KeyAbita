@@ -1,48 +1,120 @@
+@use "sass:color";
 @use "../../styles/variables" as *;
 @use "../../styles/mixins" as *;
 
 .hero {
-  text-align: center;
   background: $gradient-hero;
   width: 100vw;
-  padding-top: 70px;
-  // min-height: 100vh;
   color: $text-color;
+  padding-top: 70px;
+  text-align: center;
+  
+
   @include desktop {
     text-align: left;
+    padding: 140px 180px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    margin-top: 60px;
+  }
+}
+
+/* Left block - text and button */
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 24px;
+
+  @include desktop {
+    align-items: flex-start;
+    max-width: 600px;
   }
 }
 
 .title {
-
   font-size: 28px;
   font-weight: 600;
   margin-top: 122px;
   margin-bottom: 24px;
-  margin-left: 24px;
-  margin-right: 24px;
 
-
+  @include desktop {
+    font-size: 40px;
+    margin-top: 0;
+    line-height: 1.3;
+  }
 }
 
 .text {
   margin-top: 12px;
   margin-bottom: 12px;
   font-size: 14px;
-  margin-left: 20px;
-  margin-right: 20px;
+
+  @include desktop {
+    font-size: 18px;
+    max-width: 500px;
+    line-height: 1.5;
+  }
 }
 
-.button {
+// .cta__button {
+//   margin-top: 40px;
+//   padding: 12px 24px;
+//   border: none;
+//   border-radius: 4px;
+//   background-color: $cta-color;
+//   filter: drop-shadow(0 2px 2px $primary-color);
+//   color: $text-color;
+//   font-size: 20px;
+//   cursor: pointer;
+// }
+
+
+.cta__button {
   margin-top: 70px;
   margin-bottom: 70px;
-  padding: 12px 24px;
+  padding: 24px 40px;
   border: none;
-  border-radius: 4px;
+  border-radius: 12px;
   background-color: $cta-color;
   filter: drop-shadow(0 2px 2px #3B0000);
   color: $text-color;
   font-size: 20px;
-
   cursor: pointer;
+  // height: 70px;
+
+  
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; 
+  vertical-align: middle;
+
+  transition: transform 0.2s ease, background-color 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    background-color: color.adjust($cta-color, $lightness: -5%);
+
+  }
+
+  svg {
+    vertical-align: middle;
+  }
+}
+
+
+.hero__image {
+  display: none;
+
+  @include desktop {
+    display: flex;
+    width: 100%;
+    max-width: 600px;
+    border-radius: 20px;
+    object-fit: cover;
+    margin-right: 120px;
+  }
 }

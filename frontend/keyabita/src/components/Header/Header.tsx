@@ -4,7 +4,7 @@ import styles from "./Header.module.scss";
 import Hamburger from "./Hamburger";
 
 
-export function Header() {
+export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
     return (
         <header className={styles.header}>
