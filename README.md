@@ -1,26 +1,15 @@
-# KeyAbita# KeyAbita — Quick frontend dev notes
+# KeyAbita
+
+Applicazione web per la gestione di immobili sviluppata con Spring Boot e database H2.
 
 
 
-Applicazione web per la gestione di immobili sviluppata con Spring Boot e database H2.Questo file contiene solo le informazioni essenziali per collegare il frontend React (Vite) al backend Spring Boot usando axios e la variabile d'ambiente `VITE_API_BASE_URL`.
+## Struttura del Progetto
 
-
-
-## Backend (Spring Boot)## VITE_API_BASE_URL
-
-
-
-### Struttura del Progetto- Cosa è: è la variabile d'ambiente che definisce la base URL delle API usata dal frontend.
-
-- Dove si legge: in un'app Vite si accede con `import.meta.env.VITE_API_BASE_URL`.
-
-```- Valore di sviluppo consigliato: `http://localhost:8080/api`.
-
-KeyAbita/- File presente nel repo: `frontend/keyabita/.env.development` contiene la riga:
-
+```
+KeyAbita/
 ├── README.md
-
-├── db_KeyAbita/               # Script SQL per il database```
+├── db_KeyAbita/               # Script SQL per il database
 
 │   ├── immobiliaris_properties.sqlVITE_API_BASE_URL=http://localhost:8080/api
 
