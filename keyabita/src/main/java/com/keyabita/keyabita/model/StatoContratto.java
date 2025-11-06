@@ -1,7 +1,6 @@
 package com.keyabita.keyabita.model;
 
 import jakarta.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Table(name = "stati_contratti")
