@@ -18,7 +18,7 @@ export default function HeaderForm ({ title, onBack } : StepHeaderProps) {
             onClick = {onBack}
             className = {styles.back__btn}
             aria-label="torna alla pagina precedente"><ArrowLeft size={20} strokeWidth={2.5}/></button>
-            <h2>{title}</h2>
+            <h1>{title}</h1>
         </header>
     )
 }

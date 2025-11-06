@@ -1,0 +1,32 @@
+@use "../../../styles/mixins.scss" as *;
+@use "../../../styles/variables.scss" as *;
+
+.primary {
+    padding: 10px 50px;
+    background-color: $primary-color;
+    width: 60px;
+    border-radius: 6px;
+    border: 1px solid;
+    outline: none;
+    border-color: $primary-color;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $text-color;
+    font-family: $font-primary;
+    font-size: 0.8rem;
+}
+
+.secondary {
+    padding: 10px;
+    background-color: $text-color;
+    width: 60px;
+    outline: none;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $primary-color;
+    font-family: $font-primary;
+    font-size: 0.8rem;
+}

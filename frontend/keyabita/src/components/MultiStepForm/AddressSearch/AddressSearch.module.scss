@@ -8,11 +8,20 @@
     outline: none;
     border-color: $primary-color;
     width: 350px;
+    display: flex;
+    flex-direction: row;
+    gap: 56px;
+    text-align: center;
+    align-items: center;
 }
 
 .input {
     outline: none;
-    border-color: none;
+    border: none;
+    padding: 10px 12px;
+    margin: 4px;
+    width: 250px;
+    font-family: $font-primary;
 }
 
 .search__icon {

@@ -9,6 +9,7 @@ import PropertyTypeSelector from "./PropertyTypeSelector/PropertyTypeSelector";
 import { House } from "lucide-react";
 import { Building } from "lucide-react";
 import AddressSearch from "./AddressSearch/AddressSearch";
+import Button from "./Button/Button";
 
 
 export default function MultiStepForm() {
@@ -30,21 +31,30 @@ export default function MultiStepForm() {
   return (
     <>
       <HeaderForm title="Valuta il tuo immobile" onBack={() => navigate('/')} />
+
       <ProgressBar step={1} total={4} />
       <StepCounter step={1} />
+
+      <h2 className={styles.h2}>Tipologia</h2>
       <div className={styles.div__property__selection}>
         <PropertyTypeSelector icon={House} label="Casa" onClick={() => handlePropertySelect('casa')} />
         <PropertyTypeSelector icon={Building} label="Appartamento" onClick={() => handlePropertySelect('appartamento')} />
       </div>
-      <form onSubmit={handleSubmit} className={styles.form}>
 
-        {/* 3. Passa lo stato e l'updater, non una stringa vuota */}
+      <h2 className={styles.h2}>Indirizzo</h2>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <AddressSearch
           value={address}
           onChange={(e) => setAddress(e.target.value)}
           placeholder="Inserisci indirizzo"
         />
       </form>
+
+      <div className={styles.stepper__navigation}>
+      <Button label="Indietro" onClick={() => navigate('/')} variant="secondary"/>
+      <Button label="Avanti" onClick={() => navigate('/')}/>
+      </div>
+
         {/* <form onSubmit={handleSubmit} className={styles.form}>
         <input
           type="text"
