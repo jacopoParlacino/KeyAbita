@@ -9,63 +9,146 @@ import PropertyTypeSelector from "./PropertyTypeSelector/PropertyTypeSelector";
 import { House } from "lucide-react";
 import { Building } from "lucide-react";
 import AddressSearch from "./AddressSearch/AddressSearch";
-import Button from "./Button/Button";
+import StepperNavigation from "./StepperNavigation/StepperNavigation";
 
+const totalStep: number = 4;
+
+interface FormData {
+  propertyType: string | null;
+  address: string;
+}
 
 export default function MultiStepForm() {
-  const [address, setAddress] = useState<string>("");
+
   const navigate = useNavigate()
-  const [propertyType, setPropertyType] = useState<string | null>(null);
+
+  const [currentStep, setCurrentStep] = useState<number>(1)
+  const [formData, setFormData] = useState<FormData>({
+    propertyType: null,
+    address: "",
+  });
+
+  const nextStep = () => {
+    if (currentStep < totalStep) {
+      setCurrentStep((prev) => prev + 1)
+    }
+  }
+
+  const prevStep = () => {
+    if (currentStep > 1) {
+      setCurrentStep((prev) => prev - 1)
+    }
+  }
+
+  const handlePropertySelect = (type: string) => {
+    setFormData((prev) => ({ ...prev, propertyType: type }))
+  }
+
+  const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prev) => ({ ...prev, address: e.target.value }));
+  };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log("Form submitted with address:", address);
-    console.log("And property type:", propertyType);
+    console.log("Form submitted with data:", JSON.stringify(formData, null, 2));
+    // Qui puoi inviare i dati e poi navigare
+    // Esempio: navigate('/success');
+    navigate('/form-success')
   };
 
-  const handlePropertySelect = (type: string) => {
-    setPropertyType(type);
+  const isNextDisabled = () => {
+    if (currentStep === 1 && !formData.propertyType) {
+      return true; // Disabilitato se tipo non selezionato
+    }
+    if (currentStep === 2 && !formData.address) {
+      return true; // Disabilitato se indirizzo è vuoto
+    }
+    // Aggiungi logica per step 3, 4...
+    return false;
+  };
+
+  const renderStepContent = () => {
+    switch (currentStep) {
+      case 1:
+        return (
+          <>
+            <h2 className={styles.h2}>Tipologia</h2>
+            <div className={styles.div__property__selection}>
+              <PropertyTypeSelector
+                icon={House}
+                label="Casa"
+                onClick={() => handlePropertySelect("casa")}
+              />
+              <PropertyTypeSelector
+                icon={Building}
+                label="Appartamento"
+                onClick={() => handlePropertySelect("appartamento")}
+              />
+            </div>
+
+            <h2 className={styles.h2}>Indirizzo</h2>
+            <AddressSearch
+              value={formData.address}
+              onChange={handleAddressChange}
+              placeholder="Inserisci indirizzo"
+            />
+          </>
+        );
+      case 2:
+        return (
+          <>
+          </>
+        );
+
+      case 3:
+        return (
+          <>
+          </>
+        );
+
+      case 4:
+        return (
+          <>
+          </>
+        );
+    }
   };
 
   return (
     <>
-      <HeaderForm title="Valuta il tuo immobile" onBack={() => navigate('/')} />
+      <form onSubmit={handleSubmit} className={styles.form__container}>
+        <HeaderForm title="Valuta il tuo immobile" onBack={() => navigate('/')} />
 
-      <ProgressBar step={1} total={4} />
-      <StepCounter step={1} />
+        <ProgressBar step={currentStep} total={totalStep} />
+        <StepCounter step={currentStep} />
 
-      <h2 className={styles.h2}>Tipologia</h2>
-      <div className={styles.div__property__selection}>
-        <PropertyTypeSelector icon={House} label="Casa" onClick={() => handlePropertySelect('casa')} />
-        <PropertyTypeSelector icon={Building} label="Appartamento" onClick={() => handlePropertySelect('appartamento')} />
-      </div>
+        <div className={styles.step__content__container}>
+          {renderStepContent()}
+        </div>
 
-      <h2 className={styles.h2}>Indirizzo</h2>
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <AddressSearch
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-          placeholder="Inserisci indirizzo"
+        <StepperNavigation
+          onBack={() => {
+            if (currentStep === 1) {
+              navigate("/");
+            } else {
+              prevStep();
+            }
+          }}
+
+          onNext={nextStep}
+          isNextDisabled={isNextDisabled()}
+          isLastStep={currentStep === totalStep}
+
         />
+
+
+
+
+
       </form>
 
-      <div className={styles.stepper__navigation}>
-      <Button label="Indietro" onClick={() => navigate('/')} variant="secondary"/>
-      <Button label="Avanti" onClick={() => navigate('/')}/>
-      </div>
 
-        {/* <form onSubmit={handleSubmit} className={styles.form}>
-        <input
-          type="text"
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-          placeholder="Inserisci indirizzo"
-          className={styles.input}
-          required
-        />
-        <button type="submit" className={styles.button}>Ottieni la valutazione</button>
-      </form> */}
+
     </>
   );
 }

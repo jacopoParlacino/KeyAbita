@@ -1,7 +1,7 @@
 @use "../../styles/variables" as *;
 @use "../../styles/mixins" as *;
 
-.form {
+.form__container {
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -54,10 +54,3 @@
     font-size: 1rem;
 }
 
-.stepper__navigation{
-    margin: 20px;
-    display: flex;
-    flex-direction: row;
-    text-align: center;
-    justify-content: space-between;
-}
