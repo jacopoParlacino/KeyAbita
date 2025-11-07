@@ -1,220 +1,192 @@
-# KeyAbita
+# 🏠 KeyAbita
 
-Applicazione web per la gestione di immobili sviluppata con Spring Boot e database H2.
+<div align="center">
 
-## Struttura del Progetto
+![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+![Java](https://img.shields.io/badge/Java-21-orange.svg)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.6-green.svg)
+![React](https://img.shields.io/badge/React-18-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
+
+</div>
+
+Applicazione web per la gestione di immobili sviluppata con Spring Boot e React/TypeScript. KeyAbita offre una piattaforma completa per la gestione di proprietà immobiliari, valutazioni e contratti.
+
+## 📋 Caratteristiche Principali
+
+- 🏘️ **Gestione Immobili**: Catalogo completo delle proprietà con dettagli e stato
+- 💰 **Sistema di Valutazione**: Valutazioni automatiche basate su parametri multipli
+- 📝 **Gestione Contratti**: Tracking completo del ciclo di vita dei contratti
+- 🌍 **Multi-città**: Supporto per diverse località con informazioni specifiche
+- 📊 **Dashboard**: Interfaccia intuitiva per la gestione delle proprietà
+- 🔒 **Autenticazione**: Sistema di gestione utenti con ruoli differenziati
+
+## 🛠️ Tecnologie Utilizzate
+
+### Backend
+- ☕ **Java 21**: Ultima versione stabile con feature moderne
+- 🍃 **Spring Boot 3.5.6**: Framework per applicazioni enterprise
+- 🗄️ **Spring Data JPA**: ORM per la gestione del database
+- 💾 **H2 Database**: Database in-memory per sviluppo rapido
+- 🔧 **Maven**: Gestione dipendenze e build automation
+
+### Frontend
+- ⚛️ **React 18**: Library UI con Concurrent Features
+- 📘 **TypeScript**: Tipizzazione statica per codice più robusto
+- ⚡ **Vite**: Build tool moderno e performante
+- 🎨 **SCSS Modules**: Styling modulare e scoped
+- 🔄 **Axios**: Client HTTP per le chiamate API
+
+## 📁 Struttura del Progetto
 
 ```
 KeyAbita/
 ├── README.md
-├── db_KeyAbita/               # Script SQL per il database
-│   ├── immobiliaris_properties.sql
-│   ├── immobiliaris_users.sql
-│   └── immobiliaris_valuations.sql
-└── keyabita/                  # Applicazione Spring Boot
-    ├── pom.xml               # Dipendenze Maven
-    └── src/
-        └── main/
-            ├── java/com/keyabita/keyabita/
-            │   ├── controller/    # REST Controllers
-            │   ├── model/         # Entità JPA
-            │   ├── repos/         # Repository
-            │   └── services/      # Business Logic
-            └── resources/
-                └── application.properties
+├── backend/                  # Backend Spring Boot
+│   ├── pom.xml             # Dipendenze Maven
+│   └── src/
+│       └── main/
+│           ├── java/
+│           │   └── com/keyabita/keyabita/
+│           │       ├── controller/     # REST Controllers
+│           │       ├── model/          # Entità JPA
+│           │       ├── repos/          # Repository
+│           │       └── services/       # Business Logic
+│           └── resources/
+│               ├── application.properties
+│               ├── schema.sql
+│               └── data.sql
+└── frontend/                 # Frontend React/TypeScript
+    └── keyabita/
+        ├── src/
+        │   ├── components/   # Componenti React riutilizzabili
+        │   ├── pages/        # Pagine dell'applicazione
+        │   └── styles/       # File SCSS globali e variabili
+        ├── public/           # Asset statici
+        ├── package.json
+        └── vite.config.ts
 ```
 
-## Tecnologie Utilizzate
-
-- Java 21
-- Spring Boot 3.5.6
-- Spring Data JPA
-- Spring Security
-- H2 Database
-- Maven
-
-## Setup Sviluppo
+## 🚀 Setup Sviluppo
 
 ### Prerequisiti
+- ☕ JDK 21
+- 📦 Maven
+- 💻 Node.js LTS + npm
+- 🔄 Git
 
-- JDK 21
-- Maven
-- Git
+### 1) Avvio Backend (porta 8080)
 
-### Clonare il Repository
-
-```bash
-git clone https://github.com/jacopoParlacino/KeyAbita.git
-cd KeyAbita/keyabita
+```cmd
+cd backend
+mvnw spring-boot:run
 ```
 
-### Database
+Configurazione H2 (in-memory):
+- 🔗 JDBC URL: `jdbc:h2:mem:keyabitadb`
+- 🖥️ Console H2: http://localhost:8080/h2-console
 
-Il database H2 è configurato in memoria per facilitare lo sviluppo e i test. La struttura è stata progettata per gestire efficacemente le tre entità principali del sistema: immobili, utenti e valutazioni.
+Gli script `schema.sql` e `data.sql` inizializzano struttura e dati in automatico.
 
-#### Design del Database
+### 2) Avvio Frontend (porta 5173)
 
-Il database è strutturato con le seguenti tabelle principali e di supporto:
-
-### Tabelle Principali
-
-#### Tabella Utenti
-```sql
-CREATE TABLE utenti (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    nome TEXT(100),
-    cognome TEXT(100),
-    email TEXT,
-    ruolo INT FK,
-    telefono TEXT(20),
-    data_creazione DATE,
-    password TEXT(255)
-);
+```cmd
+cd frontend/keyabita
+npm install
+npm run dev
 ```
 
-#### Tabella Immobili
-```sql
-CREATE TABLE immobili (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    indirizzo TEXT(255),
-    citta INT FK,
-    stato_immobile INT FK,
-    piano INT,
-    numero_stanze INT,
-    numero_bagni INT,
-    balcone BOOL,
-    garage BOOL,
-    giardino BOOL,
-    anno_costruzione DATE
-);
-```
+## 🔌 API Endpoints
 
-#### Tabella Valutazioni
-```sql
-CREATE TABLE valutazioni (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    valore_massimo INT,
-    valore_stimato INT,
-    valore_minimo INT,
-    id_immobiliare INT FK
-);
-```
+### 🏙️ Città
+- `GET /api/citta` - Lista tutte le città
+- `GET /api/citta/{id}` - Dettagli città specifica
+- `GET /api/citta/nome/{nome}` - Cerca per nome
+- `POST /api/citta` - Aggiunge nuova città
 
-### Tabelle di Gestione Richieste e Contratti
+### 🏘️ Immobili
+- `GET /api/immobili` - Lista tutti gli immobili
+- `GET /api/immobili/{id}` - Dettagli immobile
+- `GET /api/immobili/citta/{nome}` - Filtra per città
+- `GET /api/immobili/stato-immobile/{nome}` - Filtra per stato
+- `GET /api/immobili/stanze/{n}` - Filtra per numero stanze
+- `POST /api/immobili` - Aggiunge nuovo immobile
 
-#### Tabella Richieste
-```sql
-CREATE TABLE richieste (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    nome TEXT(30),
-    cognome TEXT(30),
-    email TEXT(100),
-    numero TEXT(100),
-    id_immobiliare INT FK,
-    stato_richiesta INT FK,
-    data DATE
-);
-```
+### 💰 Valutazioni
+- `GET /api/valutazioni` - Lista tutte le valutazioni
+- `GET /api/valutazioni/{id}` - Dettagli valutazione
+- `GET /api/valutazioni/immobile/{id}` - Valutazioni per immobile
+- `GET /api/valutazioni/range?min=X&max=Y` - Filtra per range
+- `POST /api/valutazioni` - Aggiunge nuova valutazione
 
-#### Tabella Contratti
-```sql
-CREATE TABLE contratti (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    inizio_contratto DATE,
-    fine_contratto DATE,
-    id_richiesta INT FK,
-    stato_contratto INT FK
-);
-```
+## 🗄️ Struttura Database
 
-### Tabelle di Supporto
+### 📊 Tabelle Principali
+- `utenti`: Sistema completo di autenticazione e autorizzazione
+  - Gestione profili utente
+  - Ruoli e permessi
+  - Tracking attività
+- `immobili`: Gestione proprietà immobiliari
+  - Dettagli tecnici
+  - Caratteristiche
+  - Stato attuale
+- `valutazioni`: Sistema di valutazione
+  - Range di prezzi
+  - Storico valutazioni
+  - Analisi di mercato
+- `richieste`: Gestione richieste clienti
+  - Tracking stato
+  - Dati cliente
+  - Timeline
+- `contratti`: Gestione contratti
+  - Date inizio/fine
+  - Condizioni
+  - Collegamenti a richieste
 
-#### Tabella Ruoli
-```sql
-CREATE TABLE ruoli (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    nome TEXT(100)
-);
-```
+### 🔧 Tabelle di Supporto
+- `ruoli`: Gestione ruoli utente
+- `citta`: Anagrafica città
+- `stati_immobili`: Workflow immobili
+- `stati_richieste`: Workflow richieste
+- `stati_contratti`: Workflow contratti
 
-#### Tabella Città
-```sql
-CREATE TABLE citta (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    nome TEXT(50),
-    descrizione TEXT(255)
-);
-```
+## 🎨 Struttura Frontend
 
-#### Tabella Stati Immobili
-```sql
-CREATE TABLE stati_immobili (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    nome TEXT(100),
-    descrizione TEXT(255)
-);
-```
+### 🧩 Componenti
+- `Header`: Navigazione responsive
+- `Hero`: Landing page accattivante
+- `FeatureSection`: Showcase funzionalità
+- `MultiStepForm`: Form wizard valutazioni
+- `Footer`: Collegamenti e informazioni
 
-#### Tabella Stati Richieste
-```sql
-CREATE TABLE stati_richieste (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    nome TEXT(100),
-    descrizione TEXT(255)
-);
-```
+### 📱 Pagine
+- `Home`: Landing page ottimizzata
+- `Valuation`: Processo di valutazione guidato
 
-#### Tabella Stati Contratti
-```sql
-CREATE TABLE stati_contratti (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    nome TEXT(100),
-    descrizione TEXT(255)
-);
-```
+## 🔍 Debug e Sviluppo
 
-### Caratteristiche del Database
+### 🔧 Backend
+- 🖥️ H2 Console: http://localhost:8080/h2-console
+- 🔌 Test API: `curl http://localhost:8080/api/citta`
 
-1. **Gestione Utenti**
-   - Autenticazione completa
-   - Gestione ruoli
-   - Tracking attività
+### 💻 Frontend
+- 🌐 Dev server: http://localhost:5173
+- 🔍 Network tab per debugging
 
-2. **Gestione Immobili**
-   - Dettagli completi proprietà
-   - Tracking stato immobile
-   - Caratteristiche dettagliate
+### ⚠️ Note Importanti
+- CORS: Controllers annotati con `@CrossOrigin(origins = "*")`
+- Database: Riavviare backend dopo modifiche a `data.sql`
+- Environment: Controllare `VITE_API_BASE_URL` per connessione API
 
-3. **Sistema Valutazioni**
-   - Valutazioni multiple
-   - Range di prezzi
-   - Storico valutazioni
+## 👥 Contributing
 
-4. **Gestione Richieste**
-   - Tracking completo
-   - Stati multipli
-   - Dati cliente
+Le contribuzioni sono benvenute! Per favore:
+1. 🍴 Fai il fork del progetto
+2. 🔧 Crea un branch per le tue modifiche
+3. 💾 Committa i cambiamenti
+4. 🚀 Fai il push sul tuo fork
+5. ✅ Apri una Pull Request
 
-5. **Gestione Contratti**
-   - Date inizio/fine
-   - Stati contratto
-   - Collegamenti a richieste
+## 📝 License
 
-La tabella `vendite` è stata progettata per:
-- Registrare i dettagli delle transazioni di vendita
-- Tenere traccia degli acquirenti
-- Gestire i dettagli finanziari della vendita
-- Documentare le commissioni dell'agenzia
-
-Gli script SQL completi per la creazione e il popolamento iniziale del database sono disponibili nella cartella `db_KeyAbita/`.
-
-## Struttura Packages
-
-- `controller`: REST endpoints
-- `model`: Entità JPA e DTO
-- `repos`: Repository per l'accesso ai dati
-- `services`: Logica di business
-
-## Branches Git
-
-- `main`: Branch principale stabile
+Questo progetto è sotto licenza MIT - vedi il file [LICENSE](LICENSE) per i dettagli.

@@ -1,0 +1,13 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+
+.page {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    
+    @include desktop {
+        padding: 100px;
+    }
+}

@@ -1,0 +1,41 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px;
+
+    @include desktop {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 60px;
+        padding: 40px;
+    }
+}
+
+.input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+
+    &:focus {
+        outline: none;
+        border-color: #007bff;
+    }
+}
+
+.button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #0056b3;
+    }
+}
