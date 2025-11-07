@@ -117,10 +117,7 @@ export default function MultiStepForm() {
   return (
     <>
       <form onSubmit={handleSubmit} className={styles.form__container}>
-        <HeaderForm title="Valuta il tuo immobile" onBack={() => navigate('/')} />
-
-        <ProgressBar step={currentStep} total={totalStep} />
-        <StepCounter step={currentStep} />
+        <HeaderForm title="Valuta il tuo immobile" onBack={() => navigate('/')} currentStep={currentStep} totalSteps={totalStep} />
 
         <div className={styles.step__content__container}>
           {renderStepContent()}
@@ -138,16 +135,9 @@ export default function MultiStepForm() {
           onNext={nextStep}
           isNextDisabled={isNextDisabled()}
           isLastStep={currentStep === totalStep}
-
         />
 
-
-
-
-
       </form>
-
-
 
     </>
   );

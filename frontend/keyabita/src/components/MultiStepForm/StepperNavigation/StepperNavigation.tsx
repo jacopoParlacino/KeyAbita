@@ -1,6 +1,7 @@
 import styles from './StepperNavigation.module.scss'
 
 import Button from '../Button/Button'
+import { ChevronLeft } from 'lucide-react';
 
 interface StepperNavigationProps {
     onNext: () => void;
@@ -16,7 +17,7 @@ export default function StepperNavigation({
     onNext,
     onBack,
     isNextDisabled = false,
-    isLastStep = false
+    isLastStep = false,
 }: StepperNavigationProps) {
 
     return (
@@ -28,6 +29,7 @@ export default function StepperNavigation({
                     onClick={onBack}
                     variant="secondary"
                     type="button"
+                    icon={ChevronLeft}
                 />
 
                 <Button

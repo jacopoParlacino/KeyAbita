@@ -52,25 +52,6 @@
   }
 }
 
-// @include tablet {
-//   .header {
-//     padding: 1rem 1.5rem;
-
-//     h2 {
-//       font-size: 1.25rem;
-//     }
-
-//     .backBtn {
-//       left: 1.5rem;
-//       svg {
-//         width: 22px;
-//         height: 22px;
-//       }
-//     }
-//   }
-// }
-
-
 @include desktop {
   .header__form {
     display: none;
