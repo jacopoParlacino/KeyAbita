@@ -25,4 +25,6 @@ public class StatoContrattoServiceImpl implements StatoContrattoService {
         return statoContrattoRepo.findById(id);
     }
 
+    
+
 }
