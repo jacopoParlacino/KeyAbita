@@ -3,8 +3,6 @@ import type { FormEvent } from "react";
 import styles from "./MultiStepForm.module.scss";
 import HeaderForm from "./HeaderForm/HeaderForm";
 import { useNavigate } from "react-router-dom";
-import ProgressBar from "./ProgressBar/ProgressBar";
-import StepCounter from "./StepCounter/StepCounter";
 import PropertyTypeSelector from "./PropertyTypeSelector/PropertyTypeSelector";
 import { House } from "lucide-react";
 import { Building } from "lucide-react";
@@ -51,19 +49,15 @@ export default function MultiStepForm() {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Form submitted with data:", JSON.stringify(formData, null, 2));
-    // Qui puoi inviare i dati e poi navigare
-    // Esempio: navigate('/success');
-    navigate('/form-success')
   };
 
   const isNextDisabled = () => {
     if (currentStep === 1 && !formData.propertyType) {
-      return true; // Disabilitato se tipo non selezionato
+      return true;
     }
     if (currentStep === 2 && !formData.address) {
-      return true; // Disabilitato se indirizzo è vuoto
+      return true;
     }
-    // Aggiungi logica per step 3, 4...
     return false;
   };
 
@@ -109,6 +103,30 @@ export default function MultiStepForm() {
       case 4:
         return (
           <>
+            <h2 className={styles.h2}>Indirizzo</h2>
+            <AddressSearch
+              value={formData.address}
+              onChange={handleAddressChange}
+              placeholder="Inserisci indirizzo"
+            />
+            <h2 className={styles.h2}>Indirizzo</h2>
+            <AddressSearch
+              value={formData.address}
+              onChange={handleAddressChange}
+              placeholder="Inserisci indirizzo"
+            />
+            <h2 className={styles.h2}>Indirizzo</h2>
+            <AddressSearch
+              value={formData.address}
+              onChange={handleAddressChange}
+              placeholder="Inserisci indirizzo"
+            />
+            <h2 className={styles.h2}>Indirizzo</h2>
+            <AddressSearch
+              value={formData.address}
+              onChange={handleAddressChange}
+              placeholder="Inserisci indirizzo"
+            />
           </>
         );
     }
@@ -117,8 +135,9 @@ export default function MultiStepForm() {
   return (
     <>
       <form onSubmit={handleSubmit} className={styles.form__container}>
-        <HeaderForm title="Valuta il tuo immobile" onBack={() => navigate('/')} currentStep={currentStep} totalSteps={totalStep} />
-
+        <div className={styles.header__container}>
+          <HeaderForm title="Valuta il tuo immobile" onBack={() => navigate('/')} currentStep={currentStep} totalSteps={totalStep} />
+        </div>
         <div className={styles.step__content__container}>
           {renderStepContent()}
         </div>
