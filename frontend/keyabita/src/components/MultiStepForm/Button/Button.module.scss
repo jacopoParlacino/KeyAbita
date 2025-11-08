@@ -3,7 +3,6 @@
 
 .primary,
 .secondary {
-    padding: 5px 50px;
     width: 60px;
     border-radius: 6px;
     border: 1px solid;
@@ -17,12 +16,14 @@
 }
 
 .primary {
+    padding: 5px 50px;
     background-color: $primary-color;
     border-color: $primary-color;
 
 }
 
 .secondary {
+    padding: 5px 0px;
     background-color: $text-color;
     outline: none;
     border: none;
@@ -35,3 +36,4 @@
     opacity: 0.5;
     cursor: not-allowed;
 }
+
