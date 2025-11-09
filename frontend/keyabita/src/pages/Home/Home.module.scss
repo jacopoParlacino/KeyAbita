@@ -2,14 +2,14 @@
 @use "../../styles/mixins" as *;
 
 .home {
-display: flex;
-flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-
-    @include desktop {
-       flex-direction: column;
-       justify-content: space-between;
-       align-items: flex-start;
-       
-    }
+  @include desktop {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
 }
+
+

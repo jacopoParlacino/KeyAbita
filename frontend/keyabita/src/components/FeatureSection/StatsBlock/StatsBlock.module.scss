@@ -1,0 +1,46 @@
+@use "../../../styles/variables.scss" as *;
+@use "../../../styles/mixins" as *;
+
+.stats {
+  width: 100%;
+  background-color: $beige;
+  border-radius: 24px;
+  padding: 24px;
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  text-align: center;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Animation */
+.statItem.animate {
+  animation: fadeIn 1.2s ease;
+
+}
+.statNumber {
+  font-size: 28px;
+  font-weight: 600;
+  color: $primary-color;
+
+}
+
+.statLabel {
+  font-size: 14px;
+  color: $text-secondary;
+  margin-top: 4px;
+  
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

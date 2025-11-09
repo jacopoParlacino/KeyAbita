@@ -1,0 +1,39 @@
+import { Star } from "lucide-react";
+import styles from "./AgentCard.module.scss";
+
+interface AgentCardProps {
+  name: string;
+  role: string;
+  stars: number;
+  experience: string;
+  imgAvif: string;
+  imgWebp: string;
+  imgJpg: string;
+}
+
+const AgentCard = ({ name, role, stars, experience, imgAvif, imgWebp, imgJpg }: AgentCardProps) => {
+  return (
+    <div className={styles.agentCard}>
+      <picture className={styles.agentCard__picture}>
+      <source srcSet={imgAvif} type="image/avif" />
+        <source srcSet={imgWebp} type="image/webp" />
+        <img src={imgJpg} alt={name} className={styles.agentCard__photo} loading="lazy" />
+
+      </picture>
+
+      <div className={styles.agentCard__info}>
+        <h3 className={styles.agentCard__name}>{name}</h3>
+        <p className={styles.agentCard__role}>{role}</p>
+
+        <div className={styles.agentCard__rating}>
+          {Array.from({ length: stars }).map((_, i) => (
+            <Star key={i} size={14} strokeWidth={1.5} fill="#fec841" />
+          ))}
+          <span className={styles.agentCard__experience}>{experience}</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AgentCard;
