@@ -1,0 +1,31 @@
+@use "../../../styles/mixins.scss" as *;
+@use "../../../styles/variables.scss" as *;
+
+.btn__property {
+    border-radius: 6px;
+    border: 1px solid;
+    outline: none;
+    color: $primary-color;
+    border-color: $primary-color;
+    background-color: $text-color;
+    width: 350px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: center;
+    align-items: center;
+    padding: 10px;
+    margin: 20px 0px;
+    transition: opacity 0.2s ease-in-out;
+
+    .check__icon {
+        color: $light-blue;
+    }
+}
+
+.not__selected {
+    opacity: 0.5;
+    .check__icon {
+        color: $grey;
+    }
+}

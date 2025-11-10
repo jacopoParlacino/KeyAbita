@@ -4,16 +4,18 @@ import styles from "./MultiStepForm.module.scss";
 import HeaderForm from "./HeaderForm/HeaderForm";
 import { useNavigate } from "react-router-dom";
 import PropertyTypeSelector from "./PropertyTypeSelector/PropertyTypeSelector";
-import { House } from "lucide-react";
+import { Check, House } from "lucide-react";
 import { Building } from "lucide-react";
 import AddressSearch from "./AddressSearch/AddressSearch";
 import StepperNavigation from "./StepperNavigation/StepperNavigation";
+import ImmobileCondition from "./ImmobileCondition/ImmobileCondition";
 
 const totalStep: number = 4;
 
 interface FormData {
   propertyType: string | null;
   address: string;
+  condition: string;
 }
 
 export default function MultiStepForm() {
@@ -24,6 +26,7 @@ export default function MultiStepForm() {
   const [formData, setFormData] = useState<FormData>({
     propertyType: null,
     address: "",
+    condition: "",
   });
 
   const nextStep = () => {
@@ -40,11 +43,15 @@ export default function MultiStepForm() {
 
   const handlePropertySelect = (type: string) => {
     setFormData((prev) => ({ ...prev, propertyType: type }))
+    
   }
-
   const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, address: e.target.value }));
   };
+
+  const handleConditionSelected = (type: string) => {
+    setFormData((prev) => ({ ...prev, condition: type }))
+  }
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -55,7 +62,10 @@ export default function MultiStepForm() {
     if (currentStep === 1 && !formData.propertyType) {
       return true;
     }
-    if (currentStep === 2 && !formData.address) {
+    if (currentStep === 1 && !formData.address) {
+      return true;
+    }
+    if (currentStep === 2 && !formData.condition) {
       return true;
     }
     return false;
@@ -93,6 +103,33 @@ export default function MultiStepForm() {
       case 2:
         return (
           <>
+          <h2 className={styles.h2}>Condizione immobile</h2>
+            <ImmobileCondition 
+            label="Ottimo" 
+            onClick={() => handleConditionSelected("Ottimo")} 
+            isSelected={formData.condition === "Ottimo"} 
+            icon={Check}/>
+
+            <ImmobileCondition 
+            label="Abitabile" 
+            onClick={() => handleConditionSelected("Abitabile")} 
+            isSelected={formData.condition === "Abitabile"} 
+            icon={Check}/>
+
+            <ImmobileCondition 
+            label="Da ristrutturare" 
+            onClick={() => handleConditionSelected("Da ristrutturare")} 
+            isSelected={formData.condition === "Da ristrutturare"} 
+            icon={Check}/>
+
+            <h2 className={styles.h2}>Superfice ( m<sup>2</sup> )</h2>
+
+            <h2 className={styles.h2}>Stanze</h2>
+
+            <h2 className={styles.h2}>Piano</h2>
+
+            <h2 className={styles.h2}>Bagni</h2>
+
           </>
         );
 
