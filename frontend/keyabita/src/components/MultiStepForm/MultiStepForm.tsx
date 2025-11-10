@@ -72,11 +72,13 @@ export default function MultiStepForm() {
                 icon={House}
                 label="Casa"
                 onClick={() => handlePropertySelect("casa")}
+                isSelected={formData.propertyType === "casa"}
               />
               <PropertyTypeSelector
                 icon={Building}
                 label="Appartamento"
                 onClick={() => handlePropertySelect("appartamento")}
+                isSelected={formData.propertyType === "appartamento"}
               />
             </div>
 
