@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.keyabita.keyabita.model.Utente;
-import com.keyabita.keyabita.repo.UtenteRepo;
+import com.keyabita.keyabita.repos.UtenteRepo;
 
 @Service
 public class UtenteServiceImpl implements UtenteService {

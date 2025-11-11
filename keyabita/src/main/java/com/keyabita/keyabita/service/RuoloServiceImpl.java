@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.keyabita.keyabita.model.Ruolo;
-import com.keyabita.keyabita.repo.RuoloRepo;
+import com.keyabita.keyabita.repos.RuoloRepo;
 
 @Service
 public class RuoloServiceImpl implements RuoloService {
