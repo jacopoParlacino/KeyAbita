@@ -70,3 +70,16 @@ INSERT INTO contratti (id, inizio_contratto, fine_contratto, id_richiesta, stato
 (1, '2025-11-01', '2025-11-30', 2, 2),
 (2, '2025-11-05', '2026-11-05', 1, 1),
 (3, '2025-10-20', '2025-11-20', 4, 3);
+
+-- Reset delle sequenze IDENTITY per evitare conflitti di PK sui successivi INSERT
+-- Nota: H2 supporta RESTART WITH solo su colonne IDENTITY/AUTO_INCREMENT
+ALTER TABLE ruoli            ALTER COLUMN id RESTART WITH 4;
+ALTER TABLE utenti           ALTER COLUMN id RESTART WITH 5;
+ALTER TABLE citta            ALTER COLUMN id RESTART WITH 5;
+ALTER TABLE stati_immobili   ALTER COLUMN id RESTART WITH 6;
+ALTER TABLE immobili         ALTER COLUMN id RESTART WITH 6;
+ALTER TABLE valutazioni      ALTER COLUMN id RESTART WITH 6;
+ALTER TABLE stati_richieste  ALTER COLUMN id RESTART WITH 6;
+ALTER TABLE richieste        ALTER COLUMN id RESTART WITH 5;
+ALTER TABLE stati_contratti  ALTER COLUMN id RESTART WITH 6;
+ALTER TABLE contratti        ALTER COLUMN id RESTART WITH 4;
