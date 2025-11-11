@@ -9,6 +9,7 @@ import { Building } from "lucide-react";
 import AddressSearch from "./AddressSearch/AddressSearch";
 import StepperNavigation from "./StepperNavigation/StepperNavigation";
 import ImmobileCondition from "./ImmobileCondition/ImmobileCondition";
+import Counter from "./Counter/Counter";
 
 const totalStep: number = 4;
 
@@ -43,7 +44,7 @@ export default function MultiStepForm() {
 
   const handlePropertySelect = (type: string) => {
     setFormData((prev) => ({ ...prev, propertyType: type }))
-    
+
   }
   const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, address: e.target.value }));
@@ -103,32 +104,30 @@ export default function MultiStepForm() {
       case 2:
         return (
           <>
-          <h2 className={styles.h2}>Condizione immobile</h2>
-            <ImmobileCondition 
-            label="Ottimo" 
-            onClick={() => handleConditionSelected("Ottimo")} 
-            isSelected={formData.condition === "Ottimo"} 
-            icon={Check}/>
+            <h2 className={styles.h2}>Condizione immobile</h2>
+            <ImmobileCondition
+              label="Ottimo"
+              onClick={() => handleConditionSelected("Ottimo")}
+              isSelected={formData.condition === "Ottimo"}
+              icon={Check} />
 
-            <ImmobileCondition 
-            label="Abitabile" 
-            onClick={() => handleConditionSelected("Abitabile")} 
-            isSelected={formData.condition === "Abitabile"} 
-            icon={Check}/>
+            <ImmobileCondition
+              label="Abitabile"
+              onClick={() => handleConditionSelected("Abitabile")}
+              isSelected={formData.condition === "Abitabile"}
+              icon={Check} />
 
-            <ImmobileCondition 
-            label="Da ristrutturare" 
-            onClick={() => handleConditionSelected("Da ristrutturare")} 
-            isSelected={formData.condition === "Da ristrutturare"} 
-            icon={Check}/>
+            <ImmobileCondition
+              label="Da ristrutturare"
+              onClick={() => handleConditionSelected("Da ristrutturare")}
+              isSelected={formData.condition === "Da ristrutturare"}
+              icon={Check} />
 
-            <h2 className={styles.h2}>Superfice ( m<sup>2</sup> )</h2>
+            <Counter label="Stanze" />
 
-            <h2 className={styles.h2}>Stanze</h2>
+            <Counter label="Piano" />
 
-            <h2 className={styles.h2}>Piano</h2>
-
-            <h2 className={styles.h2}>Bagni</h2>
+            <Counter label="Bagni" />
 
           </>
         );
