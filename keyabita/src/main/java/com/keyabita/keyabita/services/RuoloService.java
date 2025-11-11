@@ -1,5 +1,5 @@
 
-package com.keyabita.keyabita.service;
+package com.keyabita.keyabita.services;
 
 import java.util.List;
 import com.keyabita.keyabita.model.Ruolo;

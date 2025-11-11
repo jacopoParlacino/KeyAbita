@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.keyabita.keyabita.model.Ruolo;
-import com.keyabita.keyabita.service.RuoloService;
+import com.keyabita.keyabita.services.RuoloService;
 
 @RestController
 @RequestMapping("/api/ruoli")
