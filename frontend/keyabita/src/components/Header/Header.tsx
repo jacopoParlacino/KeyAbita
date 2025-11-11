@@ -9,14 +9,14 @@ export default function Header() {
     return (
         <header className={styles.header}>
 <div className={styles.container}>
-    <Link to="/" className={styles.logo}> </Link>
+    <Link to="/" className={styles.logo}> <img src="/KeyAbita_Logo.svg" alt="KeyAbita logo" /></Link>
 
     <nav className={`${styles.nav} ${menuOpen ? styles.active : ""}`}>
 
     <Link to="/">Home</Link>
     <Link to="/Chi siamo">Chi siamo</Link>
-    <Link to="/Servizi">Servizi</Link>
     <Link to="/Valutazione">Valutazione</Link>
+    <Link to="/Amministrazione">Amministrazione</Link>
     <Link to="/contatti">Contatti</Link>
 </nav>
 <Hamburger isOpen={menuOpen} onClick={() => setMenuOpen(!menuOpen)} />
