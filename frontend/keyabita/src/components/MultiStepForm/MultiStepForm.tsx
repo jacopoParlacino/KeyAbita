@@ -135,6 +135,20 @@ export default function MultiStepForm() {
       case 3:
         return (
           <>
+
+            <h2 className={styles.h2}>Caratteristiche dell' immobile</h2>
+
+            <Counter label="Ascensore" />
+
+            <Counter label="Parcheggio" />
+
+            <Counter label="Garage" />
+
+            <Counter label="Giardino" />
+
+            <Counter label="Terrazze" />
+
+            <Counter label="Balconi" />
           </>
         );
 
