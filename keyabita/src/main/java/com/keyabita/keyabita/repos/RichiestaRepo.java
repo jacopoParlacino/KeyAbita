@@ -10,7 +10,7 @@ import java.util.Optional;
 
 
 @Repository
-public interface RicihiestaRepo extends JpaRepository<Richiesta, Integer> {
+public interface RichiestaRepo extends JpaRepository<Richiesta, Integer> {
 
     Optional<Richiesta> findById(Integer id);
 
@@ -24,5 +24,7 @@ public interface RicihiestaRepo extends JpaRepository<Richiesta, Integer> {
     List<Richiesta> findByStatoRichiesta_Id(Integer statoRichiestaId);
 
     List<Richiesta> findByImmobile_Id(Integer immobileId);
+
+    List <Richiesta> findByNumero(String Numero);
 
 }
