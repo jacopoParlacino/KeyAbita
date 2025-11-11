@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.keyabita.keyabita.model.Utente;
-import com.keyabita.keyabita.service.UtenteService;
+import com.keyabita.keyabita.services.UtenteService;
 
 @RestController
 @RequestMapping("/api/utenti")
