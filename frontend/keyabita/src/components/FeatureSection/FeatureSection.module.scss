@@ -43,6 +43,10 @@
     width: 32px;
     height: 32px;
   }
+
+  @include desktop {
+    display: none;
+  }
 }
 
 .featuresection__title {
