@@ -11,7 +11,7 @@ const Footer = () => {
       <div className={styles.footer__logo}>
       <div className={styles.logoWrapper}>
         <img src="/KeyAbita_Logo.png" alt="KeyAbita" />
-        <span className={styles.logoText}>KeyAbita</span>
+        
   </div>
         <p>Il tuo partner di fiducia per la valutazione immobiliare</p>
       </div>

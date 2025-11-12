@@ -1,4 +1,4 @@
-import { Mail, Phone } from "lucide-react";
+import { Mail, Phone, MapPin } from "lucide-react";
 import styles from "../Footer.module.scss";
 
 const FooterContacts = () => {
@@ -11,6 +11,8 @@ const FooterContacts = () => {
       <p>
       <Mail color="white" size={16}/> <a href="mailto:info@keyabita.com">info@keyabita.com</a>
       </p>
+      <p className={styles.footer__address}>
+      <MapPin color="white" size={16}/>Via Jacopo Durandi 10<br />Torino, Italia</p>
     </div>
   );
 };
