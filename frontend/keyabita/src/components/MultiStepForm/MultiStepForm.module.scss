@@ -5,6 +5,7 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+    height: 650px;
 
     @include desktop {
         flex-direction: row;
@@ -15,7 +16,7 @@
     }
 }
 
-.step__content__container{
+.step__content__container {
     padding: 20px;
 }
 
@@ -45,14 +46,18 @@
 
 .div__property__selection {
     display: flex;
-    gap: 30px;
+    justify-content: space-between;
     margin: 20px 0;
     font-size: 0.5rem;
+    width: 100%;
 }
 
-.h2{
+.h2 {
     color: $primary-color;
     font-size: 1rem;
-    
+
 }
 
+.stepper__navigation {
+    margin-top: auto;
+}

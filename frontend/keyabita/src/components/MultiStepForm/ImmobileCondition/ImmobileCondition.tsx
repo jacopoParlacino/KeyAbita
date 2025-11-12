@@ -23,7 +23,7 @@ export default function ImmobileCondition({
     return(
         <>
         
-        <button className={buttonClasses} onClick={onClick}>
+        <button className={buttonClasses} onClick={onClick} type="button">
             {label}
             <Icon size={20} className={styles.check__icon}/>        
         </button>

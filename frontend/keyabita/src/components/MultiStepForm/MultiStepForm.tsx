@@ -10,6 +10,7 @@ import AddressSearch from "./AddressSearch/AddressSearch";
 import StepperNavigation from "./StepperNavigation/StepperNavigation";
 import ImmobileCondition from "./ImmobileCondition/ImmobileCondition";
 import Counter from "./Counter/Counter";
+import InputField from "./InputField/InputField";
 
 const totalStep: number = 4;
 
@@ -17,6 +18,20 @@ interface FormData {
   propertyType: string | null;
   address: string;
   condition: string;
+  metratura: number;
+  stanze: number;
+  piano: number;
+  bagni: number;
+  ascensore: number;
+  parcheggio: number;
+  garage: number;
+  giardino: number;
+  terrazze: number;
+  balconi: number;
+  nome: string;
+  cognome: string;
+  email: string;
+  numeroDiTelefono: string;
 }
 
 export default function MultiStepForm() {
@@ -28,6 +43,20 @@ export default function MultiStepForm() {
     propertyType: null,
     address: "",
     condition: "",
+    metratura: 0,
+    stanze: 0,
+    piano: 0,
+    bagni: 0,
+    ascensore: 0,
+    parcheggio: 0,
+    garage: 0,
+    giardino: 0,
+    terrazze: 0,
+    balconi: 0,
+    nome: "",
+    cognome: "",
+    email: "",
+    numeroDiTelefono: "",
   });
 
   const nextStep = () => {
@@ -49,24 +78,54 @@ export default function MultiStepForm() {
   const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, address: e.target.value }));
   };
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prev) => ({ ...prev, nome: e.target.value }));
+  };
+  const handleSurnameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prev) => ({ ...prev, cognome: e.target.value }));
+  };
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prev) => ({ ...prev, email: e.target.value }));
+  };
+  const handleTelephoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prev) => ({ ...prev, numeroDiTelefono: e.target.value }));
+  };
 
   const handleConditionSelected = (type: string) => {
     setFormData((prev) => ({ ...prev, condition: type }))
   }
+
+  type CounterField = 'stanze' | 'piano' | 'bagni' | 'ascensore' | 'parcheggio' | 'garage' | 'giardino' | 'terrazze' | 'balconi';
+
+  const handleCounterChange = (
+    field: CounterField,
+    type: 'increment' | 'decrement'
+  ) => {
+    setFormData(prev => {
+      const currentValue = prev[field];
+      if (type === 'increment') {
+        return { ...prev, [field]: currentValue + 1 };
+      }
+
+      if (type === 'decrement' && currentValue > 0) {
+        return { ...prev, [field]: currentValue - 1 };
+      }
+      return prev;
+    });
+  };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Form submitted with data:", JSON.stringify(formData, null, 2));
   };
 
+
+
   const isNextDisabled = () => {
     if (currentStep === 1 && !formData.propertyType) {
       return true;
     }
     if (currentStep === 1 && !formData.address) {
-      return true;
-    }
-    if (currentStep === 2 && !formData.condition) {
       return true;
     }
     return false;
@@ -123,11 +182,22 @@ export default function MultiStepForm() {
               isSelected={formData.condition === "Da ristrutturare"}
               icon={Check} />
 
-            <Counter label="Stanze" />
+            <Counter label="Stanze"
+              value={formData.stanze}
+              onIncrement={() => handleCounterChange('stanze', 'increment')}
+              onDecrement={() => handleCounterChange('stanze', 'decrement')}
+            />
 
-            <Counter label="Piano" />
+            <Counter label="Piano"
+              value={formData.piano}
+              onIncrement={() => handleCounterChange('piano', 'increment')}
+              onDecrement={() => handleCounterChange('piano', 'decrement')} />
 
-            <Counter label="Bagni" />
+            <Counter label="Bagni"
+              value={formData.bagni}
+              onIncrement={() => handleCounterChange('bagni', 'increment')}
+              onDecrement={() => handleCounterChange('bagni', 'decrement')}
+            />
 
           </>
         );
@@ -138,45 +208,73 @@ export default function MultiStepForm() {
 
             <h2 className={styles.h2}>Caratteristiche dell' immobile</h2>
 
-            <Counter label="Ascensore" />
+            <Counter label="Ascensore"
+              value={formData.ascensore}
+              onIncrement={() => handleCounterChange('ascensore', 'increment')}
+              onDecrement={() => handleCounterChange('ascensore', 'decrement')}
+            />
 
-            <Counter label="Parcheggio" />
+            <Counter label="Parcheggio"
+              value={formData.parcheggio}
+              onIncrement={() => handleCounterChange('parcheggio', 'increment')}
+              onDecrement={() => handleCounterChange('parcheggio', 'decrement')}
+            />
 
-            <Counter label="Garage" />
+            <Counter label="Garage"
+              value={formData.garage}
+              onIncrement={() => handleCounterChange('garage', 'increment')}
+              onDecrement={() => handleCounterChange('garage', 'decrement')}
+            />
 
-            <Counter label="Giardino" />
+            <Counter label="Giardino"
+              value={formData.giardino}
+              onIncrement={() => handleCounterChange('giardino', 'increment')}
+              onDecrement={() => handleCounterChange('giardino', 'decrement')}
+            />
 
-            <Counter label="Terrazze" />
+            <Counter label="Terrazze"
+              value={formData.terrazze}
+              onIncrement={() => handleCounterChange('terrazze', 'increment')}
+              onDecrement={() => handleCounterChange('terrazze', 'decrement')}
+            />
 
-            <Counter label="Balconi" />
+            <Counter label="Balconi"
+              value={formData.balconi}
+              onIncrement={() => handleCounterChange('balconi', 'increment')}
+              onDecrement={() => handleCounterChange('balconi', 'decrement')}
+            />
           </>
         );
 
       case 4:
         return (
           <>
-            <h2 className={styles.h2}>Indirizzo</h2>
-            <AddressSearch
-              value={formData.address}
-              onChange={handleAddressChange}
+
+            <InputField
+              label="Nome"
+              value={formData.nome}
+              onChange={handleNameChange}
               placeholder="Inserisci indirizzo"
             />
-            <h2 className={styles.h2}>Indirizzo</h2>
-            <AddressSearch
-              value={formData.address}
-              onChange={handleAddressChange}
+
+            <InputField
+              label="Cognome"
+              value={formData.cognome}
+              onChange={handleSurnameChange}
               placeholder="Inserisci indirizzo"
             />
-            <h2 className={styles.h2}>Indirizzo</h2>
-            <AddressSearch
-              value={formData.address}
-              onChange={handleAddressChange}
+
+            <InputField
+              label="Email"
+              value={formData.email}
+              onChange={handleEmailChange}
               placeholder="Inserisci indirizzo"
             />
-            <h2 className={styles.h2}>Indirizzo</h2>
-            <AddressSearch
-              value={formData.address}
-              onChange={handleAddressChange}
+
+            <InputField
+              label="Numero di telefono (opzionale)"
+              value={formData.numeroDiTelefono}
+              onChange={handleTelephoneNumberChange}
               placeholder="Inserisci indirizzo"
             />
           </>
@@ -193,20 +291,28 @@ export default function MultiStepForm() {
         <div className={styles.step__content__container}>
           {renderStepContent()}
         </div>
+        <div className={styles.stepper__navigation}>
+          <StepperNavigation
+            onBack={() => {
+              if (currentStep === 1) {
+                navigate("/");
+              } else {
+                prevStep();
+              }
+            }}
 
-        <StepperNavigation
-          onBack={() => {
-            if (currentStep === 1) {
-              navigate("/");
-            } else {
-              prevStep();
-            }
-          }}
+            onNext={() => {
+              if (currentStep === 4) {
+                navigate("/form-success")
+              } else {
+                nextStep();
+              }
+            }}
 
-          onNext={nextStep}
-          isNextDisabled={isNextDisabled()}
-          isLastStep={currentStep === totalStep}
-        />
+            isNextDisabled={isNextDisabled()}
+            isLastStep={currentStep === totalStep}
+          />
+        </div>
 
       </form>
 

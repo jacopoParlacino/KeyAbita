@@ -3,10 +3,13 @@ import styles from './Counter.module.scss'
 
 interface CounterProps {
     label: string;
+    onIncrement: () => void;
+    onDecrement: () => void;
+    value: number;
 
 }
 
-export default function Counter({ label }: CounterProps) {
+export default function Counter({ label, onIncrement, onDecrement, value }: CounterProps) {
 
     return (
         <>
@@ -16,11 +19,17 @@ export default function Counter({ label }: CounterProps) {
                 </div>
                 <div className={styles.increment__decrement__wrapper}>
 
-                    <div className={styles.icon__wrapper__plus}>
+                    <div 
+                    className={styles.icon__wrapper__plus} 
+                    onClick={onIncrement}>
                         <Plus size={15} />
                     </div>
-                    0
-                    <div className={styles.icon__wrapper__minus}>
+
+                    {value}
+
+                    <div 
+                    className={styles.icon__wrapper__minus} 
+                    onClick={onDecrement}>
                         <Minus size={15} />
                     </div>
                 </div>
