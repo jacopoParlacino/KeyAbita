@@ -2,12 +2,14 @@
 @use "../../styles/mixins.scss" as *;
 
 .testimonialSection {
-    padding-top: 80px;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 40px;
+  padding: 80px 20px 40px;
   text-align: center;
   background: white;
+
+  @include desktop {
+    padding: 120px 80px;
+    text-align: center;
+  }
 }
 
 .testimonialSection__title {
@@ -15,12 +17,23 @@
   color: $primary-color;
   font-weight: 600;
   margin-bottom: 16px;
+
+  @include desktop {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
 }
 
 .testimonialSection__text {
   color: $text-secondary;
   font-size: 16px;
-  
+  margin-bottom: 20px;
+
+  @include desktop {
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 60px;
+  }
 }
 
 .testimonialSection__infoBlock {
@@ -52,9 +65,49 @@
   &::-webkit-scrollbar {
     display: none;
   }
+
+  @include desktop {
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: auto;
+    scroll-snap-type: x mandatory;
+    gap: 40px;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding: 40px 0;
+    scroll-padding: 0 80px;
+
+    &::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(107, 157, 176, 0.3);
+      border-radius: 4px;
+
+      &:hover {
+        background: rgba(107, 157, 176, 0.5);
+      }
+    }
+  }
 }
 .testimonialSection__item:last-child {
   margin-bottom: 0;
+
+  @include desktop {
+    margin-right: 0;
+  }
+}
+
+.testimonialSection__item:first-child {
+  @include desktop {
+    margin-left: 0;
+  }
 }
 
 /* Each card  */
@@ -72,5 +125,17 @@
     &:hover {
 
       transform: scale(1);
+    }
+
+    @include desktop {
+      flex: 0 0 400px;
+      width: 400px;
+      max-width: none;
+      margin: 0;
+      transform: scale(1);
+
+      &:hover {
+        transform: scale(1.02);
+      }
     }
   }
