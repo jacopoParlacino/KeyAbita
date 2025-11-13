@@ -3,7 +3,8 @@ import styles from "./AnalysisListDesktop.module.scss";
 
 interface Item {
   icon: React.ReactNode;
-  text: string;
+  title: string;
+  text?: string;
 }
 
 interface AnalysisListDesktopProps {
@@ -14,15 +15,19 @@ export default function AnalysisListDesktop({ items }: AnalysisListDesktopProps)
   const { ref, isInView } = useInView<HTMLDivElement>();
 
   return (
-    <div className={styles.list} ref={ref}>
+    <div className={styles.analysislist__desktop} ref={ref}>
       {items.map((item, idx) => (
         <div
           key={idx}
-          className={`${styles.item} ${isInView ? styles.visible : ""}`}
+          className={`${styles.analysislistD__item} ${isInView ? styles.visible : ""}`}
           style={{ transitionDelay: `${idx * 150}ms` }}
         >
-          <div className={styles.icon}>{item.icon}</div>
-          <span className={styles.text}>{item.text}</span>
+          <div className={styles.analysislistD__icon}>{item.icon}</div>
+
+          <div className={styles.analysislistD__content}>
+          {item.title && <span className={styles.analysislistD__title}>{item.title}</span>}
+          {item.text && <span className={styles.analysislistD__text}>{item.text}</span>}
+          </div>
         </div>
       ))}
     </div>

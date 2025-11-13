@@ -7,7 +7,7 @@
   background: white;
 
   @include desktop {
-    padding: 120px 80px;
+    padding: 80px 80px 20px;
     text-align: center;
   }
 }
@@ -20,7 +20,7 @@
 
   @include desktop {
     font-size: 28px;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
   }
 }
 
@@ -32,7 +32,7 @@
   @include desktop {
     font-size: 18px;
     text-align: center;
-    
+
   }
 }
 

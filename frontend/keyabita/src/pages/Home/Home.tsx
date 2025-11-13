@@ -5,6 +5,7 @@ import {
   House,
   MapPin,
   Check,
+  ShieldCheck,
 } from "lucide-react";
 import Hero from "../../components/Hero/Hero";
 import FeatureSection from "../../components/FeatureSection/FeatureSection";
@@ -17,6 +18,7 @@ import TestimonialsSection from "../../components/TestimonialSection/Testimonial
 import Footer from "../../components/Footer/Footer";
 import useIsDesktop from "../../hooks/useIsDesktop";
 import AnalysisListDesktop from "../../components/FeatureSection/AnalysisListDesktop/AnalysisListDesktop";
+import StatsBlockDesktop from "../../components/FeatureSection/StatsBlockDesktop/StatsBlockDesktop";
 
 export default function Home() {
   const isDesktop = useIsDesktop();
@@ -40,9 +42,9 @@ export default function Home() {
           {isDesktop ? (
             <AnalysisListDesktop
               items={[
-                { icon: <Check />, text: "Ricerca di mercato completa" },
-                { icon: <Check />, text: "Dati immobiliari in tempo reale" },
-                { icon: <Check />, text: "Certificazione professionale" },
+                { icon: <Check />, title: "Ricerca di mercato completa" },
+                { icon: <Check />, title: "Dati immobiliari in tempo reale" },
+                { icon: <Check />, title: "Certificazione professionale" },
               ]}
             />
           ) : (
@@ -72,24 +74,53 @@ export default function Home() {
           image="/img/valutazione-immobile-online-smartphone"
           reverse={false}
         >
-          <ProgressCard
-            label="Tempo di elaborazione"
-            value="< 72 ore"
-            progress={80} // width
-            color="#a5dbff" // color
-          />
+          {isDesktop ? (
+            <StatsBlockDesktop
+              items={[
+                {
+                  icon: <Clock3 />,
+                  title: "72 ore",
+                  label: "Risultati rapidi",
+                },
+                { icon: <ShieldCheck />, title: "100%", label: "Garantito" },
+              ]}
+            />
+          ) : (
+            <ProgressCard
+              label="Tempo di elaborazione"
+              value="< 72 ore"
+              progress={80} // width
+              color="#a5dbff" // color
+            />
+          )}
         </FeatureSection>
+
+        {/* Third Feature Section */}
 
         <FeatureSection
           icon={<ClipboardList color="#3b0000" />}
           iconBgColor="#fec841"
           title="Rapporti dettagliati"
-          text="Report di valutazione completi che includono vendite comparabili, analisi del quartiere e tendenze di mercato
-per aiutarti a prendere decisioni informate."
+          text={
+            isDesktop
+              ? "Ricevi rapporti di valutazione completi con confronti di mercato, analisi del quartiere e proiezioni di valore futuro."
+              : "Report di valutazione completi che includono vendite comparabili, analisi del quartiere e tendenze di mercato per aiutarti a prendere decisioni informate."
+          }
           bcgColor="white"
           image="/img/rapporti-dettagliati-valutazione-immobiliare"
           reverse={true}
         >
+
+          { isDesktop ? (
+            <AnalysisListDesktop
+            items={[
+              {icon: <TrendingUp />, title: "Tendenze di mercato", text: "Analisi attuale e prevista del mercato"},
+              {icon: <House/>, title: "Dettagli della proprietà", text: "Valutazione completa della proprietà"}
+
+            ]}
+          />
+        ) : (
+
           <AnalysisList
             items={[
               {
@@ -106,6 +137,9 @@ per aiutarti a prendere decisioni informate."
               },
             ]}
           />
+        )
+
+          }
         </FeatureSection>
         <AgentsSection />
         <TestimonialsSection />

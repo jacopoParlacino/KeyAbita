@@ -10,6 +10,10 @@
   flex-direction: row;
   gap: 24px;
   text-align: center;
+
+  @include desktop {
+    display: none;
+  }
 }
 
 .statItem {
@@ -34,7 +38,7 @@
   font-size: 14px;
   color: $text-secondary;
   margin-top: 4px;
-  
+
 }
 @keyframes fadeIn {
   from {

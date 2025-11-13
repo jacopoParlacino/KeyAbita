@@ -23,7 +23,7 @@ export default function Hero() {
         Valuta ora <ArrowRight size={20}></ArrowRight>
       </button>
       </div>
-      <picture>
+      <picture className={styles.hero__picture}>
         <source
           srcSet="/img/valutazione-gratuita-immobile-keyabita.avif"
           type="image/avif"
@@ -39,7 +39,7 @@ export default function Hero() {
           loading="lazy"
         />
       </picture>
-      
+
     </section>
   );
 }

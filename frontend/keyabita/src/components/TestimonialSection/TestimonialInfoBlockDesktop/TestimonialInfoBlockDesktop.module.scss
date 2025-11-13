@@ -11,6 +11,11 @@
   align-items: center;
   text-align: center;
   gap: 48px;
+  margin-top: 20px;
+
+  @include desktop {
+    margin-top: 20px;
+  }
 }
 
 .infoItem {

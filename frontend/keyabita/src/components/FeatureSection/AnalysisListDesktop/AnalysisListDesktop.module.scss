@@ -1,21 +1,29 @@
 @use "../../../styles/variables.scss" as *;
 @use "../../../styles/mixins" as *;
 
-.list {
+.analysislist__desktop {
     display: flex;
     flex-direction: column;
     margin-left: 0;
+    gap: 20px
 
 
 
   }
 
-  .item {
+
+  .analysislistD__content {
+    display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  }
+  .analysislistD__item {
     background-color: white;
 
 
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 12px;
 
     opacity: 0;
@@ -28,7 +36,7 @@
     transform: translateY(0);
   }
 
-  .icon {
+  .analysislistD__icon {
     width: 36px;
     height: 36px;
     border-radius: 10px;
@@ -44,8 +52,14 @@
     }
   }
 
-  .text {
-    font-size: 16px;
+  .analysislistD__title {
+    font-size: 18px;
     font-weight: 500;
     color: $primary-color;
+  }
+
+  .analysislistD__text {
+    font-size: 14px;
+    font-weight: 300;
+    color: $text-secondary;
   }

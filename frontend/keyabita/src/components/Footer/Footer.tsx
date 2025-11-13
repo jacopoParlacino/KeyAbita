@@ -6,12 +6,12 @@ import FooterSocial from "./FooterSocial/FooterSocial";
 
 const Footer = () => {
   return (
-    <footer className={styles.footer} >
+    <footer id="contatti" className={styles.footer} >
         <div className={styles.footer__content}>
       <div className={styles.footer__logo}>
       <div className={styles.logoWrapper}>
         <img src="/KeyAbita_Logo.png" alt="KeyAbita" />
-        
+
   </div>
         <p>Il tuo partner di fiducia per la valutazione immobiliare</p>
       </div>
