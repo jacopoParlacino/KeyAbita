@@ -23,7 +23,7 @@ export default function InputField({ label, value, onChange, placeholder }: Inpu
                         onChange={onChange}
                         placeholder={placeholder}
                         className={styles.input}
-                        required />
+                        />
                 </div>
 
             </div>

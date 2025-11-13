@@ -11,6 +11,7 @@ import StepperNavigation from "./StepperNavigation/StepperNavigation";
 import ImmobileCondition from "./ImmobileCondition/ImmobileCondition";
 import Counter from "./Counter/Counter";
 import InputField from "./InputField/InputField";
+import MetricRangeSelector, { type SelectOption } from "./MetricRangeSelector/MetricRangeSelector";
 
 const totalStep: number = 4;
 
@@ -18,7 +19,7 @@ interface FormData {
   propertyType: string | null;
   address: string;
   condition: string;
-  metratura: number;
+  metratura: string;
   stanze: number;
   piano: number;
   bagni: number;
@@ -43,7 +44,7 @@ export default function MultiStepForm() {
     propertyType: null,
     address: "",
     condition: "",
-    metratura: 0,
+    metratura: "",
     stanze: 0,
     piano: 0,
     bagni: 0,
@@ -119,6 +120,17 @@ export default function MultiStepForm() {
     console.log("Form submitted with data:", JSON.stringify(formData, null, 2));
   };
 
+  const metratureOptions: SelectOption[] = [
+    { value: '', label: 'Seleziona...' },
+    { value: '0-50', label: '0-50 m²' },
+    { value: '51-100', label: '51-100 m²' },
+    { value: '101-150', label: '101-150 m²' },
+    { value: '150+', label: 'Oltre 150 m²' },
+  ];
+
+  const handleMetraturaChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setFormData((prev) => ({ ...prev, metratura: e.target.value }));
+  };
 
 
   const isNextDisabled = () => {
@@ -126,6 +138,18 @@ export default function MultiStepForm() {
       return true;
     }
     if (currentStep === 1 && !formData.address) {
+      return true;
+    }
+    if (currentStep === 2 && !formData.condition) {
+      return true;
+    }
+    if (currentStep === 4 && !formData.nome) {
+      return true;
+    }
+    if (currentStep === 4 && !formData.cognome) {
+      return true;
+    }
+    if (currentStep === 4 && !formData.numeroDiTelefono) {
       return true;
     }
     return false;
@@ -199,6 +223,13 @@ export default function MultiStepForm() {
               onDecrement={() => handleCounterChange('bagni', 'decrement')}
             />
 
+            <MetricRangeSelector
+              label="Metratura"
+              options={metratureOptions}
+              value={formData.metratura}
+              onChange={handleMetraturaChange}
+            />
+
           </>
         );
 
@@ -265,16 +296,16 @@ export default function MultiStepForm() {
             />
 
             <InputField
-              label="Email"
-              value={formData.email}
-              onChange={handleEmailChange}
+              label="Numero di telefono "
+              value={formData.numeroDiTelefono}
+              onChange={handleTelephoneNumberChange}
               placeholder="Inserisci indirizzo"
             />
 
             <InputField
-              label="Numero di telefono (opzionale)"
-              value={formData.numeroDiTelefono}
-              onChange={handleTelephoneNumberChange}
+              label="Email (opzionale)"
+              value={formData.email}
+              onChange={handleEmailChange}
               placeholder="Inserisci indirizzo"
             />
           </>
