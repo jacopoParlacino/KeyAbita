@@ -1,8 +1,12 @@
 import styles from "./TestimonialSection.module.scss";
 import TestimonialCard from "./TestimonialCard/TestimonialCard";
 import TestimonialInfoBlock from "./TestimonialInfoBlock/TestimonialInfoBlock";
+import useIsDesktop from "../../hooks/useIsDesktop";
+import TestimonialInfoBlockDesktop from "./TestimonialInfoBlockDesktop/TestimonialInfoBlockDesktop";
 
 const TestimonialsSection = () => {
+
+  const isDesktop = useIsDesktop();
   const testimonials = [
     {
       name: "Andrea Foglieri",
@@ -45,13 +49,30 @@ const TestimonialsSection = () => {
         ))}
       </div>
 
-      <TestimonialInfoBlock
-      items={[
-        { value: "4.9", label: "Valutazione media" },
-        { value: "12K+", label: "Clienti felici" },
-        { value: "99%", label: "Tasso di soddisfazione" },
-      ]}
-      ></TestimonialInfoBlock>
+      {isDesktop ? (
+        <TestimonialInfoBlockDesktop
+        items={[
+          {value: "6.000+", label: "Immobili valutati"},
+          {value: "98%", label: "Soddisfazione dei clienti"},
+          {value: "72 ore", label: "Tempo medio di consegna"},
+          {value: "10+", label: "Anni di esperienza "},
+
+        ]}
+
+        />
+      ) : (
+
+        <TestimonialInfoBlock
+        items={[
+          { value: "4.9", label: "Valutazione media" },
+          { value: "12K+", label: "Clienti felici" },
+          { value: "99%", label: "Tasso di soddisfazione" },
+        ]}
+        />
+      )
+
+      }
+
     </section>
   );
 };
