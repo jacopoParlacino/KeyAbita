@@ -8,6 +8,7 @@ const AgentsSection = () => {
       role: "Senior Analista",
       stars: 5,
       experience: "12 anni di esperienza",
+      extraInfo: "12 anni di esperienza nella valutazione di proprietà residenziali",
 
       imgAvif: "/img/agente-immobiliare-anna-verdi.avif",
     imgWebp: "/img/agente-immobiliare-anna-verdi.webp",
@@ -19,6 +20,7 @@ const AgentsSection = () => {
       role: "Portfolio Manager",
       stars: 5,
       experience: "10 anni di esperienza",
+      extraInfo: "14 anni di esperienza nella ricerca e nella valutazione dei immobiliari",
       imgAvif: "/img/agente-immobiliare-luca-bonaventura.avif",
       imgWebp: "/img/agente-immobiliare-luca-bonaventura.webp",
       imgJpg: "/img/agente-immobiliare-luca-bonaventura.jpg"
@@ -28,6 +30,7 @@ const AgentsSection = () => {
       role: "Analista del mercato",
       stars: 5,
       experience: "10 anni di esperienza",
+      extraInfo: "10 anni di esperienza nell’analisi delle tendenze di mercato",
       imgAvif: "/img/agente-immobiliare-vittoria-montadori.avif",
       imgWebp: "/img/agente-immobiliare-vittoria-montadori.webp",
       imgJpg: "/img/agente-immobiliare-vittoria-montadori.jpg"
