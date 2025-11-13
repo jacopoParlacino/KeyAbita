@@ -11,9 +11,14 @@
   @include desktop {
     flex-direction: row;
     justify-content: space-between;
+    align-items: flex-start;
     padding: 120px;
+    gap: 60px;
+    width: 100%;
   }
 }
+
+
 
 .reverse {
   @include desktop {
@@ -27,6 +32,11 @@
   max-width: 500px;
   text-align: center;
   align-items: center;
+
+  @include desktop {
+    text-align: left;
+    align-items: flex-start;
+  }
 }
 
 .icon__wrapper {
@@ -62,13 +72,19 @@
   color: $text-secondary;
 }
 
+.featuresection__children {
+  margin-top: 24px;
+  width: 100%;
+}
+
 .featuresection__picture {
   display: none;
 
   @include desktop {
     display: block;
-    width: 100%;
-    max-width: 500px;
+    width: 460px;
+    max-width: 460px;
+    flex-shrink: 0;
   }
 }
 

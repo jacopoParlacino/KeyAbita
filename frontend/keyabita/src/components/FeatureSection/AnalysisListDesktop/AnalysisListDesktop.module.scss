@@ -1,0 +1,51 @@
+@use "../../../styles/variables.scss" as *;
+@use "../../../styles/mixins" as *;
+
+.list {
+    display: flex;
+    flex-direction: column;
+    margin-left: 0;
+
+
+
+  }
+
+  .item {
+    background-color: white;
+
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    svg {
+      width: 22px;
+      height: 22px;
+      color: $primary-color;
+    }
+  }
+
+  .text {
+    font-size: 16px;
+    font-weight: 500;
+    color: $primary-color;
+  }

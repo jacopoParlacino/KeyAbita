@@ -32,18 +32,18 @@ export default function FeatureSection({
         </div>
         <h2 className={styles.featuresection__title}>{title}</h2>
         <p className={styles.featuresection__text}>{text}</p>
+        {children && <div className={styles.featuresection__children}>{children}</div>}
       </div>
       <picture className={styles.featuresection__picture}>
         <source srcSet={image + ".avif"} type="image/avif" />
         <source srcSet={image + ".webp"} type="image/webp" />
-
         <img
-          src={image}
+          src={image + ".jpg"}
           alt={title}
           className={styles.featuresection__image}
           loading="lazy"
         />
-      </picture>{children}
+      </picture>
     </section>
   );
 }
