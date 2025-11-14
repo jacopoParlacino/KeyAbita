@@ -8,7 +8,7 @@ interface StepperNavigationProps {
     onBack: () => void;
     isNextDisabled?: boolean;
     isLastStep?: boolean;
-    type?: 'button' | 'submit';
+    type?: 'button' ;
     disabled?: boolean;
 }
 
@@ -36,7 +36,7 @@ export default function StepperNavigation({
                     label="Avanti"
                     onClick={onNext}
                     disabled={isNextDisabled}
-                    type={isLastStep ? "submit" : "button"}
+                    type={"button"}
                 />
 
             </div>

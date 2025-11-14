@@ -1,5 +1,4 @@
 import { useState } from "react";
-import type { FormEvent } from "react";
 import styles from "./MultiStepForm.module.scss";
 import HeaderForm from "./HeaderForm/HeaderForm";
 import { useNavigate } from "react-router-dom";
@@ -136,8 +135,7 @@ export default function MultiStepForm() {
     });
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleFormSubmit = () => {
     console.log("Form submitted with data:", JSON.stringify(formData, null, 2));
   };
 
@@ -367,7 +365,7 @@ export default function MultiStepForm() {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className={styles.form__container}>
+      <form onSubmit={(e) => e.preventDefault()} className={styles.form__container}>
         <div className={styles.header__container}>
           <HeaderForm title="Valuta il tuo immobile" onBack={() => navigate('/')} currentStep={currentStep} totalSteps={totalStep} />
         </div>
@@ -388,12 +386,19 @@ export default function MultiStepForm() {
               }}
               onNext={() => {
                 const isStepValid = validateStep();
+
                 if (isStepValid) {
-                  nextStep();
+                  if (currentStep === totalStep - 1) {
+                    handleFormSubmit();
+                    nextStep();
+
+                  } else {
+                    nextStep();
+                  }
                 }
               }}
               isNextDisabled={false}
-              isLastStep={currentStep === totalStep - 1} 
+              isLastStep={currentStep === totalStep - 1}
             />
           </div>
         )}
