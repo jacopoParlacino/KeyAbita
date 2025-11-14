@@ -25,7 +25,7 @@ export default function StepperNavigation({
             <div className={styles.stepper__navigation}>
 
                 <Button
-                    label="Indietro"
+                    label={isLastStep ? "Home" : "Indietro"}
                     onClick={onBack}
                     variant="secondary"
                     type="button"
@@ -33,7 +33,7 @@ export default function StepperNavigation({
                 />
 
                 <Button
-                    label={isLastStep ? "Invia Richiesta" : "Avanti"}
+                    label="Avanti"
                     onClick={onNext}
                     disabled={isNextDisabled}
                     type={isLastStep ? "submit" : "button"}

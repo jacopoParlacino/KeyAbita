@@ -13,7 +13,7 @@ import Counter from "./Counter/Counter";
 import InputField from "./InputField/InputField";
 import MetricRangeSelector, { type SelectOption } from "./MetricRangeSelector/MetricRangeSelector";
 
-const totalStep: number = 4;
+const totalStep: number = 5;
 
 interface FormData {
   propertyType: string | null;
@@ -60,6 +60,8 @@ export default function MultiStepForm() {
     numeroDiTelefono: "",
   });
 
+  const [errors, setErrors] = useState<any>({});
+
   const nextStep = () => {
     if (currentStep < totalStep) {
       setCurrentStep((prev) => prev + 1)
@@ -74,30 +76,48 @@ export default function MultiStepForm() {
 
   const handlePropertySelect = (type: string) => {
     setFormData((prev) => ({ ...prev, propertyType: type }))
-
+    if (errors.propertyType) {
+      setErrors((prev: any) => ({ ...prev, propertyType: undefined }));
+    }
   }
   const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, address: e.target.value }));
+    if (errors.address) {
+      setErrors((prev: any) => ({ ...prev, address: undefined }));
+    }
   };
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, nome: e.target.value }));
+    if (errors.nome) {
+      setErrors((prev: any) => ({ ...prev, nome: undefined }));
+    }
   };
   const handleSurnameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, cognome: e.target.value }));
+    if (errors.cognome) {
+      setErrors((prev: any) => ({ ...prev, cognome: undefined }));
+    }
   };
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, email: e.target.value }));
+    if (errors.email) {
+      setErrors((prev: any) => ({ ...prev, email: undefined }));
+    }
   };
   const handleTelephoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, numeroDiTelefono: e.target.value }));
+    if (errors.numeroDiTelefono) {
+      setErrors((prev: any) => ({ ...prev, numeroDiTelefono: undefined }));
+    }
   };
-
   const handleConditionSelected = (type: string) => {
     setFormData((prev) => ({ ...prev, condition: type }))
+    if (errors.condition) {
+      setErrors((prev: any) => ({ ...prev, condition: undefined }));
+    }
   }
 
   type CounterField = 'stanze' | 'piano' | 'bagni' | 'ascensore' | 'parcheggio' | 'garage' | 'giardino' | 'terrazze' | 'balconi';
-
   const handleCounterChange = (
     field: CounterField,
     type: 'increment' | 'decrement'
@@ -107,7 +127,6 @@ export default function MultiStepForm() {
       if (type === 'increment') {
         return { ...prev, [field]: currentValue + 1 };
       }
-
       if (type === 'decrement' && currentValue > 0) {
         return { ...prev, [field]: currentValue - 1 };
       }
@@ -130,29 +149,52 @@ export default function MultiStepForm() {
 
   const handleMetraturaChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFormData((prev) => ({ ...prev, metratura: e.target.value }));
+    if (errors.metratura) {
+      setErrors((prev: any) => ({ ...prev, metratura: undefined }));
+    }
   };
 
+  const validateStep = (): boolean => {
+    const newErrors: any = {};
 
-  const isNextDisabled = () => {
-    if (currentStep === 1 && !formData.propertyType) {
-      return true;
+    if (currentStep === 1) {
+      if (!formData.propertyType) {
+        newErrors.propertyType = "Devi selezionare una tipologia";
+      }
+      if (!formData.address) {
+        newErrors.address = "Devi inserire un indirizzo";
+      }
     }
-    if (currentStep === 1 && !formData.address) {
-      return true;
+
+    if (currentStep === 2) {
+      if (!formData.condition) {
+        newErrors.condition = "Devi selezionare una condizione";
+      }
+      if (!formData.metratura) {
+        newErrors.metratura = "Devi selezionare la metratura";
+      }
+      if (formData.stanze === 0) {
+        newErrors.stanze = "Devi indicare almeno 1 stanza";
+      }
     }
-    if (currentStep === 2 && !formData.condition) {
-      return true;
+
+    if (currentStep === 4) {
+      if (!formData.nome) {
+        newErrors.nome = "Il campo Nome è obbligatorio";
+      }
+      if (!formData.cognome) {
+        newErrors.cognome = "Il campo Cognome è obbligatorio";
+      }
+      if (!formData.numeroDiTelefono) {
+        newErrors.numeroDiTelefono = "Il campo Telefono è obbligatorio";
+      }
+      if (!formData.email) {
+        newErrors.email = "Il campo Email è obbligatorio";
+      }
     }
-    if (currentStep === 4 && !formData.nome) {
-      return true;
-    }
-    if (currentStep === 4 && !formData.cognome) {
-      return true;
-    }
-    if (currentStep === 4 && !formData.numeroDiTelefono) {
-      return true;
-    }
-    return false;
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const renderStepContent = () => {
@@ -175,6 +217,7 @@ export default function MultiStepForm() {
                 isSelected={formData.propertyType === "appartamento"}
               />
             </div>
+            {errors.propertyType && <p className={styles.errorMessage}>{errors.propertyType}</p>}
 
             <h2 className={styles.h2}>Indirizzo</h2>
             <AddressSearch
@@ -182,6 +225,7 @@ export default function MultiStepForm() {
               onChange={handleAddressChange}
               placeholder="Inserisci indirizzo"
             />
+            {errors.address && <p className={styles.errorMessage}>{errors.address}</p>}
           </>
         );
       case 2:
@@ -193,35 +237,17 @@ export default function MultiStepForm() {
               onClick={() => handleConditionSelected("Ottimo")}
               isSelected={formData.condition === "Ottimo"}
               icon={Check} />
-
             <ImmobileCondition
               label="Abitabile"
               onClick={() => handleConditionSelected("Abitabile")}
               isSelected={formData.condition === "Abitabile"}
               icon={Check} />
-
             <ImmobileCondition
               label="Da ristrutturare"
               onClick={() => handleConditionSelected("Da ristrutturare")}
               isSelected={formData.condition === "Da ristrutturare"}
               icon={Check} />
-
-            <Counter label="Stanze"
-              value={formData.stanze}
-              onIncrement={() => handleCounterChange('stanze', 'increment')}
-              onDecrement={() => handleCounterChange('stanze', 'decrement')}
-            />
-
-            <Counter label="Piano"
-              value={formData.piano}
-              onIncrement={() => handleCounterChange('piano', 'increment')}
-              onDecrement={() => handleCounterChange('piano', 'decrement')} />
-
-            <Counter label="Bagni"
-              value={formData.bagni}
-              onIncrement={() => handleCounterChange('bagni', 'increment')}
-              onDecrement={() => handleCounterChange('bagni', 'decrement')}
-            />
+            {errors.condition && <p className={styles.errorMessage}>{errors.condition}</p>}
 
             <MetricRangeSelector
               label="Metratura"
@@ -229,87 +255,103 @@ export default function MultiStepForm() {
               value={formData.metratura}
               onChange={handleMetraturaChange}
             />
+            {errors.metratura && <p className={styles.errorMessage}>{errors.metratura}</p>}
 
+            <Counter label="Stanze"
+              value={formData.stanze}
+              onIncrement={() => handleCounterChange('stanze', 'increment')}
+              onDecrement={() => handleCounterChange('stanze', 'decrement')}
+            />
+            {errors.stanze && <p className={styles.errorMessage}>{errors.stanze}</p>}
+
+            <Counter label="Piano"
+              value={formData.piano}
+              onIncrement={() => handleCounterChange('piano', 'increment')}
+              onDecrement={() => handleCounterChange('piano', 'decrement')} />
+            <Counter label="Bagni"
+              value={formData.bagni}
+              onIncrement={() => handleCounterChange('bagni', 'increment')}
+              onDecrement={() => handleCounterChange('bagni', 'decrement')}
+            />
           </>
         );
-
       case 3:
         return (
           <>
-
             <h2 className={styles.h2}>Caratteristiche dell' immobile</h2>
 
-            <Counter label="Ascensore"
-              value={formData.ascensore}
-              onIncrement={() => handleCounterChange('ascensore', 'increment')}
-              onDecrement={() => handleCounterChange('ascensore', 'decrement')}
-            />
-
-            <Counter label="Parcheggio"
-              value={formData.parcheggio}
-              onIncrement={() => handleCounterChange('parcheggio', 'increment')}
-              onDecrement={() => handleCounterChange('parcheggio', 'decrement')}
-            />
-
-            <Counter label="Garage"
-              value={formData.garage}
-              onIncrement={() => handleCounterChange('garage', 'increment')}
-              onDecrement={() => handleCounterChange('garage', 'decrement')}
-            />
-
-            <Counter label="Giardino"
-              value={formData.giardino}
-              onIncrement={() => handleCounterChange('giardino', 'increment')}
-              onDecrement={() => handleCounterChange('giardino', 'decrement')}
-            />
-
-            <Counter label="Terrazze"
-              value={formData.terrazze}
-              onIncrement={() => handleCounterChange('terrazze', 'increment')}
-              onDecrement={() => handleCounterChange('terrazze', 'decrement')}
-            />
-
-            <Counter label="Balconi"
-              value={formData.balconi}
-              onIncrement={() => handleCounterChange('balconi', 'increment')}
-              onDecrement={() => handleCounterChange('balconi', 'decrement')}
-            />
+            <Counter 
+            label="Ascensore" 
+            value={formData.ascensore} 
+            onIncrement={() => handleCounterChange('ascensore', 'increment')} onDecrement={() => handleCounterChange('ascensore', 'decrement')} />
+            <Counter 
+            label="Parcheggio" 
+            value={formData.parcheggio} 
+            onIncrement={() => handleCounterChange('parcheggio', 'increment')} onDecrement={() => handleCounterChange('parcheggio', 'decrement')} />
+            <Counter 
+            label="Garage" 
+            value={formData.garage} 
+            onIncrement={() => handleCounterChange('garage', 'increment')} onDecrement={() => handleCounterChange('garage', 'decrement')} />
+            <Counter 
+            label="Giardino" 
+            value={formData.giardino} 
+            onIncrement={() => handleCounterChange('giardino', 'increment')} onDecrement={() => handleCounterChange('giardino', 'decrement')} />
+            <Counter 
+            label="Terrazze" 
+            value={formData.terrazze} 
+            onIncrement={() => handleCounterChange('terrazze', 'increment')} onDecrement={() => handleCounterChange('terrazze', 'decrement')} />
+            <Counter 
+            label="Balconi" 
+            value={formData.balconi} 
+            onIncrement={() => handleCounterChange('balconi', 'increment')} onDecrement={() => handleCounterChange('balconi', 'decrement')} />
           </>
         );
-
       case 4:
         return (
           <>
-
             <InputField
               label="Nome"
               value={formData.nome}
               onChange={handleNameChange}
-              placeholder="Inserisci indirizzo"
+              placeholder="Inserisci il tuo nome"
             />
+            {errors.nome && <p className={styles.errorMessage}>{errors.nome}</p>}
 
             <InputField
               label="Cognome"
               value={formData.cognome}
               onChange={handleSurnameChange}
-              placeholder="Inserisci indirizzo"
+              placeholder="Inserisci il tuo cognome"
             />
+            {errors.cognome && <p className={styles.errorMessage}>{errors.cognome}</p>}
 
             <InputField
               label="Numero di telefono "
               value={formData.numeroDiTelefono}
               onChange={handleTelephoneNumberChange}
-              placeholder="Inserisci indirizzo"
+              placeholder="Inserisci il tuo numero"
             />
+            {errors.numeroDiTelefono && <p className={styles.errorMessage}>{errors.numeroDiTelefono}</p>}
 
             <InputField
-              label="Email (opzionale)"
+              label="Email"
               value={formData.email}
               onChange={handleEmailChange}
-              placeholder="Inserisci indirizzo"
+              placeholder="Inserisci la tua email"
             />
+            {errors.email && <p className={styles.errorMessage}>{errors.email}</p>}
           </>
         );
+      case 5:
+        return (
+          <>
+            <div className={styles.confirmation__container}>
+              <h2 className={styles.h2}>Grazie per la tua richiesta!</h2>
+              <p className={styles.text__confermation}>Il tuo report di valutazione immobiliare verrà analizzato dai nostri esperti certificati e inviato all’indirizzo email da te indicato entro 72 ore.</p>
+              <p className={styles.text__confermation}>Ti contatteremo qualora fossero necessari ulteriori dettagli.</p>
+            </div>
+          </>
+        )
     }
   };
 
@@ -327,20 +369,29 @@ export default function MultiStepForm() {
             onBack={() => {
               if (currentStep === 1) {
                 navigate("/");
+              } if (currentStep === totalStep) {
+                navigate("/");
               } else {
                 prevStep();
               }
             }}
 
             onNext={() => {
-              if (currentStep === 4) {
-                navigate("/form-success")
-              } else {
-                nextStep();
+
+              const isStepValid = validateStep();
+
+              if (isStepValid) {
+                if (currentStep === 5) { 
+                  navigate("/"); 
+                } else {
+                  nextStep(); 
+                }
               }
+
             }}
 
-            isNextDisabled={isNextDisabled()}
+
+            isNextDisabled={false} 
             isLastStep={currentStep === totalStep}
           />
         </div>

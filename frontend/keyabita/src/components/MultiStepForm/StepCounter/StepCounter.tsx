@@ -8,6 +8,6 @@ interface StepCounterProps {
 export default function({step} : StepCounterProps){
 
     return(
-        <p className={styles.step__counter}>Passaggio {step} di 4</p>
+        <p className={styles.step__counter}>Passaggio {step} di 5</p>
     )
 }

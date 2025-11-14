@@ -61,3 +61,25 @@
 .stepper__navigation {
     margin-top: auto;
 }
+
+.confirmation__container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.text__confermation {
+    color: $primary-color;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.errorMessage {
+  color: $cta-color;
+  font-size: 0.9rem;
+  margin-top: 5px; 
+  margin-bottom: 10px; 
+  width: 100%; 
+  text-align: left; 
+}
