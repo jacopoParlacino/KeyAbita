@@ -14,6 +14,8 @@ import InputField from "./InputField/InputField";
 import MetricRangeSelector, { type SelectOption } from "./MetricRangeSelector/MetricRangeSelector";
 
 const totalStep: number = 5;
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+const phoneRegex = /^\+?[0-9]{9,15}$/;
 
 interface FormData {
   propertyType: string | null;
@@ -181,15 +183,23 @@ export default function MultiStepForm() {
     if (currentStep === 4) {
       if (!formData.nome) {
         newErrors.nome = "Il campo Nome è obbligatorio";
+      } else if (formData.nome.length < 2) {
+        newErrors.nome = "Il nome è troppo corto";
       }
       if (!formData.cognome) {
         newErrors.cognome = "Il campo Cognome è obbligatorio";
+      } else if (formData.cognome.length < 2) {
+        newErrors.cognome = "Il cognome è troppo corto";
       }
       if (!formData.numeroDiTelefono) {
         newErrors.numeroDiTelefono = "Il campo Telefono è obbligatorio";
+      } else if (!phoneRegex.test(formData.numeroDiTelefono)) {
+        newErrors.numeroDiTelefono = "Numero di telefono non valido";
       }
       if (!formData.email) {
         newErrors.email = "Il campo Email è obbligatorio";
+      } else if (!emailRegex.test(formData.email)) {
+        newErrors.email = "Indirizzo email non valido";
       }
     }
 
