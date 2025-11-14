@@ -290,30 +290,30 @@ export default function MultiStepForm() {
           <>
             <h2 className={styles.h2}>Caratteristiche dell' immobile</h2>
 
-            <Counter 
-            label="Ascensore" 
-            value={formData.ascensore} 
-            onIncrement={() => handleCounterChange('ascensore', 'increment')} onDecrement={() => handleCounterChange('ascensore', 'decrement')} />
-            <Counter 
-            label="Parcheggio" 
-            value={formData.parcheggio} 
-            onIncrement={() => handleCounterChange('parcheggio', 'increment')} onDecrement={() => handleCounterChange('parcheggio', 'decrement')} />
-            <Counter 
-            label="Garage" 
-            value={formData.garage} 
-            onIncrement={() => handleCounterChange('garage', 'increment')} onDecrement={() => handleCounterChange('garage', 'decrement')} />
-            <Counter 
-            label="Giardino" 
-            value={formData.giardino} 
-            onIncrement={() => handleCounterChange('giardino', 'increment')} onDecrement={() => handleCounterChange('giardino', 'decrement')} />
-            <Counter 
-            label="Terrazze" 
-            value={formData.terrazze} 
-            onIncrement={() => handleCounterChange('terrazze', 'increment')} onDecrement={() => handleCounterChange('terrazze', 'decrement')} />
-            <Counter 
-            label="Balconi" 
-            value={formData.balconi} 
-            onIncrement={() => handleCounterChange('balconi', 'increment')} onDecrement={() => handleCounterChange('balconi', 'decrement')} />
+            <Counter
+              label="Ascensore"
+              value={formData.ascensore}
+              onIncrement={() => handleCounterChange('ascensore', 'increment')} onDecrement={() => handleCounterChange('ascensore', 'decrement')} />
+            <Counter
+              label="Parcheggio"
+              value={formData.parcheggio}
+              onIncrement={() => handleCounterChange('parcheggio', 'increment')} onDecrement={() => handleCounterChange('parcheggio', 'decrement')} />
+            <Counter
+              label="Garage"
+              value={formData.garage}
+              onIncrement={() => handleCounterChange('garage', 'increment')} onDecrement={() => handleCounterChange('garage', 'decrement')} />
+            <Counter
+              label="Giardino"
+              value={formData.giardino}
+              onIncrement={() => handleCounterChange('giardino', 'increment')} onDecrement={() => handleCounterChange('giardino', 'decrement')} />
+            <Counter
+              label="Terrazze"
+              value={formData.terrazze}
+              onIncrement={() => handleCounterChange('terrazze', 'increment')} onDecrement={() => handleCounterChange('terrazze', 'decrement')} />
+            <Counter
+              label="Balconi"
+              value={formData.balconi}
+              onIncrement={() => handleCounterChange('balconi', 'increment')} onDecrement={() => handleCounterChange('balconi', 'decrement')} />
           </>
         );
       case 4:
@@ -371,40 +371,32 @@ export default function MultiStepForm() {
         <div className={styles.header__container}>
           <HeaderForm title="Valuta il tuo immobile" onBack={() => navigate('/')} currentStep={currentStep} totalSteps={totalStep} />
         </div>
+
         <div className={styles.step__content__container}>
           {renderStepContent()}
         </div>
-        <div className={styles.stepper__navigation}>
-          <StepperNavigation
-            onBack={() => {
-              if (currentStep === 1) {
-                navigate("/");
-              } if (currentStep === totalStep) {
-                navigate("/");
-              } else {
-                prevStep();
-              }
-            }}
 
-            onNext={() => {
-
-              const isStepValid = validateStep();
-
-              if (isStepValid) {
-                if (currentStep === 5) { 
-                  navigate("/"); 
+        {currentStep !== totalStep && (
+          <div className={styles.stepper__navigation}>
+            <StepperNavigation
+              onBack={() => {
+                if (currentStep === 1) {
+                  navigate("/");
                 } else {
-                  nextStep(); 
+                  prevStep();
                 }
-              }
-
-            }}
-
-
-            isNextDisabled={false} 
-            isLastStep={currentStep === totalStep}
-          />
-        </div>
+              }}
+              onNext={() => {
+                const isStepValid = validateStep();
+                if (isStepValid) {
+                  nextStep();
+                }
+              }}
+              isNextDisabled={false}
+              isLastStep={currentStep === totalStep - 1} 
+            />
+          </div>
+        )}
 
       </form>
 
