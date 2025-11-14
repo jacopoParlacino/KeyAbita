@@ -5,11 +5,12 @@ INSERT INTO ruoli (id, nome) VALUES
 (3, 'AGENT');
 
 -- Inserimento dati nelle tabelle utenti
+-- Password per tutti gli utenti: "password123" (hashata con BCrypt)
 INSERT INTO utenti (id, nome, cognome, email, ruolo, telefono, data_creazione, password) VALUES
-(1, 'Mario', 'Rossi', 'mario.rossi@immobiliaris.it', 2, '+39 348 1234567', '2025-10-23', 'hash_mario'),
-(2, 'Laura', 'Bianchi', 'laura.bianchi@immobiliaris.it', 2, '+39 349 2345678', '2025-10-23', 'hash_laura'),
-(3, 'Paolo', 'Ghirlinzoni', 'paolo.ghirlinzoni@immobiliaris.it', 1, '+39 340 3456789', '2025-10-23', 'hash_paolo'),
-(4, 'Giulia', 'Verdi', 'giulia.verdi@immobiliaris.it', 3, '+39 347 4567890', '2025-10-23', 'hash_giulia');
+(1, 'Mario', 'Rossi', 'mario.rossi@immobiliaris.it', 2, '+39 348 1234567', '2025-10-23', '$2a$10$WSgiHIFdUGmZO/BtTN3EtOYiJwgKr6XdSp1To6UmisH0uu.6MpcFS'),
+(2, 'Laura', 'Bianchi', 'laura.bianchi@immobiliaris.it', 2, '+39 349 2345678', '2025-10-23', '$2a$10$MLsBGdxMtdf0R7Hihbeyq.lscTTA9AkTu9GpotmKhTHwC4KjdcyHu'),
+(3, 'Paolo', 'Ghirlinzoni', 'paolo.ghirlinzoni@immobiliaris.it', 1, '+39 340 3456789', '2025-10-23', '$2a$10$dQUFGiSorzNjfgLWVgMQleOpZNscwdwlKF2plj8YCTq5FpXVAiz7W'),
+(4, 'Giulia', 'Verdi', 'giulia.verdi@immobiliaris.it', 3, '+39 347 4567890', '2025-10-23', '$2a$10$vq5u0z9GTyHYY.pYPNIHauHKlIi3j0s1XIdp/MYuXUSEubG6aFx7O');
 
 -- Inserimento dati nelle tabelle citta
 INSERT INTO citta (id, nome, descrizione) VALUES
