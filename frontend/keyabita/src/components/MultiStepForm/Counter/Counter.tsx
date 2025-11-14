@@ -14,7 +14,7 @@ export default function Counter({ label, onIncrement, onDecrement, value }: Coun
     return (
         <>
             <div className={styles.counter__container}>
-                <div className={styles.h2}>
+                <div className={styles.label}>
                     {label}
                 </div>
                 <div className={styles.increment__decrement__wrapper}>
