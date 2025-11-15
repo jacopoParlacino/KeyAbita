@@ -207,10 +207,10 @@ export default function MultiStepForm() {
   };
 
   const stepperSteps = [
-    'Indirizzo',       // Step 1
-    'Caratteristiche', // Step 2
-    'Dotazioni',       // Step 3
-    'Dati Personali'   // Step 4
+    'Indirizzo',
+    'Caratteristiche',
+    'Dotazioni',
+    'Dati Personali'
   ];
 
   const renderStepContent = () => {
@@ -388,41 +388,44 @@ export default function MultiStepForm() {
             />
           </div>
 
-          <div className={styles.step__content__container}>
-            {renderStepContent()}
+          <div className={styles.step__content__wrapper}>
+
+            <div className={styles.step__content__container}>
+              {renderStepContent()}
+            </div>
+
+            {currentStep !== totalStep && (
+              <div className={styles.stepper__navigation}>
+                <StepperNavigation
+                  onBack={() => {
+                    if (currentStep === 1) {
+                      navigate("/");
+                    } else {
+                      prevStep();
+                    }
+                  }}
+                  onNext={() => {
+                    const isStepValid = validateStep();
+
+                    if (isStepValid) {
+                      if (currentStep === totalStep - 1) {
+                        handleFormSubmit();
+                        nextStep();
+
+                      } else {
+                        nextStep();
+                      }
+                    }
+                  }}
+                  isNextDisabled={false}
+                  isLastStep={currentStep === totalStep - 1}
+                />
+              </div>
+            )}
           </div>
+
 
         </div>
-
-        {currentStep !== totalStep && (
-          <div className={styles.stepper__navigation}>
-            <StepperNavigation
-              onBack={() => {
-                if (currentStep === 1) {
-                  navigate("/");
-                } else {
-                  prevStep();
-                }
-              }}
-              onNext={() => {
-                const isStepValid = validateStep();
-
-                if (isStepValid) {
-                  if (currentStep === totalStep - 1) {
-                    handleFormSubmit();
-                    nextStep();
-
-                  } else {
-                    nextStep();
-                  }
-                }
-              }}
-              isNextDisabled={false}
-              isLastStep={currentStep === totalStep - 1}
-            />
-          </div>
-        )}
-
 
       </form>
 

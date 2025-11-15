@@ -25,7 +25,7 @@ export default function StepperNavigation({
             <div className={styles.stepper__navigation}>
 
                 <Button
-                    label={isLastStep ? "Home" : "Indietro"}
+                    label={"Indietro"}
                     onClick={onBack}
                     variant="secondary"
                     type="button"

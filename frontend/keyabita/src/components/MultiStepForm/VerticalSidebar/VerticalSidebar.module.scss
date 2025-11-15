@@ -17,17 +17,17 @@
         margin: 0;
     }
 
-    // Ogni riga (pallino + etichetta)
+    
     .stepItem {
         display: flex;
         align-items: center;
-        margin-bottom: 25px; // Spazio tra gli step
+        margin-bottom: 25px; 
 
         &:last-child {
-            margin-bottom: 0; // Niente spazio sotto l'ultimo
+            margin-bottom: 0; 
         }
 
-        // Stile di default (step futuri/pending)
+        
         .dot {
             display: inline-block;
             width: 14px;
@@ -47,29 +47,29 @@
         }
     }
 
-    // Stile per lo step ATTIVO
+   
     .active {
         .dot {
             background-color: $primary-color;
             border-color: $primary-color;
-            transform: scale(1.1); // Lo fa leggermente più grande
+            transform: scale(1.1); 
         }
 
         .label {
             color: $primary-color;
-            font-weight: 700; // Grassetto
+            font-weight: 700; 
         }
     }
 
-    // Stile per gli step COMPLETATI
+    
     .completed {
         .dot {
-            background-color: green; // Pallino colorato
+            background-color: green; 
             border-color: green;
         }
 
         .label {
-            color: green; // Testo non più grigio, ma nemmeno attivo
+            color: green; 
         }
     }
 
