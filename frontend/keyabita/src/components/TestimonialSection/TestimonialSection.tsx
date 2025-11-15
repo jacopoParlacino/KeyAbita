@@ -1,3 +1,5 @@
+import { useRef } from "react";
+import { ChevronUp, ChevronDown } from "lucide-react";
 import styles from "./TestimonialSection.module.scss";
 import TestimonialCard from "./TestimonialCard/TestimonialCard";
 import TestimonialInfoBlock from "./TestimonialInfoBlock/TestimonialInfoBlock";
@@ -5,8 +7,27 @@ import useIsDesktop from "../../hooks/useIsDesktop";
 import TestimonialInfoBlockDesktop from "./TestimonialInfoBlockDesktop/TestimonialInfoBlockDesktop";
 
 const TestimonialsSection = () => {
-
   const isDesktop = useIsDesktop();
+  const carouselRef = useRef<HTMLDivElement>(null);
+
+  const scrollUp = () => {
+    if (carouselRef.current) {
+      const carousel = carouselRef.current;
+      const scrollAmount = carousel.clientHeight;
+      const newScrollTop = Math.max(0, carousel.scrollTop - scrollAmount);
+      carousel.scrollTo({ top: newScrollTop, behavior: "smooth" });
+    }
+  };
+
+  const scrollDown = () => {
+    if (carouselRef.current) {
+      const carousel = carouselRef.current;
+      const scrollAmount = carousel.clientHeight;
+      const maxScroll = carousel.scrollHeight - carousel.clientHeight;
+      const newScrollTop = Math.min(maxScroll, carousel.scrollTop + scrollAmount);
+      carousel.scrollTo({ top: newScrollTop, behavior: "smooth" });
+    }
+  };
   const testimonials = [
     {
       name: "Andrea Foglieri",
@@ -41,12 +62,35 @@ const TestimonialsSection = () => {
         Scopri cosa dicono i nostri clienti soddisfatti
       </p>
 
-      <div className={styles.testimonialSection__carousel}>
-        {testimonials.map((t, i) => (
-          <div key={i} className={styles.testimonialSection__item}>
-            <TestimonialCard {...t} />
-          </div>
-        ))}
+      <div className={styles.testimonialSection__carouselWrapper}>
+        {!isDesktop && (
+          <button
+            className={styles.testimonialSection__arrowButton}
+            onClick={scrollUp}
+            aria-label="Scroll up"
+          >
+            <ChevronUp size={24} />
+          </button>
+        )}
+        <div
+          className={styles.testimonialSection__carousel}
+          ref={carouselRef}
+        >
+          {testimonials.map((t, i) => (
+            <div key={i} className={styles.testimonialSection__item}>
+              <TestimonialCard {...t} />
+            </div>
+          ))}
+        </div>
+        {!isDesktop && (
+          <button
+            className={styles.testimonialSection__arrowButton}
+            onClick={scrollDown}
+            aria-label="Scroll down"
+          >
+            <ChevronDown size={24} />
+          </button>
+        )}
       </div>
 
       {isDesktop ? (

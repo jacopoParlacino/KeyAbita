@@ -46,6 +46,49 @@
   text-align: center;
 }
 
+/* Carousel wrapper */
+.testimonialSection__carouselWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+
+  @include desktop {
+    gap: 0;
+  }
+}
+
+.testimonialSection__arrowButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid $primary-color;
+  background-color: white;
+  color: $primary-color;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    background-color: $primary-color;
+    color: white;
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  @include desktop {
+    display: none;
+  }
+}
+
 /* Carousel */
 .testimonialSection__carousel {
   height: 300px;

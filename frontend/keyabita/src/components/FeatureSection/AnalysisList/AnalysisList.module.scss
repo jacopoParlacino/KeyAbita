@@ -6,7 +6,7 @@
     flex-direction: column;
     gap: 16px;
 
-    
+
   }
 
   .item {
@@ -15,6 +15,7 @@
     padding: 16px 20px;
     display: flex;
     align-items: center;
+    text-align: left;
     gap: 12px;
 
     opacity: 0;
@@ -28,6 +29,7 @@
   }
 
   .icon {
+    flex-shrink: 0;
     width: 36px;
     height: 36px;
     border-radius: 10px;
