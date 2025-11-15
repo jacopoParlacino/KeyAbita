@@ -29,7 +29,7 @@ export default function Header() {
           </Link>
           <Link to="/">Chi siamo</Link>
           <Link to="/">Valutazione</Link>
-          <Link to="/amministrazione">Amministrazione</Link>
+          <Link to="/login">Amministrazione</Link>
           <Link to="/" onClick={(e) => { e.preventDefault(); handleScroll("contatti"); }}>
             Contatti
           </Link>

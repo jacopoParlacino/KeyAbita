@@ -15,6 +15,7 @@ import styles from "./Home.module.scss";
 import AnalysisList from "../../components/FeatureSection/AnalysisList/AnalysisList";
 import AgentsSection from "../../components/AgentsSection/AgentsSection";
 import TestimonialsSection from "../../components/TestimonialSection/TestimonialSection";
+import  Header  from '../../components/Header/Header';
 import Footer from "../../components/Footer/Footer";
 import useIsDesktop from "../../hooks/useIsDesktop";
 import AnalysisListDesktop from "../../components/FeatureSection/AnalysisListDesktop/AnalysisListDesktop";
@@ -25,6 +26,7 @@ export default function Home() {
   return (
     <>
       <div className={styles.home}>
+        <Header />
         <Hero />
 
         {/* First Feature Section */}

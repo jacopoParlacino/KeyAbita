@@ -1,28 +1,37 @@
-// import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './providers/AuthProvider';
+import ProtectedRoute from './router/ProtectedRoute';
 import Home from './pages/Home/Home';
 import Valuation from './pages/Valuation/Valuation';
-import  Header  from './components/Header/Header';
-// import { Footer } from './components/Footer';
 import "./styles/global.scss";
 import Login from './pages/Login/Login';
+import Admin from './pages/BackOffice/Admin';
 
 
 function App() {
 
 
   return (
+    <AuthProvider>
     <Router>
 
-   <Header />
+
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/amministrazione" element={<Login />}/>
+          <Route path="/login" element={<Login />}/>
+          <Route
+          path="/amministrazione"
+          element={<ProtectedRoute role="admin">
+<Admin />
+</ProtectedRoute>
+            }
+            />
           <Route path="/valutazione" element={<Valuation />}/>
         </Routes>
 
 
     </Router>
+    </AuthProvider>
   )
 }
 
