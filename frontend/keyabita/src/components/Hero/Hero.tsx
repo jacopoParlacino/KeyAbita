@@ -9,7 +9,9 @@ export default function Hero() {
     <section className={styles.hero}>
       <div className={styles.hero__content}>
       <h1 className={styles.title}>
-        Ottieni la valutazione gratuita del tuo immobile in pochi minuti
+        Ottieni la valutazione gratuita{' '}
+        <br className={styles.title__break} />
+        del tuo immobile in pochi minuti
       </h1>
 
       <p className={styles.text}>
@@ -23,23 +25,8 @@ export default function Hero() {
         Valuta ora <ArrowRight size={20}></ArrowRight>
       </button>
       </div>
-      <picture>
-        <source
-          srcSet="/img/valutazione-gratuita-immobile-keyabita.avif"
-          type="image/avif"
-        />
-        <source
-          srcSet="/img/valutazione-gratuita-immobile-keyabita.webp"
-          type="image/webp"
-        />
-        <img
-          src="/img/valutazione-gratuita-immobile-keyabita.jpg"
-          alt="Casa in vendita"
-          className={styles.hero__image}
-          loading="lazy"
-        />
-      </picture>
-      
+
+
     </section>
   );
 }

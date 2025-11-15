@@ -3,21 +3,47 @@
 @use "../../styles/mixins" as *;
 
 .hero {
-  background: $gradient-hero;
+  background-image: url("/img/casa-valutazione-keyabita.jpg");
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
   width: 100vw;
+
   color: $text-color;
   padding-top: 70px;
   text-align: center;
-  
+  position: relative;
+
+  /* Overlay for better text readability */
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 0;
+  }
+
+  /* Ensure content is above overlay */
+  > * {
+    position: relative;
+    z-index: 1;
+  }
 
   @include desktop {
     text-align: left;
     padding: 140px 180px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    gap: 40px;
+    align-items: flex-start;
+    gap: 60px;
     margin-top: 60px;
+
+    &::before {
+      background: rgba(0, 0, 0, 0.2);
+    }
   }
 }
 
@@ -30,7 +56,7 @@
 
   @include desktop {
     align-items: flex-start;
-    max-width: 600px;
+    margin: 0;
   }
 }
 
@@ -39,6 +65,15 @@
   font-weight: 600;
   margin-top: 122px;
   margin-bottom: 24px;
+
+  &__break {
+    display: none;
+
+
+    @include desktop {
+      display: block;
+    }
+  }
 
   @include desktop {
     font-size: 40px;
@@ -59,21 +94,10 @@
   }
 }
 
-// .cta__button {
-//   margin-top: 40px;
-//   padding: 12px 24px;
-//   border: none;
-//   border-radius: 4px;
-//   background-color: $cta-color;
-//   filter: drop-shadow(0 2px 2px $primary-color);
-//   color: $text-color;
-//   font-size: 20px;
-//   cursor: pointer;
-// }
 
 
 .cta__button {
-  margin-top: 70px;
+  margin-top: 40px;
   margin-bottom: 70px;
   padding: 24px 40px;
   border: none;
@@ -85,11 +109,11 @@
   cursor: pointer;
   // height: 70px;
 
-  
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px; 
+  gap: 8px;
   vertical-align: middle;
 
   transition: transform 0.2s ease, background-color 0.2s ease;
@@ -102,19 +126,5 @@
 
   svg {
     vertical-align: middle;
-  }
-}
-
-
-.hero__image {
-  display: none;
-
-  @include desktop {
-    display: flex;
-    width: 100%;
-    max-width: 600px;
-    border-radius: 20px;
-    object-fit: cover;
-    margin-right: 120px;
   }
 }
