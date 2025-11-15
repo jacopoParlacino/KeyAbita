@@ -8,7 +8,7 @@
   background-position: top;
   background-repeat: no-repeat;
   width: 100vw;
-  
+
   color: $text-color;
   padding-top: 70px;
   text-align: center;
@@ -68,6 +68,7 @@
 
   &__break {
     display: none;
+
 
     @include desktop {
       display: block;

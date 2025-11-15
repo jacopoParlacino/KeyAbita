@@ -9,7 +9,7 @@ export default function Hero() {
     <section className={styles.hero}>
       <div className={styles.hero__content}>
       <h1 className={styles.title}>
-        Ottieni la valutazione gratuita
+        Ottieni la valutazione gratuita{' '}
         <br className={styles.title__break} />
         del tuo immobile in pochi minuti
       </h1>
