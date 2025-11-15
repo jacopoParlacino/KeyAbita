@@ -1,11 +1,12 @@
 import './Sidebar.css';
+import Logo from './Logo';
 
 const Sidebar = () => {
   return (
     <aside className="sidebar">
       <div className="sidebar-header">
-        <h2>KeyAbita</h2>
-        <p>Back Office</p>
+        <Logo size="medium" variant="full" />
+        <p className="sidebar-subtitle">Back Office</p>
       </div>
 
       <nav className="sidebar-nav">

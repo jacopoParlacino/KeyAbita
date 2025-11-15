@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './Login.css';
+import Logo from './Logo';
 
 const Login = ({ onLogin }) => {
   const [username, setUsername] = useState('');
@@ -27,10 +28,7 @@ const Login = ({ onLogin }) => {
     <div className="login-container">
       <div className="login-card">
         <div className="login-header">
-          <div className="logo">
-            <span className="logo-icon">🏠</span>
-            <h1>KeyAbita</h1>
-          </div>
+          <Logo size="large" variant="full" />
         </div>
 
         <form onSubmit={handleSubmit} className="login-form">

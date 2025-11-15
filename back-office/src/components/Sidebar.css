@@ -14,17 +14,13 @@
 .sidebar-header {
   padding: 2rem 1.5rem;
   border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
-.sidebar-header h2 {
+.sidebar-subtitle {
   margin: 0;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #1e293b;
-}
-
-.sidebar-header p {
-  margin: 0.25rem 0 0 0;
   font-size: 0.875rem;
   color: #64748b;
 }
