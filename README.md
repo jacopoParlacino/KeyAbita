@@ -3,7 +3,6 @@
 Applicazione web per la gestione di immobili sviluppata con Spring Boot e database H2.
 
 
-
 ## Struttura del Progetto
 
 ```
