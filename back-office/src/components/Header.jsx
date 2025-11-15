@@ -7,11 +7,6 @@ const Header = () => {
       </div>
 
       <div className="header-right">
-        <div className="search-box">
-          <input type="text" placeholder="Cerca..." />
-          <i className="search-icon">🔍</i>
-        </div>
-
         <button className="notification-btn">
           <span className="notification-icon">🔔</span>
           <span className="notification-badge">3</span>
