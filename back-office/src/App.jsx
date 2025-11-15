@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import './App.css'
+import Login from './components/Login'
 import Sidebar from './components/Sidebar'
 import Header from './components/Header'
 import StatsCard from './components/StatsCard'
@@ -6,12 +8,29 @@ import RecentEvaluations from './components/RecentEvaluations'
 import QuickAccess from './components/QuickAccess'
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [user, setUser] = useState(null)
+
+  const handleLogin = (userData) => {
+    setUser(userData)
+    setIsAuthenticated(true)
+  }
+
+  const handleLogout = () => {
+    setUser(null)
+    setIsAuthenticated(false)
+  }
+
+  if (!isAuthenticated) {
+    return <Login onLogin={handleLogin} />
+  }
+
   return (
     <div className="app">
       <Sidebar />
 
       <main className="main-content">
-        <Header />
+        <Header user={user} onLogout={handleLogout} />
 
         <div className="dashboard-content">
           <div className="stats-grid">
