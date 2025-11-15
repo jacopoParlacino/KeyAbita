@@ -2,6 +2,7 @@
 @use "../../styles/mixins" as *;
 
 .home {
+<<<<<<< HEAD
 display: flex;
 flex-direction: column;
 
@@ -13,3 +14,16 @@ flex-direction: column;
        
     }
 }
+=======
+  display: flex;
+  flex-direction: column;
+
+  @include desktop {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+}
+
+
+>>>>>>> origin/frontend/mobile_homepage

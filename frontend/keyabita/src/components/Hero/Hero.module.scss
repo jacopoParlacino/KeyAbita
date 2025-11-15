@@ -3,21 +3,62 @@
 @use "../../styles/mixins" as *;
 
 .hero {
+<<<<<<< HEAD
   background: $gradient-hero;
   width: 100vw;
   color: $text-color;
   padding-top: 70px;
   text-align: center;
   
+=======
+  background-image: url("/img/casa-valutazione-keyabita.jpg");
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
+  width: 100vw;
+
+  color: $text-color;
+  padding-top: 70px;
+  text-align: center;
+  position: relative;
+
+  /* Overlay for better text readability */
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 0;
+  }
+
+  /* Ensure content is above overlay */
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+>>>>>>> origin/frontend/mobile_homepage
 
   @include desktop {
     text-align: left;
     padding: 140px 180px;
     display: flex;
     justify-content: space-between;
+<<<<<<< HEAD
     align-items: center;
     gap: 40px;
     margin-top: 60px;
+=======
+    align-items: flex-start;
+    gap: 60px;
+    margin-top: 60px;
+
+    &::before {
+      background: rgba(0, 0, 0, 0.2);
+    }
+>>>>>>> origin/frontend/mobile_homepage
   }
 }
 
@@ -30,7 +71,11 @@
 
   @include desktop {
     align-items: flex-start;
+<<<<<<< HEAD
     max-width: 600px;
+=======
+    margin: 0;
+>>>>>>> origin/frontend/mobile_homepage
   }
 }
 
@@ -40,6 +85,18 @@
   margin-top: 122px;
   margin-bottom: 24px;
 
+<<<<<<< HEAD
+=======
+  &__break {
+    display: none;
+
+
+    @include desktop {
+      display: block;
+    }
+  }
+
+>>>>>>> origin/frontend/mobile_homepage
   @include desktop {
     font-size: 40px;
     margin-top: 0;
@@ -59,6 +116,7 @@
   }
 }
 
+<<<<<<< HEAD
 // .cta__button {
 //   margin-top: 40px;
 //   padding: 12px 24px;
@@ -74,6 +132,12 @@
 
 .cta__button {
   margin-top: 70px;
+=======
+
+
+.cta__button {
+  margin-top: 40px;
+>>>>>>> origin/frontend/mobile_homepage
   margin-bottom: 70px;
   padding: 24px 40px;
   border: none;
@@ -85,11 +149,19 @@
   cursor: pointer;
   // height: 70px;
 
+<<<<<<< HEAD
   
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px; 
+=======
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+>>>>>>> origin/frontend/mobile_homepage
   vertical-align: middle;
 
   transition: transform 0.2s ease, background-color 0.2s ease;
@@ -104,6 +176,7 @@
     vertical-align: middle;
   }
 }
+<<<<<<< HEAD
 
 
 .hero__image {
@@ -118,3 +191,5 @@
     margin-right: 120px;
   }
 }
+=======
+>>>>>>> origin/frontend/mobile_homepage

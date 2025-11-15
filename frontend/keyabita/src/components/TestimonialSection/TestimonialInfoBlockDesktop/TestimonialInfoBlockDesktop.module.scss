@@ -1,0 +1,38 @@
+@use "../../../styles/variables.scss" as *;
+@use "../../../styles/mixins" as *;
+
+.infoDesktop {
+  width: 100%;
+  background-color: white;
+
+  padding: 40px 60px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  gap: 48px;
+  margin-top: 20px;
+
+  @include desktop {
+    margin-top: 20px;
+  }
+}
+
+.infoItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.value {
+  font-size: 36px;
+  font-weight: 700;
+  color: $primary-color;
+}
+
+.label {
+  font-size: 16px;
+  margin-top: 6px;
+  opacity: 0.9;
+  color: $text-secondary;
+}

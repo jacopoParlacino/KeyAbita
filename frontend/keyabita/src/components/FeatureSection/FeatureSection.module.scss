@@ -10,11 +10,24 @@
 
   @include desktop {
     flex-direction: row;
+<<<<<<< HEAD
     justify-content: space-between;
     padding: 120px;
   }
 }
 
+=======
+    justify-content: center;
+    align-items: flex-start;
+    padding: 80px 120px;
+    gap: 100px;
+    width: 100%;
+  }
+}
+
+
+
+>>>>>>> origin/frontend/mobile_homepage
 .reverse {
   @include desktop {
     flex-direction: row-reverse;
@@ -22,6 +35,7 @@
 }
 
 .feature__content {
+<<<<<<< HEAD
   max-width: 500px;
 }
 
@@ -42,11 +56,53 @@
       
     }
   }
+=======
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  text-align: center;
+  align-items: center;
+
+  @include desktop {
+    text-align: left;
+    align-items: flex-start;
+  }
+}
+
+.icon__wrapper {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+  svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  @include desktop {
+    display: none;
+  }
+}
+
+>>>>>>> origin/frontend/mobile_homepage
 .featuresection__title {
   font-size: 28px;
   margin-bottom: 16px;
   font-weight: 600;
   color: $primary-color;
+<<<<<<< HEAD
+=======
+
+  @include desktop {
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+>>>>>>> origin/frontend/mobile_homepage
 }
 
 .featuresection__text {
@@ -55,6 +111,7 @@
   color: $text-secondary;
 }
 
+<<<<<<< HEAD
 .featuresection__image {
 display: none;
   @include desktop {
@@ -62,5 +119,31 @@ display: none;
   max-width: 500px;
   border-radius: 16px;
   object-fit: cover;
+=======
+.featuresection__children {
+  margin-top: 24px;
+  width: 100%;
+}
+
+.featuresection__picture {
+  display: none;
+
+  @include desktop {
+    display: block;
+    width: 460px;
+    max-width: 460px;
+    flex-shrink: 0;
+  }
+}
+
+.featuresection__image {
+  width: 100%;
+  border-radius: 16px;
+  object-fit: cover;
+  @include desktop {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+>>>>>>> origin/frontend/mobile_homepage
   }
 }
