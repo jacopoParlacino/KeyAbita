@@ -3,9 +3,14 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import Valuation from './pages/Valuation/Valuation';
+<<<<<<< HEAD
 import  Header  from './components/Header/Header';
 import ApiTest from './components/ApiTest';
 import ApiTestDashboard from './components/ApiTestDashboard';
+=======
+
+
+>>>>>>> dev/frontend-form
 // import { Footer } from './components/Footer';
 import "./styles/global.scss";
 =======
@@ -27,7 +32,7 @@ function App() {
 <<<<<<< HEAD
     <Router>
 
-   <Header />
+
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/valutazione" element={<Valuation />}/>

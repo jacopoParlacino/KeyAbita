@@ -49,8 +49,12 @@ export default function Hero() {
       
 =======
 
+<<<<<<< HEAD
 
 >>>>>>> origin/frontend/mobile_homepage
+=======
+      <button className={styles.button} onClick={() => navigate("/valutazione")}>Valuta ora</button>
+>>>>>>> dev/frontend-form
     </section>
   );
 }

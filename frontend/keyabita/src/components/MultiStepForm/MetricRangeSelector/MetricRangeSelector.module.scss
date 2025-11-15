@@ -1,0 +1,32 @@
+@use "../../../styles/variables" as *;
+@use "../../../styles/mixins" as *;
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.label {
+    color: $primary-color;
+    margin-right: 16px;
+    font-weight: 700;
+    font-size: 0.8rem;
+}
+
+.select {
+    border-radius: 6px;
+    border: 1px solid;
+    outline: none;
+    border-color: $primary-color;
+    color: $primary-color;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 200px;
+    padding: 10px 10px;
+    cursor: pointer;
+}

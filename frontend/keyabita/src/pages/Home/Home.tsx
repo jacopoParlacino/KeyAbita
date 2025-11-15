@@ -3,12 +3,17 @@ import { Helmet } from "react-helmet";
 import Hero from "../../components/Hero/Hero";
 
 import styles from "./Home.module.scss";
+<<<<<<< HEAD
 import FeatureSection from "../../components/FeatureSection/FeatureSection";
 import { TrendingUp } from 'lucide-react';
+=======
+import { Header } from "../../components/Header/Header";
+>>>>>>> dev/frontend-form
 
 export default function Home() {
   return (
     <>
+<<<<<<< HEAD
       <Helmet>
         <title>Keyabita</title>
         <meta
@@ -19,6 +24,17 @@ export default function Home() {
       </Helmet>
       
         <div className={styles.home}>
+=======
+    <Helmet>
+      <title>Keyabita</title>
+      <meta name="description" content="Keyabit. Valutazione immobiliare da esperti certificati." />
+      <meta name="keywords" content="immobile, valutazione, immobiliare" />
+    </Helmet>
+    <section>
+      <div className={styles.home}>
+        <Header></Header>
+
+>>>>>>> dev/frontend-form
           <Hero />
           <FeatureSection
           icon={<TrendingUp />}
