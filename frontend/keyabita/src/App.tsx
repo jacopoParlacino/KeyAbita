@@ -5,6 +5,7 @@ import Valuation from './pages/Valuation/Valuation';
 import  Header  from './components/Header/Header';
 // import { Footer } from './components/Footer';
 import "./styles/global.scss";
+import Login from './pages/Login/Login';
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
    <Header />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/amministrazione" element={<Login />}/>
           <Route path="/valutazione" element={<Valuation />}/>
         </Routes>
 

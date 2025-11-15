@@ -24,12 +24,12 @@ export default function Header() {
         </Link>
 
         <nav className={`${styles.nav} ${menuOpen ? styles.active : ""}`}>
-          <Link to="/" onClick={(e) => { e.preventDefault(); handleScroll(); }}>
+          <Link to="/" >
             Home
           </Link>
           <Link to="/">Chi siamo</Link>
           <Link to="/">Valutazione</Link>
-          <Link to="/">Amministrazione</Link>
+          <Link to="/amministrazione">Amministrazione</Link>
           <Link to="/" onClick={(e) => { e.preventDefault(); handleScroll("contatti"); }}>
             Contatti
           </Link>
