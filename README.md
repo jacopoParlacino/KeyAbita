@@ -1,6 +1,48 @@
 # KeyAbita
 
-Applicazione web per la gestione di immobili sviluppata con Spring Boot e database H2.
+Applicazione web completa per la gestione di immobili con backend Spring Boot e frontend React.
+
+## 🚀 Avvio Rapido
+
+Per Windows, usa gli script inclusi:
+
+1. **Avvio Completo**: Esegui `start-all.bat` (avvia automaticamente sia backend che frontend)
+2. **Solo Backend**: Esegui `start-backend.bat`  
+3. **Solo Frontend**: Esegui `start-frontend.bat`
+
+### URLs dell'applicazione:
+- **Frontend**: http://localhost:3000
+- **Backend API**: http://localhost:8080/api
+- **Database H2 Console**: http://localhost:8080/h2-console
+
+## 📁 Struttura del Progetto
+
+```
+KeyAbita/
+├── README.md
+├── SETUP.md                    # Guida dettagliata al setup
+├── start-all.bat              # Avvio completo (Windows)
+├── start-backend.bat           # Avvio solo backend
+├── start-frontend.bat          # Avvio solo frontend
+├── frontedn/                   # Frontend React + Vite
+│   ├── src/
+│   │   ├── components/         # Componenti React
+│   │   ├── services/           # API client e servizi
+│   │   └── ...
+│   ├── package.json
+│   └── vite.config.js         # Configurazione con proxy API
+└── KeyAbita/backedn/          # Backend Spring Boot
+    ├── src/main/java/com/keyabita/keyabita/
+    │   ├── controller/         # REST Controllers
+    │   ├── model/             # Entità JPA  
+    │   ├── repos/             # Repository
+    │   └── services/          # Business Logic
+    ├── src/main/resources/
+    │   ├── application.properties
+    │   ├── schema.sql         # Schema database
+    │   └── data.sql           # Dati iniziali
+    └── pom.xml
+```
 
 
 ## Struttura del Progetto

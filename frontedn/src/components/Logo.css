@@ -1,0 +1,96 @@
+.logo-component {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-image {
+  display: block;
+  object-fit: contain;
+}
+
+.logo-fallback {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-color, #4A90E2);
+}
+
+.logo-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary, #2c3e50);
+  line-height: 1;
+}
+
+/* Size variants */
+.logo-small .logo-icon-wrapper {
+  width: 32px;
+  height: 32px;
+}
+
+.logo-small .logo-image {
+  width: 32px;
+  height: 32px;
+}
+
+.logo-small .logo-title {
+  font-size: 1rem;
+}
+
+.logo-medium .logo-icon-wrapper {
+  width: 48px;
+  height: 48px;
+}
+
+.logo-medium .logo-image {
+  width: 48px;
+  height: 48px;
+}
+
+.logo-medium .logo-title {
+  font-size: 1.5rem;
+}
+
+.logo-large .logo-icon-wrapper {
+  width: 80px;
+  height: 80px;
+}
+
+.logo-large .logo-image {
+  width: 80px;
+  height: 80px;
+}
+
+.logo-large .logo-title {
+  font-size: 2.2rem;
+}
+
+/* Variant for icon only */
+.logo-icon-only .logo-text {
+  display: none;
+}
+
+/* Dark theme support */
+@media (prefers-color-scheme: dark) {
+  .logo-title {
+    color: var(--text-primary-dark, #ffffff);
+  }
+}
