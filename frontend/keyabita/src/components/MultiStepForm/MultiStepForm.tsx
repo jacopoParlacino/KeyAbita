@@ -11,6 +11,7 @@ import ImmobileCondition from "./ImmobileCondition/ImmobileCondition";
 import Counter from "./Counter/Counter";
 import InputField from "./InputField/InputField";
 import MetricRangeSelector, { type SelectOption } from "./MetricRangeSelector/MetricRangeSelector";
+import VerticalSidebar from "./VerticalSidebar/VerticalSidebar";
 
 const totalStep: number = 5;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -18,7 +19,7 @@ const phoneRegex = /^\+?[0-9]{9,15}$/;
 
 interface FormData {
   propertyType: string | null;
-  address: string;
+  indirizzo: string;
   condition: string;
   metratura: string;
   stanze: number;
@@ -43,7 +44,7 @@ export default function MultiStepForm() {
   const [currentStep, setCurrentStep] = useState<number>(1)
   const [formData, setFormData] = useState<FormData>({
     propertyType: null,
-    address: "",
+    indirizzo: "",
     condition: "",
     metratura: "",
     stanze: 0,
@@ -82,9 +83,9 @@ export default function MultiStepForm() {
     }
   }
   const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ ...prev, address: e.target.value }));
-    if (errors.address) {
-      setErrors((prev: any) => ({ ...prev, address: undefined }));
+    setFormData((prev) => ({ ...prev, indirizzo: e.target.value }));
+    if (errors.indirizzo) {
+      setErrors((prev: any) => ({ ...prev, indirizzo: undefined }));
     }
   };
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -161,8 +162,8 @@ export default function MultiStepForm() {
       if (!formData.propertyType) {
         newErrors.propertyType = "Devi selezionare una tipologia";
       }
-      if (!formData.address) {
-        newErrors.address = "Devi inserire un indirizzo";
+      if (!formData.indirizzo) {
+        newErrors.indirizzo = "Devi inserire un indirizzo";
       }
     }
 
@@ -205,6 +206,13 @@ export default function MultiStepForm() {
     return Object.keys(newErrors).length === 0;
   };
 
+  const stepperSteps = [
+    'Indirizzo',       // Step 1
+    'Caratteristiche', // Step 2
+    'Dotazioni',       // Step 3
+    'Dati Personali'   // Step 4
+  ];
+
   const renderStepContent = () => {
     switch (currentStep) {
       case 1:
@@ -229,11 +237,11 @@ export default function MultiStepForm() {
 
             <h2 className={styles.h2}>Indirizzo</h2>
             <AddressSearch
-              value={formData.address}
+              value={formData.indirizzo}
               onChange={handleAddressChange}
               placeholder="Inserisci indirizzo"
             />
-            {errors.address && <p className={styles.errorMessage}>{errors.address}</p>}
+            {errors.indirizzo && <p className={styles.errorMessage}>{errors.indirizzo}</p>}
           </>
         );
       case 2:
@@ -366,12 +374,24 @@ export default function MultiStepForm() {
   return (
     <>
       <form onSubmit={(e) => e.preventDefault()} className={styles.form__container}>
+
         <div className={styles.header__container}>
           <HeaderForm title="Valuta il tuo immobile" onBack={() => navigate('/')} currentStep={currentStep} totalSteps={totalStep} />
         </div>
 
-        <div className={styles.step__content__container}>
-          {renderStepContent()}
+        <div className={styles.main__content__wrapper}>
+
+          <div className={styles.vertical__sidebar}>
+            <VerticalSidebar
+              steps={stepperSteps}
+              currentStep={currentStep}
+            />
+          </div>
+
+          <div className={styles.step__content__container}>
+            {renderStepContent()}
+          </div>
+
         </div>
 
         {currentStep !== totalStep && (
@@ -402,6 +422,7 @@ export default function MultiStepForm() {
             />
           </div>
         )}
+
 
       </form>
 
