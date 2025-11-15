@@ -388,42 +388,39 @@ export default function MultiStepForm() {
             />
           </div>
 
-          <div className={styles.step__content__wrapper}>
-
             <div className={styles.step__content__container}>
               {renderStepContent()}
-            </div>
 
-            {currentStep !== totalStep && (
-              <div className={styles.stepper__navigation}>
-                <StepperNavigation
-                  onBack={() => {
-                    if (currentStep === 1) {
-                      navigate("/");
-                    } else {
-                      prevStep();
-                    }
-                  }}
-                  onNext={() => {
-                    const isStepValid = validateStep();
 
-                    if (isStepValid) {
-                      if (currentStep === totalStep - 1) {
-                        handleFormSubmit();
-                        nextStep();
-
+              {currentStep !== totalStep && (
+                <div className={styles.stepper__navigation__container}>
+                  <StepperNavigation
+                    onBack={() => {
+                      if (currentStep === 1) {
+                        navigate("/");
                       } else {
-                        nextStep();
+                        prevStep();
                       }
-                    }
-                  }}
-                  isNextDisabled={false}
-                  isLastStep={currentStep === totalStep - 1}
-                />
-              </div>
-            )}
-          </div>
+                    }}
+                    onNext={() => {
+                      const isStepValid = validateStep();
 
+                      if (isStepValid) {
+                        if (currentStep === totalStep - 1) {
+                          handleFormSubmit();
+                          nextStep();
+
+                        } else {
+                          nextStep();
+                        }
+                      }
+                    }}
+                    isNextDisabled={false}
+                    isLastStep={currentStep === totalStep - 1}
+                  />
+                </div>
+              )}
+            </div>
 
         </div>
 

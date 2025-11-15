@@ -13,6 +13,11 @@
     color: $text-color;
     font-family: $font-primary;
     font-size: 0.8rem;
+    @include desktop {
+        width: 120px;
+        height: 40px;
+        font-size: 1rem;
+    }
 }
 
 .primary {

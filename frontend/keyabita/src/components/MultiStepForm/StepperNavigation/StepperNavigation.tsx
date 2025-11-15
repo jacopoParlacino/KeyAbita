@@ -22,6 +22,8 @@ export default function StepperNavigation({
 
     return (
         <>
+            <hr className={styles.hr}/>
+
             <div className={styles.stepper__navigation}>
 
                 <Button

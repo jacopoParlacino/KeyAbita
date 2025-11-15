@@ -28,4 +28,7 @@
 .search__icon {
     color: $primary-color;
     margin-right: 20px;
+    @include desktop {
+        margin-left: auto;
+    }
 }
