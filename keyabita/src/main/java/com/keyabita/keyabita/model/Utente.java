@@ -1,3 +1,5 @@
+//Gestione Token
+
 package com.keyabita.keyabita.model;
 
 import jakarta.persistence.*;
