@@ -1,0 +1,52 @@
+@use "../../../styles/variables.scss" as *;
+@use "../../../styles/mixins.scss" as *;
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 220px;
+    background: #fff;
+    color: $primary-color;
+    padding: 1rem;
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 2rem 0 0 0;
+
+      li {
+        display: flex;
+        align-items: center;
+        padding: 0.8rem;
+        cursor: pointer;
+
+        svg {
+          margin-right: 0.5rem;
+          
+        }
+
+        &.active {
+          background: $light-blue;
+          border-radius: 6px;
+        }
+      }
+    }
+
+    .user {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  }
+  .logo {
+    // width: 140px;
+    width: 100px;
+    z-index: 1000;
+
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  }

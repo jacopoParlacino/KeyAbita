@@ -6,6 +6,7 @@ import Valuation from './pages/Valuation/Valuation';
 import "./styles/global.scss";
 import Login from './pages/Login/Login';
 import Admin from './pages/BackOffice/Admin';
+import Dashboard from './pages/BackOffice/Dashboard';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
             }
             />
           <Route path="/valutazione" element={<Valuation />}/>
+          <Route path="/dashboard" element={<Dashboard />}/>
         </Routes>
 
 
