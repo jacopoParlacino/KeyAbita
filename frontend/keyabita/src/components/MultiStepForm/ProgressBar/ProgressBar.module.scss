@@ -1,0 +1,25 @@
+@use "../../../styles/mixins.scss" as *;
+@use "../../../styles/variables.scss" as *;
+
+.bar__container {
+    background-color: #d9d9d9;
+    height: 16px;
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+
+.bar {
+    background-color: $yellow;
+    width: 0;
+    transition: width 0.4s ease;
+    height: 100%;
+}
+
+@include desktop {
+    .bar__container {
+        display: none;
+    }
+
+}

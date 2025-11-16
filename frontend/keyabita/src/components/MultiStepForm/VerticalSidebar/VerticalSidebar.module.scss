@@ -1,0 +1,75 @@
+@use "../../../styles/mixins.scss" as *;
+@use "../../../styles/variables.scss" as *;
+
+
+    .stepperContainer {
+        background-color: #fff;
+        padding: 25px 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .stepList {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+
+    .stepItem {
+        display: flex;
+        align-items: center;
+        margin-bottom: 25px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+
+        .dot {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background-color: $grey;
+            border: 2px solid $grey;
+            margin-right: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .label {
+            color: $grey;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+    }
+
+
+    .active {
+        .dot {
+            background-color: $primary-color;
+            border-color: $primary-color;
+            transform: scale(1.1);
+        }
+
+        .label {
+            color: $primary-color;
+            font-weight: 700;
+        }
+    }
+
+
+    .completed {
+        .dot {
+            background-color: green;
+            border-color: green;
+        }
+
+        .label {
+            color: green;
+        }
+    }
+

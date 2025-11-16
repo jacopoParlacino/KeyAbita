@@ -28,7 +28,7 @@ export default function Header() {
             Home
           </Link>
           <Link to="/">Chi siamo</Link>
-          <Link to="/">Valutazione</Link>
+          <Link to="/valutazione">Valutazione</Link>
           <Link to="/login">Amministrazione</Link>
           <Link to="/" onClick={(e) => { e.preventDefault(); handleScroll("contatti"); }}>
             Contatti
