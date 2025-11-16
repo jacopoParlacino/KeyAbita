@@ -12,10 +12,10 @@ export interface MetricRangeSelectorProps {
     onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
-export default function MetricRangeSelector({ label, options, value, onChange }: MetricRangeSelectorProps) {
+export default function MetricRangeSelector ({ label, options, value, onChange }: MetricRangeSelectorProps) {
     return (
         <>
-            <div className={styles.container}>
+            <div className={styles.metric__container}>
 
                 <span className={styles.label}>{label}</span>
 

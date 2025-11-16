@@ -18,8 +18,31 @@
   font-family: $font-primary;
   font-size: 0.8rem;
   transition: opacity 0.2s ease-in-out;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  @include desktop {
+    font-size: 1rem;
+    width: 40%;
+    height: 100px
+  }
 }
 
 .not__selected {
   opacity: 0.5;
+}
+
+.icon {
+  height: 20px;
+  width: 20px;
+
+  @include desktop {
+    height: 40px;
+    width: 40px;
+  }
 }

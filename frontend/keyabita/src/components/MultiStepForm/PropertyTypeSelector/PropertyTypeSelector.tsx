@@ -21,7 +21,7 @@ export default function PropertyTypeSelector({
 
   return (
     <button type="button" className={buttonClasses} onClick={onClick}>
-      <Icon size={20} />
+      <Icon className={styles.icon}/>
       <span>{label}</span>
     </button>
   );

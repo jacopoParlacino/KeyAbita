@@ -15,16 +15,29 @@
     text-align: center;
     align-items: center;
     padding: 10px;
-    margin: 20px 0px;
+    margin: 10px 0px;
     transition: opacity 0.2s ease-in-out;
 
     .check__icon {
         color: $light-blue;
+        height: 20px;
+        width: 20px;
+
+        @include desktop {
+            height: 30px;
+            width: 30px;
+        }
+    }
+
+    @include desktop {
+        height: 50px;
+        font-size: 1rem;
     }
 }
 
 .not__selected {
     opacity: 0.5;
+
     .check__icon {
         color: $grey;
     }

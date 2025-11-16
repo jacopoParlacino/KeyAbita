@@ -19,6 +19,7 @@ const phoneRegex = /^\+?[0-9]{9,15}$/;
 
 interface FormData {
   propertyType: string | null;
+  citta: string;
   indirizzo: string;
   condition: string;
   metratura: string;
@@ -35,6 +36,7 @@ interface FormData {
   cognome: string;
   email: string;
   numeroDiTelefono: string;
+  stato_immobile: string;
 }
 
 export default function MultiStepForm() {
@@ -44,6 +46,7 @@ export default function MultiStepForm() {
   const [currentStep, setCurrentStep] = useState<number>(1)
   const [formData, setFormData] = useState<FormData>({
     propertyType: null,
+    citta: "",
     indirizzo: "",
     condition: "",
     metratura: "",
@@ -60,6 +63,8 @@ export default function MultiStepForm() {
     cognome: "",
     email: "",
     numeroDiTelefono: "",
+    stato_immobile: "",
+
   });
 
   type ErrorFields = Partial<Record<keyof FormData, string>>;
@@ -137,6 +142,9 @@ const [errors, setErrors] = useState<ErrorFields>({});
       return prev;
     });
   };
+
+
+  
 
   const handleFormSubmit = () => {
     console.log("Form submitted with data:", JSON.stringify(formData, null, 2));

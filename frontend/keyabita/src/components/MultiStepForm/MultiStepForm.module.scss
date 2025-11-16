@@ -15,14 +15,16 @@
 
 .step__content__container {
     padding: 20px;
-    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
 
     @include desktop {
-        height: 100vh;
         display: flex;
         flex-direction: column;
-        justify-content: center;
         padding: 0 60px;
+
     }
 }
 
@@ -57,6 +59,10 @@
     margin: 20px 0;
     font-size: 0.5rem;
     width: 100%;
+
+    @include desktop {
+        margin: 40px 0;
+    }
 }
 
 .h2 {
@@ -64,7 +70,31 @@
     font-size: 1rem;
 
     @include desktop {
-        font-size: 1.5rem;
+        font-size: 2rem;
+    }
+
+}
+
+.first__h2 {
+    color: $primary-color;
+    font-size: 1rem;
+
+    @include desktop {
+        margin-top: auto;
+        margin-bottom: 25px;
+        font-size: 2rem;
+    }
+
+}
+
+.confirmation__title {
+    color: $primary-color;
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    text-align: center;
+
+    @include desktop {
+        font-size: 3rem;
     }
 
 }
@@ -80,24 +110,28 @@
     justify-content: center;
 }
 
-.text__confermation {
+.text__confirmation {
     color: $primary-color;
     margin-top: 20px;
     text-align: center;
 }
 
-.errorMessage {
+.error__message {
     color: $cta-color;
-    font-size: 0.9rem;
-    margin-top: 5px;
-    margin-bottom: 10px;
+    font-size: 0.6rem;
     width: 100%;
     text-align: left;
+
+    @include desktop {
+        font-size: 0.8rem;
+    }
 }
 
 
 .main__content__wrapper {
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 
     @include desktop {
         display: flex;
@@ -111,8 +145,7 @@
 
     @include desktop {
 
-        background: azure;
-        height: 100vh;
+        background: $gradient-hero;
         width: 50%;
         display: flex;
         justify-content: center;
@@ -124,4 +157,15 @@
 .step__content__wrapper {
     margin: 0 auto;
     flex-grow: 1;
+}
+
+.margin__top__auto {
+    @include desktop {
+        margin-top: auto;
+    }
+}
+
+.button__confirmation__container {
+    margin-top: 100px;
+
 }
