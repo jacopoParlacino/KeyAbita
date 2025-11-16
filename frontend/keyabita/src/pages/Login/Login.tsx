@@ -16,7 +16,23 @@ export default function Login() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError("");
-        console.log({ email, password });
+
+
+        // --- FRONTEND VALIDATION ---
+        // email must include @, a dot, a domain, no spaces allowed
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          setError("Formato email non valido");
+          return;
+        }
+
+        // password includes at least one letter, one digit, not less than 6 chars
+        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).{6,}$/;
+        if (!passwordRegex.test(password)) {
+          setError("La password deve contenere almeno una lettera e un numero");
+          return;
+        }
+
         // login logic
         // an API call - endpoints from backend
 
