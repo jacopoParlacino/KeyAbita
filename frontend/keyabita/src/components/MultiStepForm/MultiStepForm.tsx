@@ -20,6 +20,7 @@ const phoneRegex = /^\+?[0-9]{9,15}$/;
 
 interface FormData {
   propertyType: string | null;
+  citta: string;
   indirizzo: string;
   condition: string;
   metratura: string;
@@ -36,6 +37,7 @@ interface FormData {
   cognome: string;
   email: string;
   numeroDiTelefono: string;
+  stato_immobile: string;
 }
 
 export default function MultiStepForm() {
@@ -45,6 +47,7 @@ export default function MultiStepForm() {
   const [currentStep, setCurrentStep] = useState<number>(1)
   const [formData, setFormData] = useState<FormData>({
     propertyType: null,
+    citta: "",
     indirizzo: "",
     condition: "",
     metratura: "",
@@ -61,6 +64,7 @@ export default function MultiStepForm() {
     cognome: "",
     email: "",
     numeroDiTelefono: "",
+    stato_immobile: "",
   });
 
   const [errors, setErrors] = useState<any>({});
@@ -137,8 +141,65 @@ export default function MultiStepForm() {
     });
   };
 
-  const handleFormSubmit = () => {
+  const calcolaValore = (immobile: any) => {
+    const baseValue = parseInt(immobile.numero_stanze) * 50000; // valore base per stanza
+    const statoMultiplier = immobile.stato_immobile === 2 ? 1.2 : 1.0; // stato "valutato" vale di più
+    const valoreStimato = baseValue * statoMultiplier;
+
+    return {
+      valore_minimo: Math.round(valoreStimato * 0.95), // -5%
+      valore_stimato: Math.round(valoreStimato),
+      valore_massimo: Math.round(valoreStimato * 1.05), // +5%
+    };
+  };
+
+  const handleFormSubmit = async () => {
     console.log("Form submitted with data:", JSON.stringify(formData, null, 2));
+    try {
+      // Prima creiamo l'immobile
+      const immobileResponse = await fetch("http://localhost:8080/api/immobili", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          indirizzo: formData.indirizzo,
+          citta: {
+            id: parseInt(formData.citta)
+          },
+          statoImmobile: {
+            id: parseInt(formData.stato_immobile)
+          },
+          piano: parseInt(formData.piano),
+          numeroStanze: parseInt(formData.numero_stanze),
+          numeroBagni: parseInt(formData.numero_bagni),
+          balconi: formData.balconi,
+          garage: formData.garage,
+          giardino: formData.giardino,
+          annoCostruzione: parseInt(formData.anno_costruzione)
+        }),
+      });
+
+      if (!immobileResponse.ok) throw new Error("Errore creazione immobile");
+
+      const immobile = await immobileResponse.json();
+      const valori = calcolaValore(immobile);
+
+      // Poi creiamo la valutazione collegata all'immobile
+      const valutazioneResponse = await fetch("http://localhost:8080/api/valutazioni", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...valori,
+          id_immobiliare: immobile.id
+        }),
+      });
+
+      if (!valutazioneResponse.ok) throw new Error("Errore creazione valutazione");
+
+      alert("Valutazione inviata con successo!");
+    } catch (err) {
+      console.error(err);
+      alert("Errore nell'invio della valutazione");
+    }
   };
 
   const metratureOptions: SelectOption[] = [
