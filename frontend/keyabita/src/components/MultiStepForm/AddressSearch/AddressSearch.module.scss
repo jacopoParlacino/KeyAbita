@@ -13,7 +13,11 @@
     gap: 56px;
     text-align: center;
     align-items: center;
-    margin: 20px 0px
+    margin: 20px 0px;
+    @include desktop {
+        margin: 40px 0px;
+        height: 60px;
+    }
 }
 
 .input {

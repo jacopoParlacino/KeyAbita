@@ -13,6 +13,12 @@
     color: $text-color;
     font-family: $font-primary;
     font-size: 0.8rem;
+    transition: all 0.2s ease; 
+    &:hover {
+        transform: translateY(-2px); 
+        box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15); 
+    }
+
     @include desktop {
         width: 120px;
         height: 40px;
@@ -35,4 +41,3 @@
     color: $primary-color;
     font-family: $font-primary;
 }
-

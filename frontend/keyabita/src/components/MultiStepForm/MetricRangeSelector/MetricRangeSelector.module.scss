@@ -1,13 +1,12 @@
 @use "../../../styles/variables" as *;
 @use "../../../styles/mixins" as *;
 
-.container {
+.metric__container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 0;
     width: 100%;
-    margin: 10px 0;
+    margin: 20px 0 10px 0;
 }
 
 .label {
@@ -15,6 +14,9 @@
     margin-right: 16px;
     font-weight: 700;
     font-size: 0.8rem;
+    @include desktop {
+        font-size: 1.3rem;
+    }
 }
 
 .select {

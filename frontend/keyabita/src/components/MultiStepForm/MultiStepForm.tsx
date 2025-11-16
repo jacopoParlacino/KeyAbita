@@ -3,7 +3,7 @@ import styles from "./MultiStepForm.module.scss";
 import HeaderForm from "./HeaderForm/HeaderForm";
 import { useNavigate } from "react-router-dom";
 import PropertyTypeSelector from "./PropertyTypeSelector/PropertyTypeSelector";
-import { Check, House } from "lucide-react";
+import { Check, ChevronLeft, House } from "lucide-react";
 import { Building } from "lucide-react";
 import AddressSearch from "./AddressSearch/AddressSearch";
 import StepperNavigation from "./StepperNavigation/StepperNavigation";
@@ -12,6 +12,7 @@ import Counter from "./Counter/Counter";
 import InputField from "./InputField/InputField";
 import MetricRangeSelector, { type SelectOption } from "./MetricRangeSelector/MetricRangeSelector";
 import VerticalSidebar from "./VerticalSidebar/VerticalSidebar";
+import Button from "./Button/Button";
 
 const totalStep: number = 5;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -218,7 +219,7 @@ export default function MultiStepForm() {
       case 1:
         return (
           <>
-            <h2 className={styles.h2}>Tipologia</h2>
+            <h2 className={styles.first__h2}>Tipologia</h2>
             <div className={styles.div__property__selection}>
               <PropertyTypeSelector
                 icon={House}
@@ -233,7 +234,7 @@ export default function MultiStepForm() {
                 isSelected={formData.propertyType === "appartamento"}
               />
             </div>
-            {errors.propertyType && <p className={styles.errorMessage}>{errors.propertyType}</p>}
+            {errors.propertyType && <p className={styles.error__message}>{errors.propertyType}</p>}
 
             <h2 className={styles.h2}>Indirizzo</h2>
             <AddressSearch
@@ -241,13 +242,13 @@ export default function MultiStepForm() {
               onChange={handleAddressChange}
               placeholder="Inserisci indirizzo"
             />
-            {errors.indirizzo && <p className={styles.errorMessage}>{errors.indirizzo}</p>}
+            {errors.indirizzo && <p className={styles.error__message}>{errors.indirizzo}</p>}
           </>
         );
       case 2:
         return (
           <>
-            <h2 className={styles.h2}>Condizione immobile</h2>
+            <h2 className={styles.first__h2}>Condizione immobile</h2>
             <ImmobileCondition
               label="Ottimo"
               onClick={() => handleConditionSelected("Ottimo")}
@@ -263,7 +264,7 @@ export default function MultiStepForm() {
               onClick={() => handleConditionSelected("Da ristrutturare")}
               isSelected={formData.condition === "Da ristrutturare"}
               icon={Check} />
-            {errors.condition && <p className={styles.errorMessage}>{errors.condition}</p>}
+            {errors.condition && <p className={styles.error__message}>{errors.condition}</p>}
 
             <MetricRangeSelector
               label="Metratura"
@@ -271,14 +272,14 @@ export default function MultiStepForm() {
               value={formData.metratura}
               onChange={handleMetraturaChange}
             />
-            {errors.metratura && <p className={styles.errorMessage}>{errors.metratura}</p>}
+            {errors.metratura && <p className={styles.error__message}>{errors.metratura}</p>}
 
             <Counter label="Stanze"
               value={formData.stanze}
               onIncrement={() => handleCounterChange('stanze', 'increment')}
               onDecrement={() => handleCounterChange('stanze', 'decrement')}
             />
-            {errors.stanze && <p className={styles.errorMessage}>{errors.stanze}</p>}
+            {errors.stanze && <p className={styles.error__message}>{errors.stanze}</p>}
 
             <Counter label="Piano"
               value={formData.piano}
@@ -294,7 +295,7 @@ export default function MultiStepForm() {
       case 3:
         return (
           <>
-            <h2 className={styles.h2}>Caratteristiche dell' immobile</h2>
+            <h2 className={styles.first__h2}>Dotazioni dell' immobile</h2>
 
             <Counter
               label="Ascensore"
@@ -325,13 +326,15 @@ export default function MultiStepForm() {
       case 4:
         return (
           <>
-            <InputField
-              label="Nome"
-              value={formData.nome}
-              onChange={handleNameChange}
-              placeholder="Inserisci il tuo nome"
-            />
-            {errors.nome && <p className={styles.errorMessage}>{errors.nome}</p>}
+            <div className={styles.margin__top__auto}>
+              <InputField
+                label="Nome"
+                value={formData.nome}
+                onChange={handleNameChange}
+                placeholder="Inserisci il tuo nome"
+              />
+              {errors.nome && <p className={styles.error__message}>{errors.nome}</p>}
+            </div>
 
             <InputField
               label="Cognome"
@@ -339,7 +342,7 @@ export default function MultiStepForm() {
               onChange={handleSurnameChange}
               placeholder="Inserisci il tuo cognome"
             />
-            {errors.cognome && <p className={styles.errorMessage}>{errors.cognome}</p>}
+            {errors.cognome && <p className={styles.error__message}>{errors.cognome}</p>}
 
             <InputField
               label="Numero di telefono "
@@ -347,7 +350,7 @@ export default function MultiStepForm() {
               onChange={handleTelephoneNumberChange}
               placeholder="Inserisci il tuo numero"
             />
-            {errors.numeroDiTelefono && <p className={styles.errorMessage}>{errors.numeroDiTelefono}</p>}
+            {errors.numeroDiTelefono && <p className={styles.error__message}>{errors.numeroDiTelefono}</p>}
 
             <InputField
               label="Email"
@@ -355,17 +358,27 @@ export default function MultiStepForm() {
               onChange={handleEmailChange}
               placeholder="Inserisci la tua email"
             />
-            {errors.email && <p className={styles.errorMessage}>{errors.email}</p>}
+            {errors.email && <p className={styles.error__message}>{errors.email}</p>}
           </>
         );
       case 5:
         return (
           <>
             <div className={styles.confirmation__container}>
-              <h2 className={styles.h2}>Grazie per la tua richiesta!</h2>
-              <p className={styles.text__confermation}>Il tuo report di valutazione immobiliare verrà analizzato dai nostri esperti certificati e inviato all’indirizzo email da te indicato entro 72 ore.</p>
-              <p className={styles.text__confermation}>Ti contatteremo qualora fossero necessari ulteriori dettagli.</p>
+              <h2 className={styles.confirmation__title}>Grazie per aver inviato la richiesta di valutazione!</h2>
+              <p className={styles.text__confirmation}>Il tuo report di valutazione immobiliare verrà analizzato dai nostri esperti certificati e inviato all’indirizzo email da te indicato entro 72 ore.</p>
+              <p className={styles.text__confirmation}>Ti contatteremo qualora fossero necessari ulteriori dettagli.</p>
             </div>
+            <div className={styles.button__confirmation__container}>
+              <Button
+                label={"Home"}
+                onClick={() => { navigate("/"); }}
+                variant="secondary"
+                type="button"
+                icon={ChevronLeft}
+              />
+            </div>
+
           </>
         )
     }
@@ -388,39 +401,39 @@ export default function MultiStepForm() {
             />
           </div>
 
-            <div className={styles.step__content__container}>
-              {renderStepContent()}
+          <div className={styles.step__content__container}>
+            {renderStepContent()}
 
 
-              {currentStep !== totalStep && (
-                <div className={styles.stepper__navigation__container}>
-                  <StepperNavigation
-                    onBack={() => {
-                      if (currentStep === 1) {
-                        navigate("/");
+            {currentStep !== totalStep && (
+              <div className={styles.stepper__navigation__container}>
+                <StepperNavigation
+                  onBack={() => {
+                    if (currentStep === 1) {
+                      navigate("/");
+                    } else {
+                      prevStep();
+                    }
+                  }}
+                  onNext={() => {
+                    const isStepValid = validateStep();
+
+                    if (isStepValid) {
+                      if (currentStep === totalStep - 1) {
+                        handleFormSubmit();
+                        nextStep();
+
                       } else {
-                        prevStep();
+                        nextStep();
                       }
-                    }}
-                    onNext={() => {
-                      const isStepValid = validateStep();
-
-                      if (isStepValid) {
-                        if (currentStep === totalStep - 1) {
-                          handleFormSubmit();
-                          nextStep();
-
-                        } else {
-                          nextStep();
-                        }
-                      }
-                    }}
-                    isNextDisabled={false}
-                    isLastStep={currentStep === totalStep - 1}
-                  />
-                </div>
-              )}
-            </div>
+                    }
+                  }}
+                  isNextDisabled={false}
+                  isLastStep={currentStep === totalStep - 1}
+                />
+              </div>
+            )}
+          </div>
 
         </div>
 

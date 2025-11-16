@@ -15,7 +15,7 @@ export interface MetricRangeSelectorProps {
 export default function ({ label, options, value, onChange }: MetricRangeSelectorProps) {
     return (
         <>
-            <div className={styles.container}>
+            <div className={styles.metric__container}>
 
                 <span className={styles.label}>{label}</span>
 
