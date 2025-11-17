@@ -13,15 +13,18 @@ import InputField from "./InputField/InputField";
 import MetricRangeSelector, { type SelectOption } from "./MetricRangeSelector/MetricRangeSelector";
 import VerticalSidebar from "./VerticalSidebar/VerticalSidebar";
 import Button from "./Button/Button";
+import ToggleSwitch from "./ToggleSwitch/ToggleSwitch";
 
 const totalStep: number = 5;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const phoneRegex = /^\+?[0-9]{9,15}$/;
+const capRegex = /^(1501[0-9]|1502[0-2]|151[0-1][0-9]|15122|1401[0-9]|140[2-9][0-9]|14100|1381[1-9]|138[2-9][0-9]|13900|1201[0-9]|12[1-9][0-9]{2}|13[0-1][0-9]{3}|16[0-9]{3}|17[0-9]{3}|1800[0-9]|1802[0-5]|2801[0-9]|28100|2880[1-9]|288[1-9][0-9]|2890[0-9]|2891[0-9]|2892[0-5]|1001[0-9]|101[0-5][0-6])$/;
+
 
 interface FormData {
   propertyType: string | null;
   citta: string;
-  indirizzo: string;
+  cap: string;
   condition: string;
   metratura: string;
   stanze: number;
@@ -48,7 +51,7 @@ export default function MultiStepForm() {
   const [formData, setFormData] = useState<FormData>({
     propertyType: null,
     citta: "",
-    indirizzo: "",
+    cap: "",
     condition: "",
     metratura: "",
     stanze: 0,
@@ -88,9 +91,9 @@ export default function MultiStepForm() {
     }
   }
   const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ ...prev, indirizzo: e.target.value }));
-    if (errors.indirizzo) {
-      setErrors((prev: any) => ({ ...prev, indirizzo: undefined }));
+    setFormData((prev) => ({ ...prev, cap: e.target.value }));
+    if (errors.cap) {
+      setErrors((prev: any) => ({ ...prev, cap: undefined }));
     }
   };
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -124,7 +127,9 @@ export default function MultiStepForm() {
     }
   }
 
-  type CounterField = 'stanze' | 'piano' | 'bagni' | 'ascensore' | 'parcheggio' | 'garage' | 'giardino' | 'terrazze' | 'balconi';
+  type CounterField = 'stanze' | 'piano' | 'bagni';
+  type ToggleField = 'ascensore' | 'parcheggio' | 'garage' | 'giardino' | 'terrazze' | 'balconi';
+
   const handleCounterChange = (
     field: CounterField,
     type: 'increment' | 'decrement'
@@ -141,7 +146,7 @@ export default function MultiStepForm() {
     });
   };
 
-const handleFormSubmit = async () => {
+  const handleFormSubmit = async () => {
     console.log("Form submitted with data:", JSON.stringify(formData, null, 2));
 
     const {
@@ -153,24 +158,24 @@ const handleFormSubmit = async () => {
       bagni,
       citta,
       stato_immobile,
-      ...datiImmobile 
+      ...datiImmobile
     } = formData;
 
 
     try {
       const immobilePayload = {
-        ...datiImmobile, 
+        ...datiImmobile,
 
         numeroStanze: stanze,
         numeroBagni: bagni,
-        citta: { id: parseInt(citta) || null }, 
-        statoImmobile: { id: parseInt(stato_immobile) || null } 
+        citta: { id: parseInt(citta) || null },
+        statoImmobile: { id: parseInt(stato_immobile) || null }
       };
 
       const immobileResponse = await fetch("http://localhost:8080/api/immobili", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(immobilePayload), 
+        body: JSON.stringify(immobilePayload),
       });
 
       if (!immobileResponse.ok) throw new Error("Errore creazione immobile");
@@ -193,16 +198,16 @@ const handleFormSubmit = async () => {
 
       if (!valutazioneResponse.ok) throw new Error("Errore creazione valutazione");
 
-      alert("Valutazione inviata con successo!");
+      console.error("Valutazione inviata con successo!");
     } catch (err) {
       console.error(err);
-      alert("Errore nell'invio della valutazione");
+      console.error("Errore nell'invio della valutazione");
     }
   };
 
   const metratureOptions: SelectOption[] = [
     { value: '', label: 'Seleziona...' },
-    { value: '0-50', label: '0-50 m²' },
+    { value: '25-50', label: '25-50 m²' },
     { value: '51-100', label: '51-100 m²' },
     { value: '101-150', label: '101-150 m²' },
     { value: '150+', label: 'Oltre 150 m²' },
@@ -222,8 +227,10 @@ const handleFormSubmit = async () => {
       if (!formData.propertyType) {
         newErrors.propertyType = "Devi selezionare una tipologia";
       }
-      if (!formData.indirizzo) {
-        newErrors.indirizzo = "Devi inserire un indirizzo";
+      if (!formData.cap) {
+        newErrors.cap = "Devi inserire un CAP";
+      } else if (!capRegex.test(formData.cap)) {
+        newErrors.cap = "Il CAP inserito non è valido o non è coperto dal servizio";
       }
     }
 
@@ -258,7 +265,7 @@ const handleFormSubmit = async () => {
       if (!formData.email) {
         newErrors.email = "Il campo Email è obbligatorio";
       } else if (!emailRegex.test(formData.email)) {
-        newErrors.email = "Indirizzo email non valido";
+        newErrors.email = "cap email non valido";
       }
     }
 
@@ -267,24 +274,31 @@ const handleFormSubmit = async () => {
   };
 
   const stepperSteps = [
-    'Indirizzo',
+    'cap',
     'Caratteristiche',
     'Dotazioni',
     'Dati Personali'
   ];
+
+  const handleToggleChange = (
+    field: ToggleField,
+    newValue: number // 0 o 1
+  ) => {
+    setFormData(prev => ({ ...prev, [field]: newValue }));
+  };
 
   const renderStepContent = () => {
     switch (currentStep) {
       case 1:
         return (
           <>
-            <h2 className={styles.first__h2}>Tipologia</h2>
+            <h2 className={[styles.h2, styles.margin__top__auto].join(' ')}>Tipologia</h2>
             <div className={styles.div__property__selection}>
               <PropertyTypeSelector
                 icon={House}
-                label="Casa"
-                onClick={() => handlePropertySelect("casa")}
-                isSelected={formData.propertyType === "casa"}
+                label="Villa"
+                onClick={() => handlePropertySelect("villa")}
+                isSelected={formData.propertyType === "villa"}
               />
               <PropertyTypeSelector
                 icon={Building}
@@ -295,13 +309,17 @@ const handleFormSubmit = async () => {
             </div>
             {errors.propertyType && <p className={styles.error__message}>{errors.propertyType}</p>}
 
-            <h2 className={styles.h2}>Indirizzo</h2>
-            <AddressSearch
-              value={formData.indirizzo}
-              onChange={handleAddressChange}
-              placeholder="Inserisci indirizzo"
-            />
-            {errors.indirizzo && <p className={styles.error__message}>{errors.indirizzo}</p>}
+            <div className={styles.cap__container}>
+              <h2 className={styles.h2}>Cap</h2>
+              <AddressSearch
+                value={formData.cap}
+                onChange={handleAddressChange}
+                placeholder="Inserisci un CAP valido per le province supportate"
+
+              />
+              {errors.cap && <p className={styles.error__message}>{errors.cap}</p>}
+            </div>
+
           </>
         );
       case 2:
@@ -309,15 +327,23 @@ const handleFormSubmit = async () => {
           <>
             <h2 className={styles.first__h2}>Condizione immobile</h2>
             <ImmobileCondition
-              label="Ottimo"
-              onClick={() => handleConditionSelected("Ottimo")}
-              isSelected={formData.condition === "Ottimo"}
+              label="Ottimo stato"
+              onClick={() => handleConditionSelected("Ottimo stato")}
+              isSelected={formData.condition === "Ottimo stato"}
               icon={Check} />
+
             <ImmobileCondition
-              label="Abitabile"
-              onClick={() => handleConditionSelected("Abitabile")}
-              isSelected={formData.condition === "Abitabile"}
+              label="Nuovo"
+              onClick={() => handleConditionSelected("Nuovo")}
+              isSelected={formData.condition === "Nuovo"}
               icon={Check} />
+
+            <ImmobileCondition
+              label="Buono stato"
+              onClick={() => handleConditionSelected("Buono stato")}
+              isSelected={formData.condition === "Buono stato"}
+              icon={Check} />
+
             <ImmobileCondition
               label="Da ristrutturare"
               onClick={() => handleConditionSelected("Da ristrutturare")}
@@ -356,30 +382,37 @@ const handleFormSubmit = async () => {
           <>
             <h2 className={styles.first__h2}>Dotazioni dell' immobile</h2>
 
-            <Counter
-              label="Ascensore"
-              value={formData.ascensore}
-              onIncrement={() => handleCounterChange('ascensore', 'increment')} onDecrement={() => handleCounterChange('ascensore', 'decrement')} />
-            <Counter
-              label="Parcheggio"
-              value={formData.parcheggio}
-              onIncrement={() => handleCounterChange('parcheggio', 'increment')} onDecrement={() => handleCounterChange('parcheggio', 'decrement')} />
-            <Counter
-              label="Garage"
-              value={formData.garage}
-              onIncrement={() => handleCounterChange('garage', 'increment')} onDecrement={() => handleCounterChange('garage', 'decrement')} />
-            <Counter
-              label="Giardino"
-              value={formData.giardino}
-              onIncrement={() => handleCounterChange('giardino', 'increment')} onDecrement={() => handleCounterChange('giardino', 'decrement')} />
-            <Counter
-              label="Terrazze"
-              value={formData.terrazze}
-              onIncrement={() => handleCounterChange('terrazze', 'increment')} onDecrement={() => handleCounterChange('terrazze', 'decrement')} />
-            <Counter
-              label="Balconi"
-              value={formData.balconi}
-              onIncrement={() => handleCounterChange('balconi', 'increment')} onDecrement={() => handleCounterChange('balconi', 'decrement')} />
+            <ToggleSwitch
+            label="Ascensore"
+            value={formData.ascensore}
+            onChange={(newValue) => handleToggleChange('ascensore', newValue)}
+          />
+          <ToggleSwitch
+            label="Parcheggio"
+            value={formData.parcheggio}
+            onChange={(newValue) => handleToggleChange('parcheggio', newValue)}
+          />
+          <ToggleSwitch
+            label="Garage"
+            value={formData.garage}
+            onChange={(newValue) => handleToggleChange('garage', newValue)}
+          />
+          <ToggleSwitch
+            label="Giardino"
+            value={formData.giardino}
+            onChange={(newValue) => handleToggleChange('giardino', newValue)}
+          />
+          <ToggleSwitch
+            label="Terrazze"
+            value={formData.terrazze}
+            onChange={(newValue) => handleToggleChange('terrazze', newValue)}
+          />
+          <ToggleSwitch
+            label="Balconi"
+            value={formData.balconi}
+            onChange={(newValue) => handleToggleChange('balconi', newValue)}
+          />
+
           </>
         );
       case 4:
@@ -425,7 +458,7 @@ const handleFormSubmit = async () => {
           <>
             <div className={styles.confirmation__container}>
               <h2 className={styles.confirmation__title}>Grazie per aver inviato la richiesta di valutazione!</h2>
-              <p className={styles.text__confirmation}>Il tuo report di valutazione immobiliare verrà analizzato dai nostri esperti certificati e inviato all’indirizzo email da te indicato entro 72 ore.</p>
+              <p className={styles.text__confirmation}>Il tuo report di valutazione immobiliare verrà analizzato dai nostri esperti certificati e inviato all’cap email da te indicato entro 72 ore.</p>
               <p className={styles.text__confirmation}>Ti contatteremo qualora fossero necessari ulteriori dettagli.</p>
             </div>
             <div className={styles.button__confirmation__container}>

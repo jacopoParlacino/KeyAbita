@@ -33,14 +33,14 @@
             width: 14px;
             height: 14px;
             border-radius: 50%;
-            background-color: $grey;
-            border: 2px solid $grey;
+            background-color: $light-brown;
+            border: 2px solid $light-brown;
             margin-right: 15px;
             transition: all 0.3s ease;
         }
 
         .label {
-            color: $grey;
+            color: $light-brown;
             font-weight: 500;
             font-size: 1.1rem;
             transition: all 0.3s ease;
@@ -64,12 +64,12 @@
     
     .completed {
         .dot {
-            background-color: green; 
-            border-color: green;
+            background-color: $teal; 
+            border-color: $teal;
         }
 
         .label {
-            color: green; 
+            color: $teal; 
         }
     }
 

@@ -13,6 +13,10 @@
     }
 }
 
+.header__container{
+    margin-bottom: 20px;
+}
+
 .step__content__container {
     padding: 20px;
     display: flex;
@@ -23,7 +27,7 @@
     @include desktop {
         display: flex;
         flex-direction: column;
-        padding: 0 60px;
+        padding: 0 100px;
 
     }
 }
@@ -168,4 +172,11 @@
 .button__confirmation__container {
     margin-top: 100px;
 
+}
+
+.cap__container {
+    // display: flex;
+    // flex-direction: row;
+    // align-items: center;
+    // justify-content: space-between;
 }

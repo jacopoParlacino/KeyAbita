@@ -7,16 +7,18 @@
     border: 1px solid;
     outline: none;
     border-color: $primary-color;
-    width: 100%;
+    width: 165px;
     display: flex;
     flex-direction: row;
     gap: 56px;
     text-align: center;
     align-items: center;
     margin: 20px 0px;
+
     @include desktop {
         margin: 40px 0px;
         height: 60px;
+        width: 40%;
     }
 }
 
@@ -32,6 +34,7 @@
 .search__icon {
     color: $primary-color;
     margin-right: 20px;
+
     @include desktop {
         margin-left: auto;
     }

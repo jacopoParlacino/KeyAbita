@@ -42,4 +42,10 @@
     border: none;
     color: $primary-color;
     font-family: $font-primary;
+    display: flex;
+    justify-content: space-between;
+
+    @include desktop {
+        padding-right: 30px;
+    }
 }
