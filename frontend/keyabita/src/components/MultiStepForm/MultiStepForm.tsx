@@ -70,7 +70,11 @@ export default function MultiStepForm() {
     stato_immobile: "",
   });
 
-  const [errors, setErrors] = useState<any>({});
+  type FormErrors = {
+    [key in keyof FormData]?: string;
+  };
+
+  const [errors, setErrors] = useState<FormErrors>({});
 
   const nextStep = () => {
     if (currentStep < totalStep) {
@@ -87,43 +91,43 @@ export default function MultiStepForm() {
   const handlePropertySelect = (type: string) => {
     setFormData((prev) => ({ ...prev, propertyType: type }))
     if (errors.propertyType) {
-      setErrors((prev: any) => ({ ...prev, propertyType: undefined }));
+      setErrors((prev) => ({ ...prev, propertyType: undefined }));
     }
   }
   const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, cap: e.target.value }));
     if (errors.cap) {
-      setErrors((prev: any) => ({ ...prev, cap: undefined }));
+      setErrors((prev) => ({ ...prev, cap: undefined }));
     }
   };
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, nome: e.target.value }));
     if (errors.nome) {
-      setErrors((prev: any) => ({ ...prev, nome: undefined }));
+      setErrors((prev) => ({ ...prev, nome: undefined }));
     }
   };
   const handleSurnameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, cognome: e.target.value }));
     if (errors.cognome) {
-      setErrors((prev: any) => ({ ...prev, cognome: undefined }));
+      setErrors((prev) => ({ ...prev, cognome: undefined }));
     }
   };
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, email: e.target.value }));
     if (errors.email) {
-      setErrors((prev: any) => ({ ...prev, email: undefined }));
+      setErrors((prev) => ({ ...prev, email: undefined }));
     }
   };
   const handleTelephoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, numeroDiTelefono: e.target.value }));
     if (errors.numeroDiTelefono) {
-      setErrors((prev: any) => ({ ...prev, numeroDiTelefono: undefined }));
+      setErrors((prev) => ({ ...prev, numeroDiTelefono: undefined }));
     }
   };
   const handleConditionSelected = (type: string) => {
     setFormData((prev) => ({ ...prev, condition: type }))
     if (errors.condition) {
-      setErrors((prev: any) => ({ ...prev, condition: undefined }));
+      setErrors((prev) => ({ ...prev, condition: undefined }));
     }
   }
 
@@ -216,12 +220,12 @@ export default function MultiStepForm() {
   const handleMetraturaChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFormData((prev) => ({ ...prev, metratura: e.target.value }));
     if (errors.metratura) {
-      setErrors((prev: any) => ({ ...prev, metratura: undefined }));
+      setErrors((prev) => ({ ...prev, metratura: undefined }));
     }
   };
 
   const validateStep = (): boolean => {
-    const newErrors: any = {};
+    const newErrors: FormErrors = {};
 
     if (currentStep === 1) {
       if (!formData.propertyType) {
@@ -282,7 +286,7 @@ export default function MultiStepForm() {
 
   const handleToggleChange = (
     field: ToggleField,
-    newValue: number // 0 o 1
+    newValue: number
   ) => {
     setFormData(prev => ({ ...prev, [field]: newValue }));
   };
@@ -383,35 +387,35 @@ export default function MultiStepForm() {
             <h2 className={styles.first__h2}>Dotazioni dell' immobile</h2>
 
             <ToggleSwitch
-            label="Ascensore"
-            value={formData.ascensore}
-            onChange={(newValue) => handleToggleChange('ascensore', newValue)}
-          />
-          <ToggleSwitch
-            label="Parcheggio"
-            value={formData.parcheggio}
-            onChange={(newValue) => handleToggleChange('parcheggio', newValue)}
-          />
-          <ToggleSwitch
-            label="Garage"
-            value={formData.garage}
-            onChange={(newValue) => handleToggleChange('garage', newValue)}
-          />
-          <ToggleSwitch
-            label="Giardino"
-            value={formData.giardino}
-            onChange={(newValue) => handleToggleChange('giardino', newValue)}
-          />
-          <ToggleSwitch
-            label="Terrazze"
-            value={formData.terrazze}
-            onChange={(newValue) => handleToggleChange('terrazze', newValue)}
-          />
-          <ToggleSwitch
-            label="Balconi"
-            value={formData.balconi}
-            onChange={(newValue) => handleToggleChange('balconi', newValue)}
-          />
+              label="Ascensore"
+              value={formData.ascensore}
+              onChange={(newValue) => handleToggleChange('ascensore', newValue)}
+            />
+            <ToggleSwitch
+              label="Parcheggio"
+              value={formData.parcheggio}
+              onChange={(newValue) => handleToggleChange('parcheggio', newValue)}
+            />
+            <ToggleSwitch
+              label="Garage"
+              value={formData.garage}
+              onChange={(newValue) => handleToggleChange('garage', newValue)}
+            />
+            <ToggleSwitch
+              label="Giardino"
+              value={formData.giardino}
+              onChange={(newValue) => handleToggleChange('giardino', newValue)}
+            />
+            <ToggleSwitch
+              label="Terrazze"
+              value={formData.terrazze}
+              onChange={(newValue) => handleToggleChange('terrazze', newValue)}
+            />
+            <ToggleSwitch
+              label="Balconi"
+              value={formData.balconi}
+              onChange={(newValue) => handleToggleChange('balconi', newValue)}
+            />
 
           </>
         );
