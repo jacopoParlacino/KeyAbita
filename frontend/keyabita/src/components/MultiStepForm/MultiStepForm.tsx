@@ -34,7 +34,6 @@ interface FormData {
   parcheggio: number;
   garage: number;
   giardino: number;
-  terrazze: number;
   balconi: number;
   nome: string;
   cognome: string;
@@ -61,7 +60,6 @@ export default function MultiStepForm() {
     parcheggio: 0,
     garage: 0,
     giardino: 0,
-    terrazze: 0,
     balconi: 0,
     nome: "",
     cognome: "",
@@ -132,7 +130,7 @@ export default function MultiStepForm() {
   }
 
   type CounterField = 'stanze' | 'piano' | 'bagni';
-  type ToggleField = 'ascensore' | 'parcheggio' | 'garage' | 'giardino' | 'terrazze' | 'balconi';
+  type ToggleField = 'ascensore' | 'parcheggio' | 'garage' | 'giardino' | 'balconi';
 
   const handleCounterChange = (
     field: CounterField,
@@ -405,11 +403,6 @@ export default function MultiStepForm() {
               label="Giardino"
               value={formData.giardino}
               onChange={(newValue) => handleToggleChange('giardino', newValue)}
-            />
-            <ToggleSwitch
-              label="Terrazze"
-              value={formData.terrazze}
-              onChange={(newValue) => handleToggleChange('terrazze', newValue)}
             />
             <ToggleSwitch
               label="Balconi"
