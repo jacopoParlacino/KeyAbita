@@ -274,7 +274,7 @@ export default function MultiStepForm() {
   };
 
   const stepperSteps = [
-    'cap',
+    'Indirizzo',
     'Caratteristiche',
     'Dotazioni',
     'Dati Personali'
