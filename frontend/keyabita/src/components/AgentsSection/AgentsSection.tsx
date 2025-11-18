@@ -1,0 +1,63 @@
+import styles from "./AgentsSection.module.scss";
+import AgentCard from "./AgentCard/AgentCard";
+
+/**
+ * Section component to display a list of real estate agents.
+ *
+ * This component renders a title, a description, and a carousel of `AgentCard` components.
+ * The agents data is currently hardcoded inside the component.
+ */
+const AgentsSection = () => {
+  const agents = [
+    {
+      name: "Anna Verdi",
+      role: "Senior Analista",
+      stars: 5,
+      experience: "12 anni di esperienza",
+      extraInfo:
+        "12 anni di esperienza nella valutazione di proprietà residenziali",
+
+      imgAvif: "/img/agente-immobiliare-anna-verdi.avif",
+      imgWebp: "/img/agente-immobiliare-anna-verdi.webp",
+      imgJpg: "/img/agente-immobiliare-anna-verdi.jpg",
+    },
+    {
+      name: "Luca Bonaventura",
+      role: "Portfolio Manager",
+      stars: 5,
+      experience: "10 anni di esperienza",
+      extraInfo:
+        "14 anni di esperienza nella ricerca e nella valutazione dei immobiliari",
+      imgAvif: "/img/agente-immobiliare-luca-bonaventura.avif",
+      imgWebp: "/img/agente-immobiliare-luca-bonaventura.webp",
+      imgJpg: "/img/agente-immobiliare-luca-bonaventura.jpg",
+    },
+    {
+      name: "Vittoria Montadori",
+      role: "Analista del mercato",
+      stars: 5,
+      experience: "10 anni di esperienza",
+      extraInfo: "10 anni di esperienza nell’analisi delle tendenze di mercato",
+      imgAvif: "/img/agente-immobiliare-vittoria-montadori.avif",
+      imgWebp: "/img/agente-immobiliare-vittoria-montadori.webp",
+      imgJpg: "/img/agente-immobiliare-vittoria-montadori.jpg",
+    },
+  ];
+
+  return (
+    <section className={styles.agentsSection}>
+      <h2 className={styles.agentsSection__title}>Incontra i nostri agenti</h2>
+      <p className={styles.agentsSection__text}>
+        Professionisti certificati pronti ad assisterti
+      </p>
+
+      <div className={styles.agentsSection__carousel}>
+        {agents.map((agent, i) => (
+          <AgentCard key={i} {...agent} />
+        ))}
+      </div>
+    </section>
+  );
+};
+
+export default AgentsSection;

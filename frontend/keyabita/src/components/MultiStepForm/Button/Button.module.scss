@@ -1,0 +1,51 @@
+@use "../../../styles/mixins.scss" as *;
+@use "../../../styles/variables.scss" as *;
+
+.primary,
+.secondary {
+    width: 60px;
+    border-radius: 6px;
+    border: 1px solid;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $text-color;
+    font-family: $font-primary;
+    font-size: 0.8rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    @include desktop {
+        width: 120px;
+        height: 40px;
+        font-size: 1rem;
+    }
+}
+
+.primary {
+    padding: 5px 50px;
+    background-color: $primary-color;
+    border-color: $primary-color;
+
+}
+
+.secondary {
+    padding: 5px 0px;
+    background-color: $text-color;
+    outline: none;
+    border: none;
+    color: $primary-color;
+    font-family: $font-primary;
+    display: flex;
+    justify-content: space-between;
+
+    @include desktop {
+        padding-right: 30px;
+    }
+}

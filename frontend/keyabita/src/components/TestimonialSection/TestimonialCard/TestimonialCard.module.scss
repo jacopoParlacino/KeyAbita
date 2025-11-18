@@ -1,0 +1,96 @@
+@use "../../../styles/variables.scss" as *;
+@use "../../../styles/mixins.scss" as *;
+
+.testimonialCard {
+  background: $beige;
+  border-radius: 24px;
+  padding: 0.5rem 1.2rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  width: 96%;
+  max-width: 400px;
+  transform: scale(0.95);
+  transition: all 0.4s ease;
+
+  scroll-snap-align: center;
+
+  @include desktop {
+    height: 100%;
+    min-height: 200px;
+    display: flex;
+    max-width: 500px;
+    padding: 1.5rem 1.8rem;
+    gap: 1.5rem;
+    transform: translateY(40px);
+    scroll-snap-align: none;
+  }
+}
+
+.testimonialCard--active {
+  transform: scale(1);
+}
+
+.testimonialCard__picture {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: block;
+
+  @include desktop {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+.testimonialCard__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+}
+
+.testimonialCard__content {
+  flex: 1;
+  text-align: left;
+}
+
+.testimonialCard__name {
+  font-size: $base-font-size;
+  font-weight: 600;
+  color: $primary-color;
+
+  @include desktop {
+    font-size: 18px;
+  }
+}
+
+.testimonialCard__stars {
+  margin: 0.25rem 0;
+  display: flex;
+  gap: 1px;
+}
+
+.testimonialCard__text {
+  color: $text-secondary;
+  font-size: 12px;
+  margin-top: 0.5rem;
+  line-height: 1.4;
+
+  @include desktop {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

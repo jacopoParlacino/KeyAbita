@@ -1,0 +1,176 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.form__container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    @include desktop {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+    }
+}
+
+.header__container{
+    margin-bottom: 20px;
+}
+
+.step__content__container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+
+    @include desktop {
+        display: flex;
+        flex-direction: column;
+        padding: 0 100px;
+
+    }
+}
+
+
+.input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+
+    &:focus {
+        outline: none;
+        border-color: #007bff;
+    }
+}
+
+.button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #0056b3;
+    }
+}
+
+.div__property__selection {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    font-size: 0.5rem;
+    width: 100%;
+
+    @include desktop {
+        margin: 40px 0;
+    }
+}
+
+.h2 {
+    color: $primary-color;
+    font-size: 1rem;
+
+    @include desktop {
+        font-size: 2rem;
+    }
+
+}
+
+.first__h2 {
+    color: $primary-color;
+    font-size: 1rem;
+
+    @include desktop {
+        margin-top: auto;
+        margin-bottom: 25px;
+        font-size: 2rem;
+    }
+
+}
+
+.confirmation__title {
+    color: $primary-color;
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    text-align: center;
+
+    @include desktop {
+        font-size: 3rem;
+    }
+
+}
+
+.stepper__navigation__container {
+    margin-top: auto;
+}
+
+.confirmation__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.text__confirmation {
+    color: $primary-color;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.error__message {
+    color: $cta-color;
+    font-size: 0.6rem;
+    width: 100%;
+    text-align: left;
+
+    @include desktop {
+        font-size: 0.8rem;
+    }
+}
+
+
+.main__content__wrapper {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+
+    @include desktop {
+        display: flex;
+        flex-direction: row;
+    }
+}
+
+
+.vertical__sidebar {
+    display: none;
+
+    @include desktop {
+
+        background: $primary-desaturated;
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+}
+
+.step__content__wrapper {
+    margin: 0 auto;
+    flex-grow: 1;
+}
+
+.margin__top__auto {
+    @include desktop {
+        margin-top: auto;
+    }
+}
+
+.button__confirmation__container {
+    margin-top: 100px;
+
+}
+

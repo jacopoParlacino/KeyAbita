@@ -1,0 +1,64 @@
+@use "../../../styles/variables.scss" as *;
+@use "../../../styles/mixins" as *;
+
+.stats_desktop {
+  width: 100%;
+  background-color: transparent;
+  border-radius: 24px;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 40px;
+  text-align: left;
+  overflow: visible;
+}
+
+.statItem__desktop {
+  flex: 0 0 260px;
+  background-color: white;
+  border-radius: 16px;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Animation */
+.statItem__desktop.animate {
+  animation: fadeIn 1.2s ease;
+}
+.statIcon__desktop {
+  border-radius: 10px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    width: 36px;
+    height: 36px;
+    fill: $yellow;
+    stroke: white;
+  }
+}
+
+.statTitle__desktop {
+  font-size: 32px;
+  font-weight: 600;
+  color: $primary-color;
+}
+
+.statLabel__desktop {
+  font-size: $base-font-size;
+  color: $text-secondary;
+  margin-top: 8px;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

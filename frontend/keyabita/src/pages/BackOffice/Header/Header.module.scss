@@ -1,0 +1,44 @@
+@use "../../../styles/variables.scss" as *;
+@use "../../../styles/mixins.scss" as *;
+
+.header {
+  background: white;
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  .left {
+    h1 {
+      margin: 0;
+      font-size: 1.75rem;
+      color: $primary-color;
+    }
+
+    p {
+      margin: 0.25rem 0 0 0;
+      color: $text-secondary;
+      font-size: 0.875rem;
+    }
+  }
+
+  .right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .notificationBtn {
+      background: none;
+      border: none;
+      cursor: pointer;
+
+      svg {
+        color: $primary-color;
+      }
+    }
+  }
+}

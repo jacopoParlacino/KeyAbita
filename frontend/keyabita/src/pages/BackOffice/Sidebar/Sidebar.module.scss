@@ -1,0 +1,63 @@
+@use "../../../styles/variables.scss" as *;
+
+.sidebar {
+  width: 240px;
+  background: white;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid $light-blue;
+}
+
+.logo {
+  text-align: left;
+
+  img {
+    width: 120px;
+  }
+}
+
+.nav {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  color: $text-secondary;
+  transition: background 0.2s;
+
+  &:hover {
+    background: $grey;
+  }
+}
+
+.active {
+  background: $text-secondary;
+  color: white;
+
+  svg {
+    color: white;
+  }
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+}
+
+.user {
+  font-weight: 600;
+  padding: 1rem;
+  background: $text-secondary;
+  text-align: center;
+  border-radius: 0.5rem;
+  color: $primary-color;
+}

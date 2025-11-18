@@ -1,0 +1,26 @@
+@use "../../../styles/variables.scss" as *;
+@use "../../../styles/mixins.scss" as *;
+
+.recent {
+    background: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    color: $primary-color;
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+
+      th, td {
+        padding: 0.5rem;
+        text-align: left;
+        border-bottom: 1px solid #eee;
+      }
+
+      th {
+        font-weight: bold;
+
+      }
+    }
+  }

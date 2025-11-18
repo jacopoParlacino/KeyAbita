@@ -1,0 +1,62 @@
+@use "../../../styles/mixins.scss" as *;
+@use "../../../styles/variables.scss" as *;
+
+.icon__wrapper__minus {
+    background-color: $grey;
+    border-radius: 50%;
+    height: 25px;
+    width: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.icon__wrapper__plus {
+    background-color: $light-blue;
+    border-radius: 50%;
+    height: 25px;
+    width: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.increment__decrement__wrapper {
+    border-radius: 6px;
+    border: 1px solid;
+    border-color: $primary-color;
+    outline: none;
+    color: $primary-color;
+    background-color: $text-color;
+    display: flex;
+    align-items: center;
+    width: 200px;
+    justify-content: space-between;
+    padding: 5px 15px;
+}
+
+.counter__container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+    color: $primary-color;
+
+    @include desktop {
+        margin: 20px 0;
+    }
+}
+
+.label {
+    color: $primary-color;
+    font-size: 1rem;
+    font-weight: 500;
+    font-size: 0.8rem;
+
+    @include desktop {
+        font-size: 1.3rem;
+    }
+}

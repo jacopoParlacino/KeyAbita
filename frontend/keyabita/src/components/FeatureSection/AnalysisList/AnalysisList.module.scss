@@ -1,0 +1,50 @@
+@use "../../../styles/variables.scss" as *;
+@use "../../../styles/mixins" as *;
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.item {
+  background-color: $beige;
+  border-radius: 16px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  text-align: left;
+  gap: 12px;
+
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.icon {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    width: 22px;
+    height: 22px;
+    color: $yellow;
+  }
+}
+
+.text {
+  font-size: $base-font-size;
+  font-weight: 500;
+  color: $primary-color;
+}
