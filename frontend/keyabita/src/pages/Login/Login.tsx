@@ -41,19 +41,27 @@ export default function Login() {
         const res = await fetch("http://localhost:8080/api/auth/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({email, password}),
+          body: JSON.stringify({email, password})
         });
 
-        if (!res.ok) {
-          const data = await res.json();
-          setError(data.message || " Email o Password sbagliato");
+        const data = await res.json();
+
+        if (!res.ok || !data.success) {
+          setError(data.message || "Email o Password sbagliato");
           return;
         }
 
-        const data = await res.json();
-        login(data); // save admin in context
+        // Map backend response to frontend Admin type
+        const adminData = {
+          id: data.utente.id,
+          username: data.utente.nome || data.utente.email,
+          role: data.utente.ruolo?.nome || "user",
+          token: data.token
+        };
 
-        if (data.role === "admin") {
+        login(adminData); // save admin in context
+
+        if (adminData.role === "admin" || adminData.role === "ADMIN") {
           navigate("/amministrazione");
 
         } else {
