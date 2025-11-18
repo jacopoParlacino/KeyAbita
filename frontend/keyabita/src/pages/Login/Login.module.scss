@@ -1,3 +1,4 @@
+@use "sass:color";
 @use "../../styles/variables" as *;
 @use "../../styles/mixins" as *;
 
@@ -57,13 +58,13 @@
     border-radius: 12px;
     background-color: $primary-color;
     color: $text-color;
-    font-size: 16px;
+    font-size: $base-font-size;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
 
     &:hover {
-      background-color: darken($cta-color, 5%);
+      background-color: color.scale($cta-color, $lightness: -5%);
       transform: translateY(-2px);
     }
   }

@@ -1,5 +1,4 @@
 import { Star } from "lucide-react";
-
 import styles from "./AgentCard.module.scss";
 import useIsDesktop from "../../../hooks/useIsDesktop";
 
@@ -14,15 +13,33 @@ interface AgentCardProps {
   extraInfo?: string;
 }
 
-const AgentCard = ({ name, role, stars, experience, imgAvif, imgWebp, imgJpg, extraInfo, }: AgentCardProps) => {
+/**
+ * Card component to display an agent's profile with photo, role, rating, and experience.
+ *
+ * Uses the `useIsDesktop` hook to optionally show `extraInfo` only on desktop.
+ */
+const AgentCard = ({
+  name,
+  role,
+  stars,
+  experience,
+  imgAvif,
+  imgWebp,
+  imgJpg,
+  extraInfo,
+}: AgentCardProps) => {
   const isDesktop = useIsDesktop();
   return (
     <div className={styles.agentCard}>
       <picture className={styles.agentCard__picture}>
-      <source srcSet={imgAvif} type="image/avif" />
+        <source srcSet={imgAvif} type="image/avif" />
         <source srcSet={imgWebp} type="image/webp" />
-        <img src={imgJpg} alt={name} className={styles.agentCard__photo} loading="lazy" />
-
+        <img
+          src={imgJpg}
+          alt={name}
+          className={styles.agentCard__photo}
+          loading="lazy"
+        />
       </picture>
 
       <div className={styles.agentCard__info}>

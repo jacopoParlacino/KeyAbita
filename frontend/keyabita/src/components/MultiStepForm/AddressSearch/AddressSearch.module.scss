@@ -7,16 +7,18 @@
     border: 1px solid;
     outline: none;
     border-color: $primary-color;
-    width: 100%;
+    width: 165px;
     display: flex;
     flex-direction: row;
     gap: 56px;
     text-align: center;
     align-items: center;
     margin: 20px 0px;
+
     @include desktop {
         margin: 40px 0px;
         height: 60px;
+        width: 40%;
     }
 }
 
@@ -25,13 +27,14 @@
     border: none;
     padding: 10px 12px;
     margin: 4px;
-    width: 250px;
+    width: 100%;
     font-family: $font-primary;
 }
 
 .search__icon {
     color: $primary-color;
     margin-right: 20px;
+
     @include desktop {
         margin-left: auto;
     }

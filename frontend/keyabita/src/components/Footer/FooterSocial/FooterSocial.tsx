@@ -1,6 +1,12 @@
 import { Facebook, Instagram , Linkedin } from "lucide-react";
 import styles from "../Footer.module.scss";
 
+/**
+ * FooterSocial component renders the social media section of the footer.
+ *
+ * Displays icons for Facebook, Instagram, and LinkedIn with links to the respective pages.
+ * Each icon opens in a new tab and includes an accessible `aria-label`.
+ */
 const FooterSocial = () => {
   return (
     <div className={styles.footer__social}>

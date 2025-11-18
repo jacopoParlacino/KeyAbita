@@ -13,6 +13,10 @@
     }
 }
 
+.header__container{
+    margin-bottom: 20px;
+}
+
 .step__content__container {
     padding: 20px;
     display: flex;
@@ -23,7 +27,7 @@
     @include desktop {
         display: flex;
         flex-direction: column;
-        padding: 0 60px;
+        padding: 0 100px;
 
     }
 }
@@ -145,7 +149,7 @@
 
     @include desktop {
 
-        background: $gradient-hero;
+        background: $primary-desaturated;
         width: 50%;
         display: flex;
         justify-content: center;
@@ -169,3 +173,4 @@
     margin-top: 100px;
 
 }
+

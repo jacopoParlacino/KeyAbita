@@ -3,6 +3,13 @@ import { Link } from "react-router-dom";
 import styles from "./Header.module.scss";
 import Hamburger from "./Hamburger";
 
+/**
+ * Header component renders the website header with logo, navigation links, and hamburger menu.
+ *
+ * Features:
+ * - Smooth scrolling to sections
+ * - Toggleable mobile hamburger menu
+ */
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -19,18 +26,29 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.container}>
-        <Link to="/" className={styles.logo} onClick={(e) => { e.preventDefault(); handleScroll(); }}>
+        <Link
+          to="/"
+          className={styles.logo}
+          onClick={(e) => {
+            e.preventDefault();
+            handleScroll();
+          }}
+        >
           <img src="/KeyAbita_Logo.svg" alt="KeyAbita logo" />
         </Link>
 
         <nav className={`${styles.nav} ${menuOpen ? styles.active : ""}`}>
-          <Link to="/" >
-            Home
-          </Link>
+          <Link to="/">Home</Link>
           <Link to="/">Chi siamo</Link>
           <Link to="/valutazione">Valutazione</Link>
           <Link to="/login">Amministrazione</Link>
-          <Link to="/" onClick={(e) => { e.preventDefault(); handleScroll("contatti"); }}>
+          <Link
+            to="/"
+            onClick={(e) => {
+              e.preventDefault();
+              handleScroll("contatti");
+            }}
+          >
             Contatti
           </Link>
         </nav>

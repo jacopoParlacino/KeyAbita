@@ -15,12 +15,24 @@ import styles from "./Home.module.scss";
 import AnalysisList from "../../components/FeatureSection/AnalysisList/AnalysisList";
 import AgentsSection from "../../components/AgentsSection/AgentsSection";
 import TestimonialsSection from "../../components/TestimonialSection/TestimonialSection";
-import  Header  from '../../components/Header/Header';
+import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import useIsDesktop from "../../hooks/useIsDesktop";
 import AnalysisListDesktop from "../../components/FeatureSection/AnalysisListDesktop/AnalysisListDesktop";
 import StatsBlockDesktop from "../../components/FeatureSection/StatsBlockDesktop/StatsBlockDesktop";
 
+/**
+ * Home page component of KeyAbita.
+ *
+ * Renders the main landing page including:
+ * - Header and Hero section.
+ * - Multiple FeatureSections with dynamic content for desktop and mobile.
+ * - Agents section highlighting team members.
+ * - Testimonials section with responsive carousel and info blocks.
+ * - Footer with links, contacts, and social media.
+ *
+ * The component adapts its layout and content depending on screen width using `useIsDesktop`.
+ */
 export default function Home() {
   const isDesktop = useIsDesktop();
   return (
@@ -112,36 +124,39 @@ export default function Home() {
           image="/img/rapporti-dettagliati-valutazione-immobiliare"
           reverse={true}
         >
-
-          { isDesktop ? (
+          {isDesktop ? (
             <AnalysisListDesktop
-            items={[
-              {icon: <TrendingUp />, title: "Tendenze di mercato", text: "Analisi attuale e prevista del mercato"},
-              {icon: <House/>, title: "Dettagli della proprietà", text: "Valutazione completa della proprietà"}
-
-            ]}
-          />
-        ) : (
-
-          <AnalysisList
-            items={[
-              {
-                icon: <House />,
-                text: "Analisi delle caratteristiche dell’immobile",
-              },
-              {
-                icon: <MapPin />,
-                text: "Confronto con il quartiere",
-              },
-              {
-                icon: <TrendingUp />,
-                text: "Approfondimento delle tendenze di mercato",
-              },
-            ]}
-          />
-        )
-
-          }
+              items={[
+                {
+                  icon: <TrendingUp />,
+                  title: "Tendenze di mercato",
+                  text: "Analisi attuale e prevista del mercato",
+                },
+                {
+                  icon: <House />,
+                  title: "Dettagli della proprietà",
+                  text: "Valutazione completa della proprietà",
+                },
+              ]}
+            />
+          ) : (
+            <AnalysisList
+              items={[
+                {
+                  icon: <House />,
+                  text: "Analisi delle caratteristiche dell’immobile",
+                },
+                {
+                  icon: <MapPin />,
+                  text: "Confronto con il quartiere",
+                },
+                {
+                  icon: <TrendingUp />,
+                  text: "Approfondimento delle tendenze di mercato",
+                },
+              ]}
+            />
+          )}
         </FeatureSection>
         <AgentsSection />
         <TestimonialsSection />

@@ -10,6 +10,12 @@ interface AnalysisListProps {
   items: Item[];
 }
 
+/**
+ * Renders a list of items with icons and text that animates when scrolled into view.
+ *
+ * Uses the `useInView` hook to detect when the list enters the viewport and applies
+ * a staggered animation to each item.
+ */
 export default function AnalysisList({ items }: AnalysisListProps) {
   const { ref, isInView } = useInView<HTMLDivElement>();
 

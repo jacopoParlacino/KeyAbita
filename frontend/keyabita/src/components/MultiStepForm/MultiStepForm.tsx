@@ -3,8 +3,7 @@ import styles from "./MultiStepForm.module.scss";
 import HeaderForm from "./HeaderForm/HeaderForm";
 import { useNavigate } from "react-router-dom";
 import PropertyTypeSelector from "./PropertyTypeSelector/PropertyTypeSelector";
-import { Check, House } from "lucide-react";
-import { Building } from "lucide-react";
+import { Check, House, ChevronLeft, Building } from "lucide-react";
 import AddressSearch from "./AddressSearch/AddressSearch";
 import StepperNavigation from "./StepperNavigation/StepperNavigation";
 import ImmobileCondition from "./ImmobileCondition/ImmobileCondition";
@@ -12,15 +11,19 @@ import Counter from "./Counter/Counter";
 import InputField from "./InputField/InputField";
 import MetricRangeSelector, { type SelectOption } from "./MetricRangeSelector/MetricRangeSelector";
 import VerticalSidebar from "./VerticalSidebar/VerticalSidebar";
+import Button from "./Button/Button";
+import ToggleSwitch from "./ToggleSwitch/ToggleSwitch";
 
 const totalStep: number = 5;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const phoneRegex = /^\+?[0-9]{9,15}$/;
+const capRegex = /^(1501[0-9]|1502[0-2]|151[0-1][0-9]|15122|1401[0-9]|140[2-9][0-9]|14100|1381[1-9]|138[2-9][0-9]|13900|1201[0-9]|12[1-9][0-9]{2}|13[0-1][0-9]{3}|16[0-9]{3}|17[0-9]{3}|1800[0-9]|1802[0-5]|2801[0-9]|28100|2880[1-9]|288[1-9][0-9]|2890[0-9]|2891[0-9]|2892[0-5]|1001[0-9]|101[0-5][0-6])$/;
+
 
 interface FormData {
   propertyType: string | null;
   citta: string;
-  indirizzo: string;
+  cap: string;
   condition: string;
   metratura: string;
   stanze: number;
@@ -30,7 +33,6 @@ interface FormData {
   parcheggio: number;
   garage: number;
   giardino: number;
-  terrazze: number;
   balconi: number;
   nome: string;
   cognome: string;
@@ -47,7 +49,7 @@ export default function MultiStepForm() {
   const [formData, setFormData] = useState<FormData>({
     propertyType: null,
     citta: "",
-    indirizzo: "",
+    cap: "",
     condition: "",
     metratura: "",
     stanze: 0,
@@ -57,7 +59,6 @@ export default function MultiStepForm() {
     parcheggio: 0,
     garage: 0,
     giardino: 0,
-    terrazze: 0,
     balconi: 0,
     nome: "",
     cognome: "",
@@ -67,9 +68,12 @@ export default function MultiStepForm() {
 
   });
 
-  type ErrorFields = Partial<Record<keyof FormData, string>>;
+  type FormErrors = {
+    [key in keyof FormData]?: string;
+  };
 
-const [errors, setErrors] = useState<ErrorFields>({});
+  const [errors, setErrors] = useState<FormErrors>({});
+
 
   const nextStep = () => {
     if (currentStep < totalStep) {
@@ -86,47 +90,49 @@ const [errors, setErrors] = useState<ErrorFields>({});
   const handlePropertySelect = (type: string) => {
     setFormData((prev) => ({ ...prev, propertyType: type }))
     if (errors.propertyType) {
-      setErrors((prev: ErrorFields) => ({ ...prev, propertyType: undefined }));
+      setErrors((prev) => ({ ...prev, propertyType: undefined }));
     }
   }
   const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ ...prev, indirizzo: e.target.value }));
-    if (errors.indirizzo) {
-      setErrors((prev: ErrorFields) => ({ ...prev, indirizzo: undefined }));
+    setFormData((prev) => ({ ...prev, cap: e.target.value }));
+    if (errors.cap) {
+      setErrors((prev) => ({ ...prev, indirizzo: undefined }));
     }
   };
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, nome: e.target.value }));
     if (errors.nome) {
-      setErrors((prev: ErrorFields) => ({ ...prev, nome: undefined }));
+      setErrors((prev) => ({ ...prev, nome: undefined }));
     }
   };
   const handleSurnameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, cognome: e.target.value }));
     if (errors.cognome) {
-      setErrors((prev: ErrorFields) => ({ ...prev, cognome: undefined }));
+      setErrors((prev) => ({ ...prev, cognome: undefined }));
     }
   };
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, email: e.target.value }));
     if (errors.email) {
-      setErrors((prev: ErrorFields) => ({ ...prev, email: undefined }));
+      setErrors((prev) => ({ ...prev, email: undefined }));
     }
   };
   const handleTelephoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, numeroDiTelefono: e.target.value }));
     if (errors.numeroDiTelefono) {
-      setErrors((prev: ErrorFields) => ({ ...prev, numeroDiTelefono: undefined }));
+      setErrors((prev) => ({ ...prev, numeroDiTelefono: undefined }));
     }
   };
   const handleConditionSelected = (type: string) => {
     setFormData((prev) => ({ ...prev, condition: type }))
     if (errors.condition) {
-      setErrors((prev: ErrorFields) => ({ ...prev, condition: undefined }));
+      setErrors((prev) => ({ ...prev, condition: undefined }));
     }
   }
 
-  type CounterField = 'stanze' | 'piano' | 'bagni' | 'ascensore' | 'parcheggio' | 'garage' | 'giardino' | 'terrazze' | 'balconi';
+  type CounterField = 'stanze' | 'piano' | 'bagni';
+  type ToggleField = 'ascensore' | 'parcheggio' | 'garage' | 'giardino' | 'balconi';
+
   const handleCounterChange = (
     field: CounterField,
     type: 'increment' | 'decrement'
@@ -144,15 +150,69 @@ const [errors, setErrors] = useState<ErrorFields>({});
   };
 
 
-  
 
-  const handleFormSubmit = () => {
+
+  const handleFormSubmit = async () => {
     console.log("Form submitted with data:", JSON.stringify(formData, null, 2));
+
+    const {
+      nome,
+      cognome,
+      email,
+      numeroDiTelefono,
+      stanze,
+      bagni,
+      citta,
+      stato_immobile,
+      ...datiImmobile
+    } = formData;
+
+    try {
+      const immobilePayload = {
+        ...datiImmobile,
+
+        numeroStanze: stanze,
+        numeroBagni: bagni,
+        citta: { id: parseInt(citta) || null },
+        statoImmobile: { id: parseInt(stato_immobile) || null }
+      };
+
+      const immobileResponse = await fetch("http://localhost:8080/api/immobili", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(immobilePayload),
+      });
+
+      if (!immobileResponse.ok) throw new Error("Errore creazione immobile");
+
+      const immobile = await immobileResponse.json();
+
+      const valutazionePayload = {
+        id_immobiliare: immobile.id,
+        nome: nome,
+        cognome: cognome,
+        email: email,
+        numeroDiTelefono: numeroDiTelefono
+      };
+
+      const valutazioneResponse = await fetch("http://localhost:8080/api/valutazioni", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(valutazionePayload),
+      });
+
+      if (!valutazioneResponse.ok) throw new Error("Errore creazione valutazione");
+
+      console.error("Valutazione inviata con successo!");
+    } catch (err) {
+      console.error(err);
+      console.error("Errore nell'invio della valutazione");
+    }
   };
 
   const metratureOptions: SelectOption[] = [
     { value: '', label: 'Seleziona...' },
-    { value: '0-50', label: '0-50 m²' },
+    { value: '25-50', label: '25-50 m²' },
     { value: '51-100', label: '51-100 m²' },
     { value: '101-150', label: '101-150 m²' },
     { value: '150+', label: 'Oltre 150 m²' },
@@ -161,19 +221,21 @@ const [errors, setErrors] = useState<ErrorFields>({});
   const handleMetraturaChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFormData((prev) => ({ ...prev, metratura: e.target.value }));
     if (errors.metratura) {
-      setErrors((prev: ErrorFields) => ({ ...prev, metratura: undefined }));
+      setErrors((prev) => ({ ...prev, metratura: undefined }));
     }
   };
 
   const validateStep = (): boolean => {
-    const newErrors: ErrorFields = {};
+    const newErrors: FormErrors = {};
 
     if (currentStep === 1) {
       if (!formData.propertyType) {
         newErrors.propertyType = "Devi selezionare una tipologia";
       }
-      if (!formData.indirizzo) {
-        newErrors.indirizzo = "Devi inserire un indirizzo";
+      if (!formData.cap) {
+        newErrors.cap = "Devi inserire un CAP";
+      } else if (!capRegex.test(formData.cap)) {
+        newErrors.cap = "Il CAP inserito non è valido o non è coperto dal servizio";
       }
     }
 
@@ -223,18 +285,26 @@ const [errors, setErrors] = useState<ErrorFields>({});
     'Dati Personali'
   ];
 
+  const handleToggleChange = (
+    field: ToggleField,
+    newValue: number
+  ) => {
+    setFormData(prev => ({ ...prev, [field]: newValue }));
+  };
+
+
   const renderStepContent = () => {
     switch (currentStep) {
       case 1:
         return (
           <>
-            <h2 className={styles.h2}>Tipologia</h2>
+            <h2 className={[styles.h2, styles.margin__top__auto].join(' ')}>Tipologia</h2>
             <div className={styles.div__property__selection}>
               <PropertyTypeSelector
                 icon={House}
-                label="Casa"
-                onClick={() => handlePropertySelect("casa")}
-                isSelected={formData.propertyType === "casa"}
+                label="Villa"
+                onClick={() => handlePropertySelect("villa")}
+                isSelected={formData.propertyType === "villa"}
               />
               <PropertyTypeSelector
                 icon={Building}
@@ -245,35 +315,42 @@ const [errors, setErrors] = useState<ErrorFields>({});
             </div>
             {errors.propertyType && <p className={styles.errorMessage}>{errors.propertyType}</p>}
 
-            <h2 className={styles.h2}>Indirizzo</h2>
+            <div className={styles.cap__container}>
+            <h2 className={styles.h2}>Cap</h2>
             <AddressSearch
-              value={formData.indirizzo}
+              value={formData.cap}
               onChange={handleAddressChange}
-              placeholder="Inserisci indirizzo"
+              placeholder="Inserisci un CAP valido per le province supportate"
             />
-            {errors.indirizzo && <p className={styles.errorMessage}>{errors.indirizzo}</p>}
+            {errors.cap && <p className={styles.error__message}>{errors.cap}</p>}
+          </div>
           </>
         );
       case 2:
         return (
           <>
-            <h2 className={styles.h2}>Condizione immobile</h2>
+            <h2 className={styles.first__h2}>Condizione immobile</h2>
             <ImmobileCondition
-              label="Ottimo"
-              onClick={() => handleConditionSelected("Ottimo")}
-              isSelected={formData.condition === "Ottimo"}
+              label="Ottimo stato"
+              onClick={() => handleConditionSelected("Ottimo stato")}
+              isSelected={formData.condition === "Ottimo stato"}
               icon={Check} />
             <ImmobileCondition
-              label="Abitabile"
-              onClick={() => handleConditionSelected("Abitabile")}
-              isSelected={formData.condition === "Abitabile"}
+              label="Nuovo"
+              onClick={() => handleConditionSelected("Nuovo")}
+              isSelected={formData.condition === "Nuovo"}
+              icon={Check} />
+            <ImmobileCondition
+              label="Buono stato"
+              onClick={() => handleConditionSelected("Buono stato")}
+              isSelected={formData.condition === "Buono stato"}
               icon={Check} />
             <ImmobileCondition
               label="Da ristrutturare"
               onClick={() => handleConditionSelected("Da ristrutturare")}
               isSelected={formData.condition === "Da ristrutturare"}
               icon={Check} />
-            {errors.condition && <p className={styles.errorMessage}>{errors.condition}</p>}
+            {errors.condition && <p className={styles.error__message}>{errors.condition}</p>}
 
             <MetricRangeSelector
               label="Metratura"
@@ -281,14 +358,14 @@ const [errors, setErrors] = useState<ErrorFields>({});
               value={formData.metratura}
               onChange={handleMetraturaChange}
             />
-            {errors.metratura && <p className={styles.errorMessage}>{errors.metratura}</p>}
+            {errors.metratura && <p className={styles.error__message}>{errors.metratura}</p>}
 
             <Counter label="Stanze"
               value={formData.stanze}
               onIncrement={() => handleCounterChange('stanze', 'increment')}
               onDecrement={() => handleCounterChange('stanze', 'decrement')}
             />
-            {errors.stanze && <p className={styles.errorMessage}>{errors.stanze}</p>}
+            {errors.stanze && <p className={styles.error__message}>{errors.stanze}</p>}
 
             <Counter label="Piano"
               value={formData.piano}
@@ -304,44 +381,48 @@ const [errors, setErrors] = useState<ErrorFields>({});
       case 3:
         return (
           <>
-            <h2 className={styles.h2}>Caratteristiche dell' immobile</h2>
+            <h2 className={styles.first__h2}>Dotazioni dell' immobile</h2>
 
-            <Counter
+            <ToggleSwitch
               label="Ascensore"
               value={formData.ascensore}
-              onIncrement={() => handleCounterChange('ascensore', 'increment')} onDecrement={() => handleCounterChange('ascensore', 'decrement')} />
-            <Counter
+              onChange={(newValue) => handleToggleChange('ascensore', newValue)}
+            />
+            <ToggleSwitch
               label="Parcheggio"
               value={formData.parcheggio}
-              onIncrement={() => handleCounterChange('parcheggio', 'increment')} onDecrement={() => handleCounterChange('parcheggio', 'decrement')} />
-            <Counter
+              onChange={(newValue) => handleToggleChange('parcheggio', newValue)}
+            />
+            <ToggleSwitch
               label="Garage"
               value={formData.garage}
-              onIncrement={() => handleCounterChange('garage', 'increment')} onDecrement={() => handleCounterChange('garage', 'decrement')} />
-            <Counter
+              onChange={(newValue) => handleToggleChange('garage', newValue)}
+            />
+            <ToggleSwitch
               label="Giardino"
               value={formData.giardino}
-              onIncrement={() => handleCounterChange('giardino', 'increment')} onDecrement={() => handleCounterChange('giardino', 'decrement')} />
-            <Counter
-              label="Terrazze"
-              value={formData.terrazze}
-              onIncrement={() => handleCounterChange('terrazze', 'increment')} onDecrement={() => handleCounterChange('terrazze', 'decrement')} />
-            <Counter
+              onChange={(newValue) => handleToggleChange('giardino', newValue)}
+            />
+            <ToggleSwitch
               label="Balconi"
               value={formData.balconi}
-              onIncrement={() => handleCounterChange('balconi', 'increment')} onDecrement={() => handleCounterChange('balconi', 'decrement')} />
+              onChange={(newValue) => handleToggleChange('balconi', newValue)}
+            />
           </>
         );
       case 4:
         return (
           <>
+          <div className={styles.margin__top__auto}>
+
             <InputField
               label="Nome"
               value={formData.nome}
               onChange={handleNameChange}
               placeholder="Inserisci il tuo nome"
-            />
-            {errors.nome && <p className={styles.errorMessage}>{errors.nome}</p>}
+              />
+            {errors.nome && <p className={styles.error__message}>{errors.nome}</p>}
+              </div>
 
             <InputField
               label="Cognome"
@@ -349,7 +430,7 @@ const [errors, setErrors] = useState<ErrorFields>({});
               onChange={handleSurnameChange}
               placeholder="Inserisci il tuo cognome"
             />
-            {errors.cognome && <p className={styles.errorMessage}>{errors.cognome}</p>}
+            {errors.cognome && <p className={styles.error__message}>{errors.cognome}</p>}
 
             <InputField
               label="Numero di telefono "
@@ -357,7 +438,7 @@ const [errors, setErrors] = useState<ErrorFields>({});
               onChange={handleTelephoneNumberChange}
               placeholder="Inserisci il tuo numero"
             />
-            {errors.numeroDiTelefono && <p className={styles.errorMessage}>{errors.numeroDiTelefono}</p>}
+            {errors.numeroDiTelefono && <p className={styles.error__message}>{errors.numeroDiTelefono}</p>}
 
             <InputField
               label="Email"
@@ -365,16 +446,25 @@ const [errors, setErrors] = useState<ErrorFields>({});
               onChange={handleEmailChange}
               placeholder="Inserisci la tua email"
             />
-            {errors.email && <p className={styles.errorMessage}>{errors.email}</p>}
+            {errors.email && <p className={styles.error__message}>{errors.email}</p>}
           </>
         );
       case 5:
         return (
           <>
             <div className={styles.confirmation__container}>
-              <h2 className={styles.h2}>Grazie per la tua richiesta!</h2>
-              <p className={styles.text__confermation}>Il tuo report di valutazione immobiliare verrà analizzato dai nostri esperti certificati e inviato all’indirizzo email da te indicato entro 72 ore.</p>
-              <p className={styles.text__confermation}>Ti contatteremo qualora fossero necessari ulteriori dettagli.</p>
+              <h2 className={styles.confirmation__title}>Grazie per aver inviato la richiesta di valutazione!</h2>
+              <p className={styles.text__confirmation}>Il tuo report di valutazione immobiliare verrà analizzato dai nostri esperti certificati e inviato all'indirizzo email da te indicato entro 72 ore.</p>
+              <p className={styles.text__confirmation}>Ti contatteremo qualora fossero necessari ulteriori dettagli.</p>
+            </div>
+            <div className={styles.button__confirmation__container}>
+              <Button
+                label={"Home"}
+                onClick={() => { navigate("/"); }}
+                variant="secondary"
+                type="button"
+                icon={ChevronLeft}
+              />
             </div>
           </>
         )

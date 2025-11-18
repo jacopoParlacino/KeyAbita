@@ -2,64 +2,58 @@
 @use "../../../styles/mixins" as *;
 
 .analysislist__desktop {
-    display: flex;
-    flex-direction: column;
-    margin-left: 0;
-    gap: 20px
+  display: flex;
+  flex-direction: column;
+  margin-left: 0;
+  gap: 20px;
+}
 
-
-
-  }
-
-
-  .analysislistD__content {
-    display: flex;
+.analysislistD__content {
+  display: flex;
   flex-direction: column;
   gap: 6px;
+}
+.analysislistD__item {
+  background-color: white;
 
-  }
-  .analysislistD__item {
-    background-color: white;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
 
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
 
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
+.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
+.analysislistD__icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  .visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .analysislistD__icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-    background-color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    svg {
-      width: 22px;
-      height: 22px;
-      color: $primary-color;
-    }
-  }
-
-  .analysislistD__title {
-    font-size: 18px;
-    font-weight: 500;
+  svg {
+    width: 22px;
+    height: 22px;
     color: $primary-color;
   }
+}
 
-  .analysislistD__text {
-    font-size: 14px;
-    font-weight: 300;
-    color: $text-secondary;
-  }
+.analysislistD__title {
+  font-size: 18px;
+  font-weight: 500;
+  color: $primary-color;
+}
+
+.analysislistD__text {
+  font-size: 14px;
+  font-weight: 300;
+  color: $text-secondary;
+}

@@ -47,10 +47,9 @@
       text-align: center;
 
       @include desktop {
-        font-size: 16px;
+        font-size: $base-font-size;
         text-align: left;
         margin-bottom: 14px;
-
       }
     }
     ul {
@@ -76,7 +75,7 @@
       font-size: 12px;
       @include desktop {
         font-size: 14px;
-        
+
         justify-content: flex-start;
       }
     }
@@ -95,7 +94,7 @@
     @include desktop {
       position: static;
 
-    margin-top: 0px;
+      margin-top: 0px;
     }
 
     h4 {
@@ -103,7 +102,7 @@
       margin-bottom: 8px;
 
       @include desktop {
-        font-size: 16px;
+        font-size: $base-font-size;
       }
     }
     &Icons {
@@ -173,13 +172,7 @@
     margin: 0;
     padding: 0;
   }
-  // .logoText {
-  //   font-size: 16px;
-  //   color: white;
-  //   margin: 0;
-  //   padding: 0;
-  //   text-align: center;
-  // }
+
   p {
     font-size: 14px;
     margin: 0 auto 16px;

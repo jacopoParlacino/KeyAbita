@@ -28,7 +28,6 @@
 }
 
 .testimonialCard--active {
-
   transform: scale(1);
 }
 
@@ -59,7 +58,7 @@
 }
 
 .testimonialCard__name {
-  font-size: 16px;
+  font-size: $base-font-size;
   font-weight: 600;
   color: $primary-color;
 

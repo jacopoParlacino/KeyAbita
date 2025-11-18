@@ -12,7 +12,7 @@
 .label {
     color: $primary-color;
     margin-right: 16px;
-    font-weight: 700;
+    font-weight: 500;
     font-size: 0.8rem;
     @include desktop {
         font-size: 1.3rem;
@@ -29,6 +29,6 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     width: 200px;
-    padding: 10px 10px;
+    padding: 10px 30px;
     cursor: pointer;
 }
