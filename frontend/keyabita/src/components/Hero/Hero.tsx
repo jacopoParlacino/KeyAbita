@@ -2,6 +2,12 @@ import { useNavigate } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import styles from "./Hero.module.scss";
 
+/**
+ * Hero component renders the main hero section of the homepage.
+ *
+ * Includes a headline, description text, and a call-to-action button.
+ * Clicking the button navigates to the property evaluation page.
+ */
 export default function Hero() {
   const navigate = useNavigate();
 

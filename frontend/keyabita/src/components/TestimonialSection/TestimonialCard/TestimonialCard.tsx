@@ -9,7 +9,12 @@ interface TestimonialCardProps {
   imgJpg: string;
   stars?: number;
 }
-
+/**
+ * TestimonialCard component renders a testimonial with a photo, name, star rating, and text.
+ *
+ * Supports multiple image formats via `<picture>` for performance.
+ * Star rating is optional and defaults to 5 stars.
+ */
 const TestimonialCard = ({
   name,
   text,
@@ -23,7 +28,11 @@ const TestimonialCard = ({
       <picture className={styles.testimonialCard__picture}>
         <source srcSet={imgAvif} type="image/avif" />
         <source srcSet={imgWebp} type="image/webp" />
-        <img src={imgJpg} alt={name} className={styles.testimonialCard__photo} />
+        <img
+          src={imgJpg}
+          alt={name}
+          className={styles.testimonialCard__photo}
+        />
       </picture>
 
       <div className={styles.testimonialCard__content}>

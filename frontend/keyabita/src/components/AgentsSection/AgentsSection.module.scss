@@ -9,13 +9,10 @@
   padding: 80px 20px;
 
   @include desktop {
-
     width: 100%;
     padding: 80px 80px 60px;
     text-align: center;
-
   }
-
 }
 
 .agentsSection__title {
@@ -27,23 +24,20 @@
   @include desktop {
     font-size: 28px;
     margin-bottom: 16px;
-
   }
 }
 
 .agentsSection__text {
   color: $text-secondary;
-  font-size: 16px;
+  font-size: $base-font-size;
   margin-bottom: 2rem;
 
   @include desktop {
     font-size: 18px;
     text-align: center;
     margin-bottom: 40px;
-
   }
 }
-
 
 .agentsSection__carousel {
   display: flex;
@@ -57,6 +51,5 @@
     justify-content: center;
     align-items: stretch;
     gap: 10rem;
-
   }
 }

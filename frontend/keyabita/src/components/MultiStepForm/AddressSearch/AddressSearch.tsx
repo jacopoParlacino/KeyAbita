@@ -1,5 +1,4 @@
 import styles from './AddressSearch.module.scss'
-import { Search } from 'lucide-react';
 
 interface AddressSearchProps {
     value: string;
@@ -18,9 +17,8 @@ export default function AddressSearch({ value, onChange, placeholder }: AddressS
                 placeholder={placeholder}
                 className={styles.input}
                 required />
-
-            <Search size={20} className={styles.search__icon} />
         </div>
 
     )
 }
+

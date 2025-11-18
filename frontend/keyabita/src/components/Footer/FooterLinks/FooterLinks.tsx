@@ -1,5 +1,9 @@
 import styles from "../Footer.module.scss";
 
+
+/**
+ * FooterLinks component renders the links section of the footer, a placeholder.
+ */
 const FooterLinks = () => {
   return (
     <div className={styles.footer__links}>

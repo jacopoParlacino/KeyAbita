@@ -56,7 +56,6 @@
   object-fit: cover;
   object-position: center 20%;
   display: block;
-
 }
 
 .agentCard__info {
@@ -67,20 +66,18 @@
 }
 
 .agentCard__name {
-  font-size: 16px;
+  font-size: $base-font-size;
   font-weight: 600;
   color: $primary-color;
   @include desktop {
     font-size: 20px;
   }
-
 }
 
 .agentCard__role {
-  font-size: 16px;
+  font-size: $base-font-size;
   margin-bottom: 0.25rem;
   color: $text-secondary;
-  font-size: 16px;
   @include desktop {
     color: $primary-color;
     font-size: 18px;
@@ -108,8 +105,6 @@
   @include desktop {
     display: none;
   }
-
-
 }
 .agentCard__extra {
   margin-top: 0.5rem;
@@ -118,8 +113,7 @@
   line-height: 1.5;
 
   @include desktop {
-    font-size: 16px;
+    font-size: $base-font-size;
     line-height: 1.6;
-
   }
 }

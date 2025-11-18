@@ -1,19 +1,22 @@
-
 import styles from "./TestimonialInfoBlock.module.scss";
 
 interface InfoItem {
-    value: string;
-    label: string;
+  value: string;
+  label: string;
 }
 
 interface InfoBlockProps {
-    items: InfoItem[];
+  items: InfoItem[];
 }
 
+/**
+ * TestimonialInfoBlock component renders a set of info items (value + label).
+ *
+ * Useful for displaying statistics, highlights, or key numbers in testimonial sections.
+ */
 export default function TestimonialInfoBlock({ items }: InfoBlockProps) {
-
-    return (
-        <div className={styles.info} >
+  return (
+    <div className={styles.info}>
       {items.map((item, index) => (
         <div key={index} className={styles.infoItem}>
           <span className={styles.infoNumber}>{item.value}</span>
@@ -21,5 +24,5 @@ export default function TestimonialInfoBlock({ items }: InfoBlockProps) {
         </div>
       ))}
     </div>
-    );
+  );
 }

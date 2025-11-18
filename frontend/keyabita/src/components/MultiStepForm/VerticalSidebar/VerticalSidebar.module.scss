@@ -3,10 +3,10 @@
 
 
     .stepperContainer {
-        background-color: #fff;
+        background-color: $text-color;
         padding: 25px 30px;
         border-radius: 10px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.30);
         width: 100%;
         max-width: 300px;
     }
@@ -64,12 +64,12 @@
 
     .completed {
         .dot {
-            background-color: green;
-            border-color: green;
+            background-color: $text-color;
+            border-color: $primary-color;
         }
 
         .label {
-            color: green;
+            color: $primary-desaturated;
         }
     }
 

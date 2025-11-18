@@ -1,0 +1,37 @@
+@use "../../../styles/mixins.scss" as *;
+@use "../../../styles/variables.scss" as *;
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px 0;
+}
+
+.label {
+  font-weight: 500;
+  font-size: 1.1rem;
+  color: $primary-color;
+}
+
+.switch__wrapper {
+  display: flex;
+  gap: 8px;
+}
+
+.button {
+  padding: 8px 20px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid $primary-color;
+  border-radius: 20px;
+  color: $primary-color;
+  transition: all 0.2s ease-in-out;
+}
+
+.active {
+  background-color: $primary-color;
+  color: $text-color;
+}

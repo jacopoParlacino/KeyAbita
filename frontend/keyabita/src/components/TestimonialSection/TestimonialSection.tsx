@@ -6,6 +6,15 @@ import TestimonialInfoBlock from "./TestimonialInfoBlock/TestimonialInfoBlock";
 import useIsDesktop from "../../hooks/useIsDesktop";
 import TestimonialInfoBlockDesktop from "./TestimonialInfoBlockDesktop/TestimonialInfoBlockDesktop";
 
+/**
+ * TestimonialsSection component renders a section showcasing customer testimonials.
+ *
+ * Features:
+ * - Displays testimonial cards with name, photo, text, and optional stars.
+ * - Provides vertical scroll arrows for mobile view.
+ * - Shows a responsive info block with key statistics.
+ * - Uses desktop or mobile layout depending on viewport width.
+ */
 const TestimonialsSection = () => {
   const isDesktop = useIsDesktop();
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -24,7 +33,10 @@ const TestimonialsSection = () => {
       const carousel = carouselRef.current;
       const scrollAmount = carousel.clientHeight;
       const maxScroll = carousel.scrollHeight - carousel.clientHeight;
-      const newScrollTop = Math.min(maxScroll, carousel.scrollTop + scrollAmount);
+      const newScrollTop = Math.min(
+        maxScroll,
+        carousel.scrollTop + scrollAmount
+      );
       carousel.scrollTo({ top: newScrollTop, behavior: "smooth" });
     }
   };
@@ -72,10 +84,7 @@ const TestimonialsSection = () => {
             <ChevronUp size={24} />
           </button>
         )}
-        <div
-          className={styles.testimonialSection__carousel}
-          ref={carouselRef}
-        >
+        <div className={styles.testimonialSection__carousel} ref={carouselRef}>
           {testimonials.map((t, i) => (
             <div key={i} className={styles.testimonialSection__item}>
               <TestimonialCard {...t} />
@@ -95,28 +104,22 @@ const TestimonialsSection = () => {
 
       {isDesktop ? (
         <TestimonialInfoBlockDesktop
-        items={[
-          {value: "6.000+", label: "Immobili valutati"},
-          {value: "98%", label: "Soddisfazione dei clienti"},
-          {value: "72 ore", label: "Tempo medio di consegna"},
-          {value: "10+", label: "Anni di esperienza "},
-
-        ]}
-
+          items={[
+            { value: "6.000+", label: "Immobili valutati" },
+            { value: "98%", label: "Soddisfazione dei clienti" },
+            { value: "72 ore", label: "Tempo medio di consegna" },
+            { value: "10+", label: "Anni di esperienza " },
+          ]}
         />
       ) : (
-
         <TestimonialInfoBlock
-        items={[
-          { value: "4.9", label: "Valutazione media" },
-          { value: "12K+", label: "Clienti felici" },
-          { value: "99%", label: "Tasso di soddisfazione" },
-        ]}
+          items={[
+            { value: "4.9", label: "Valutazione media" },
+            { value: "12K+", label: "Clienti felici" },
+            { value: "99%", label: "Tasso di soddisfazione" },
+          ]}
         />
-      )
-
-      }
-
+      )}
     </section>
   );
 };

@@ -11,6 +11,12 @@ interface FeatureSectionProps {
   children?: React.ReactNode;
 }
 
+/**
+ * Renders a feature section with an icon, title, description, and image.
+ *
+ * Supports optional children elements and layout reversal.
+ * Uses `<picture>` to serve AVIF, WebP, and JPG images for better performance.
+ */
 export default function FeatureSection({
   icon,
   iconBgColor,
@@ -19,10 +25,13 @@ export default function FeatureSection({
   bcgColor,
   image,
   reverse,
-  children
+  children,
 }: FeatureSectionProps) {
   return (
-    <section className={`${styles.feature} ${reverse ? styles.reverse : ""}`}  style={{ backgroundColor: bcgColor }} >
+    <section
+      className={`${styles.feature} ${reverse ? styles.reverse : ""}`}
+      style={{ backgroundColor: bcgColor }}
+    >
       <div className={styles.feature__content}>
         <div
           className={styles.icon__wrapper}
@@ -32,7 +41,9 @@ export default function FeatureSection({
         </div>
         <h2 className={styles.featuresection__title}>{title}</h2>
         <p className={styles.featuresection__text}>{text}</p>
-        {children && <div className={styles.featuresection__children}>{children}</div>}
+        {children && (
+          <div className={styles.featuresection__children}>{children}</div>
+        )}
       </div>
       <picture className={styles.featuresection__picture}>
         <source srcSet={image + ".avif"} type="image/avif" />
