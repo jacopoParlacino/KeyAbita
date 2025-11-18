@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './ImpostazioniAdmin.css';
-import ApiService from '../../services/api';
+import ApiService from '../../../../../services/api';
 import { Settings, Users, Key, Save, AlertCircle, CheckCircle, Eye, EyeOff, Shield } from 'lucide-react';
 
 const ImpostazioniAdmin = () => {

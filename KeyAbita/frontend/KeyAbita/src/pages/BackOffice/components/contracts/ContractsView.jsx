@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { FileText, Calendar } from 'lucide-react';
-import ApiService from '../services/api';
+import ApiService from '../../../../services/api';
 import './ContractsView.css';
 
 const ContractsView = () => {

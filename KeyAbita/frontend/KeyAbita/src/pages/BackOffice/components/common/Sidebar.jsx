@@ -1,5 +1,5 @@
 import './Sidebar.css';
-import Logo from './Logo';
+import Logo from '../logo/Logo';
 import { BarChart3, FileText, Users, Settings } from 'lucide-react';
 
 const Sidebar = ({ currentView, onNavigate }) => {
