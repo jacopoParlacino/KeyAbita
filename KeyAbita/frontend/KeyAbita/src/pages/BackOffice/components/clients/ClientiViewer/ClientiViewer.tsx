@@ -1,25 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import './ClientiViewer.css';
+import './ClientiViewer.scss';
 import ApiService from '../../../../../services/api';
+import type { Utente } from '../../../../../services/api.d';
 import { Users, Search, Filter, Calendar, Mail, Phone, User } from 'lucide-react';
 
-const ClientiViewer = () => {
-  const [clienti, setClienti] = useState([]);
-  const [filteredClienti, setFilteredClienti] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedRuolo, setSelectedRuolo] = useState('');
+const ClientiViewer: React.FC = () => {
+  const [clienti, setClienti] = useState<Utente[]>([]);
+  const [filteredClienti, setFilteredClienti] = useState<Utente[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [selectedRuolo, setSelectedRuolo] = useState<string>('');
 
-  useEffect(() => {
-    loadClienti();
-  }, []);
-
-  useEffect(() => {
-    filterClienti();
-  }, [clienti, searchTerm, selectedRuolo]);
-
-  const loadClienti = async () => {
+  const loadClienti = async (): Promise<void> => {
     try {
       setLoading(true);
       const data = await ApiService.getUtenti();
@@ -34,13 +27,18 @@ const ClientiViewer = () => {
     }
   };
 
-  const filterClienti = () => {
+  useEffect(() => {
+    loadClienti();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     let filtered = [...clienti];
 
     // Filtro per testo di ricerca
     if (searchTerm.trim()) {
       const searchLower = searchTerm.toLowerCase();
-      filtered = filtered.filter(cliente => 
+      filtered = filtered.filter(cliente =>
         cliente.nome?.toLowerCase().includes(searchLower) ||
         cliente.cognome?.toLowerCase().includes(searchLower) ||
         cliente.email?.toLowerCase().includes(searchLower) ||
@@ -50,15 +48,15 @@ const ClientiViewer = () => {
 
     // Filtro per ruolo
     if (selectedRuolo) {
-      filtered = filtered.filter(cliente => 
+      filtered = filtered.filter(cliente =>
         cliente.ruolo?.nome === selectedRuolo
       );
     }
 
     setFilteredClienti(filtered);
-  };
+  }, [clienti, searchTerm, selectedRuolo]);
 
-  const formatDate = (dateString) => {
+  const formatDate = (dateString?: string): string => {
     if (!dateString) return 'N/A';
     try {
       return new Date(dateString).toLocaleDateString('it-IT');
@@ -67,10 +65,10 @@ const ClientiViewer = () => {
     }
   };
 
-  const getRuoliUnici = () => {
+  const getRuoliUnici = (): string[] => {
     const ruoli = clienti
       .map(cliente => cliente.ruolo?.nome)
-      .filter(ruolo => ruolo)
+      .filter((ruolo): ruolo is string => ruolo !== undefined)
       .filter((value, index, self) => self.indexOf(value) === index);
     return ruoli;
   };
