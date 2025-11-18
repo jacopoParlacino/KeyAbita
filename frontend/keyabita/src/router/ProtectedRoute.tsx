@@ -17,11 +17,11 @@ export default function ProtectedRoute({ children, role }: Props) {
   const { admin } = useAuth();
 
   if (!admin) {
-    return <Navigate to="/amministrazione" replace />;
+    return <Navigate to="/login" replace />;
   }
 
-  if (role && admin.role !== role) {
-    return <Navigate to="/amministrazione" replace />;
+  if (role && admin.role?.toUpperCase() !== role.toUpperCase()) {
+    return <Navigate to="/login" replace />;
   }
 
   return children;

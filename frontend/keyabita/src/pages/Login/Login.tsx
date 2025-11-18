@@ -61,7 +61,7 @@ export default function Login() {
 
         login(adminData); // save admin in context
 
-        if (adminData.role === "admin" || adminData.role === "ADMIN") {
+        if (adminData.role?.toUpperCase() === "ADMIN") {
           navigate("/amministrazione");
 
         } else {
