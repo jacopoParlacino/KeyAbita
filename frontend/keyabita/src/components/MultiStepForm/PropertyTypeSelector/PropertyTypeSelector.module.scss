@@ -1,0 +1,48 @@
+@use "../../../styles/mixins.scss" as *;
+@use "../../../styles/variables.scss" as *;
+
+.btn__property {
+  padding: 20px;
+  background-color: $beige;
+  width: 165px;
+  border-radius: 6px;
+  border: 1px solid;
+  outline: none;
+  border-color: $primary-color;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  color: $primary-color;
+  font-family: $font-primary;
+  font-size: 0.8rem;
+  transition: opacity 0.2s ease-in-out;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  @include desktop {
+    font-size: 1rem;
+    width: 40%;
+    height: 100px
+  }
+}
+
+.not__selected {
+  opacity: 0.5;
+}
+
+.icon {
+  height: 20px;
+  width: 20px;
+
+  @include desktop {
+    height: 40px;
+    width: 40px;
+  }
+}

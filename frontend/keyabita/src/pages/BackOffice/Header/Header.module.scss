@@ -1,0 +1,25 @@
+@use "../../../styles/variables.scss" as *;
+@use "../../../styles/mixins.scss" as *;
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+
+    h1 {
+      margin: 0;
+      color: $primary-color;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: $primary-color;
+    }
+
+    svg {
+      cursor: pointer;
+      color: $primary-color;
+    }
+  }

@@ -1,0 +1,22 @@
+@use "../../../styles/variables.scss" as *;
+@use "../../../styles/mixins.scss" as *;
+
+.card {
+    background: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: $primary-color;
+
+    .value {
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .icon {
+      font-size: 1.5rem;
+    }
+  }

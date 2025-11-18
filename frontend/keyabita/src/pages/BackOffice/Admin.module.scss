@@ -1,0 +1,29 @@
+@use "../../styles/variables.scss" as *;
+@use "../../styles/mixins.scss" as *;
+
+.dashboard {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  .main {
+    flex: 1;
+    padding: 2rem;
+    background: $beige;
+  }
+
+  .statsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .bottomSection {
+    display: flex;
+    gap: 1rem;
+
+    > * {
+      flex: 1;
+    }
+  }
