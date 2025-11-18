@@ -267,7 +267,7 @@ export default function MultiStepForm() {
       if (!formData.email) {
         newErrors.email = "Il campo Email è obbligatorio";
       } else if (!emailRegex.test(formData.email)) {
-        newErrors.email = "cap email non valido";
+        newErrors.email = "Indirizzo email non valido";
       }
     }
 
@@ -311,16 +311,15 @@ export default function MultiStepForm() {
             </div>
             {errors.propertyType && <p className={styles.error__message}>{errors.propertyType}</p>}
 
-            <div className={styles.cap__container}>
-              <h2 className={styles.h2}>Cap</h2>
-              <AddressSearch
-                value={formData.cap}
-                onChange={handleAddressChange}
-                placeholder="Inserisci un CAP valido per le province supportate"
+            <h2 className={styles.h2}>Cap</h2>
+            <AddressSearch
+              value={formData.cap}
+              onChange={handleAddressChange}
+              placeholder="Inserisci un CAP valido per le province supportate"
 
-              />
-              {errors.cap && <p className={styles.error__message}>{errors.cap}</p>}
-            </div>
+            />
+            {errors.cap && <p className={styles.error__message}>{errors.cap}</p>}
+
 
           </>
         );
@@ -455,7 +454,7 @@ export default function MultiStepForm() {
           <>
             <div className={styles.confirmation__container}>
               <h2 className={styles.confirmation__title}>Grazie per aver inviato la richiesta di valutazione!</h2>
-              <p className={styles.text__confirmation}>Il tuo report di valutazione immobiliare verrà analizzato dai nostri esperti certificati e inviato all’cap email da te indicato entro 72 ore.</p>
+              <p className={styles.text__confirmation}>Il tuo report di valutazione immobiliare verrà analizzato dai nostri esperti certificati e inviato all’indirizzo email da te indicato entro 72 ore.</p>
               <p className={styles.text__confirmation}>Ti contatteremo qualora fossero necessari ulteriori dettagli.</p>
             </div>
             <div className={styles.button__confirmation__container}>
