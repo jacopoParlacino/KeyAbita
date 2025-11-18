@@ -313,9 +313,9 @@ export default function MultiStepForm() {
                 isSelected={formData.propertyType === "appartamento"}
               />
             </div>
-            {errors.propertyType && <p className={styles.errorMessage}>{errors.propertyType}</p>}
+            {errors.propertyType && <p className={styles.error__message}>{errors.propertyType}</p>}
 
-            <div className={styles.cap__container}>
+
             <h2 className={styles.h2}>Cap</h2>
             <AddressSearch
               value={formData.cap}
@@ -323,7 +323,7 @@ export default function MultiStepForm() {
               placeholder="Inserisci un CAP valido per le province supportate"
             />
             {errors.cap && <p className={styles.error__message}>{errors.cap}</p>}
-          </div>
+          
           </>
         );
       case 2:

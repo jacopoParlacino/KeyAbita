@@ -1,15 +1,19 @@
 import styles from "./Header.module.scss";
-
 import { Bell } from "lucide-react";
 
 const Header = () => {
   return (
     <header className={styles.header}>
-      <div>
+      <div className={styles.left}>
         <h1>Dashboard</h1>
-        <p>Bentornato, Admin. Ecco il preview di valutazioni per te.</p>
+        <p className="header-subtitle">Bentornato, Admin. Ecco il riepilogo di valutazioni per te.</p>
       </div>
-      <Bell />
+
+      <div className={styles.right}>
+      <button className={styles.notificationBtn}>
+      <Bell size={20}/>
+      </button>
+      </div>
     </header>
   );
 };
