@@ -30,11 +30,11 @@ interface FormData {
   stanze: number;
   piano: number;
   bagni: number;
-  ascensore: number;
-  parcheggio: number;
-  garage: number;
-  giardino: number;
-  balconi: number;
+  ascensore: boolean;
+  parcheggio: boolean;
+  garage: boolean;
+  giardino: boolean;
+  balconi: boolean;
   nome: string;
   cognome: string;
   email: string;
@@ -56,11 +56,11 @@ export default function MultiStepForm() {
     stanze: 0,
     piano: 0,
     bagni: 0,
-    ascensore: 0,
-    parcheggio: 0,
-    garage: 0,
-    giardino: 0,
-    balconi: 0,
+    ascensore: false,
+    parcheggio: false,
+    garage: false,
+    giardino: false,
+    balconi: false,
     nome: "",
     cognome: "",
     email: "",
@@ -284,7 +284,7 @@ export default function MultiStepForm() {
 
   const handleToggleChange = (
     field: ToggleField,
-    newValue: number
+    newValue: boolean
   ) => {
     setFormData(prev => ({ ...prev, [field]: newValue }));
   };

@@ -2,21 +2,21 @@ import styles from './ToggleSwitch.module.scss';
 
 interface ToggleSwitchProps {
   label: string;
-  value: number; 
-  onChange: (newValue: number) => void;
+  value: boolean; 
+  onChange: (newValue: boolean) => void;
 }
 
 export default function ToggleSwitch({ label, value, onChange }: ToggleSwitchProps) {
   
   const handleSelectYes = () => {
-    if (value !== 1) {
-      onChange(1);
+    if (value !== true) {
+      onChange(true);
     }
   };
 
   const handleSelectNo = () => {
-    if (value !== 0) {
-      onChange(0);
+    if (value !== false) {
+      onChange(false);
     }
   };
 
@@ -26,14 +26,14 @@ export default function ToggleSwitch({ label, value, onChange }: ToggleSwitchPro
       <div className={styles.switch__wrapper}>
         <button
           type="button"
-          className={`${styles.button} ${value === 1 ? styles.active : ''}`}
+          className={`${styles.button} ${value === true ? styles.active : ''}`}
           onClick={handleSelectYes}
         >
           Sì
         </button>
         <button
           type="button"
-          className={`${styles.button} ${value === 0 ? styles.active : ''}`}
+          className={`${styles.button} ${value === false ? styles.active : ''}`}
           onClick={handleSelectNo}
         >
           No
