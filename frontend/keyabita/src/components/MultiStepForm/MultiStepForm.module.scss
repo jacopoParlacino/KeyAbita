@@ -13,7 +13,7 @@
     }
 }
 
-.header__container{
+.header__container {
     margin-bottom: 20px;
 }
 
@@ -112,6 +112,11 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-top: 5vh;
+
+    @include desktop {
+        margin-top: 15vh;
+    }
 }
 
 .text__confirmation {

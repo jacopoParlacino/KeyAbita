@@ -35,7 +35,13 @@
     width: 200px;
     justify-content: space-between;
     padding: 5px 15px;
+
+  -webkit-user-select: none; /* Per i browser basati su WebKit (Chrome, Safari) */
+  -moz-user-select: none;    /* Per Firefox */
+  -ms-user-select: none;     /* Per Edge/IE */
+  user-select: none;         /* La proprietà standard */
 }
+
 
 .counter__container {
     display: flex;

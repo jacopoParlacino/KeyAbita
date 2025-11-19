@@ -46,6 +46,7 @@
     justify-content: space-between;
 
     @include desktop {
-        padding-right: 30px;
+        padding: 0px 20px;
+        margin-left: -20px;
     }
 }
