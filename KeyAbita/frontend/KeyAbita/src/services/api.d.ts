@@ -37,11 +37,42 @@ export interface Valutazione {
   dataCreazione?: string;
 }
 
-interface Contratto {
+export interface Citta {
   id: number;
+  nome: string;
+}
+
+export interface StatoContratto {
+  id: number;
+  nome: string;
+}
+
+export interface ImmobileCompleto extends Immobile {
+  citta?: Citta;
+  piano?: number | null;
+  annoCostruzione?: number;
+  balcone?: boolean;
+  garage?: boolean;
+  giardino?: boolean;
+}
+
+export interface Richiesta {
+  id: number;
+  nome: string;
+  cognome: string;
+  email?: string;
+  immobile?: ImmobileCompleto;
+}
+
+export interface Contratto {
+  id: number;
+  inizioContratto?: string;
+  fineContratto?: string;
   dataInizio?: string;
   dataFine?: string;
+  statoContratto?: StatoContratto;
   stato?: string;
+  richiesta?: Richiesta;
 }
 
 interface RequestOptions {

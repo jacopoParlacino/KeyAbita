@@ -1,16 +1,18 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FileText, Calendar } from 'lucide-react';
 import ApiService from '../../../../services/api';
-import './ContractsView.css';
+import type { Contratto } from '../../../../services/api.d';
+import './ContractsView.scss';
 
-const ContractsView = () => {
-  const [contracts, setContracts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [selectedStato, setSelectedStato] = useState('all');
+type StatusClass = 'status-completed' | 'status-progress' | 'status-pending' | '';
+
+const ContractsView: React.FC = () => {
+  const [contracts, setContracts] = useState<Contratto[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchContracts = async () => {
+    const fetchContracts = async (): Promise<void> => {
       try {
         setLoading(true);
         const data = await ApiService.getContratti();
@@ -26,23 +28,23 @@ const ContractsView = () => {
     fetchContracts();
   }, []);
 
-  const formatDate = (dateString) => {
+  const formatDate = (dateString?: string): string => {
     if (!dateString) return 'N/A';
     return new Date(dateString).toLocaleDateString('it-IT');
   };
 
-  const getDisplayStato = (stato) => {
-    const stateMap = {
+  const getDisplayStato = (stato?: string): string => {
+    const stateMap: Record<string, string> = {
       'in_preparazione': 'In preparazione',
       'firmato': 'Firmato',
       'attivo': 'Attivo',
       'concluso': 'Concluso',
       'annullato': 'Annullato'
     };
-    return stateMap[stato] || stato;
+    return stato ? (stateMap[stato] || stato) : 'N/A';
   };
 
-  const getStatusClass = (stato) => {
+  const getStatusClass = (stato?: string): StatusClass => {
     switch (stato) {
       case 'attivo':
       case 'firmato':
@@ -58,10 +60,9 @@ const ContractsView = () => {
     }
   };
 
-  const filteredContracts = contracts.filter(contract => {
-    if (selectedStato === 'all') return true;
-    return contract.statoContratto?.nome === selectedStato;
-  });
+  const handleViewAll = (): void => {
+    window.dispatchEvent(new CustomEvent('navigate-to-all-contracts'));
+  };
 
   if (loading) {
     return (
@@ -127,9 +128,9 @@ const ContractsView = () => {
       <div className="contracts-table-container">
         <div className="card-header">
           <h2>Contratti Recenti</h2>
-          <button 
-            className="view-all-btn" 
-            onClick={() => window.dispatchEvent(new CustomEvent('navigate-to-all-contracts'))}
+          <button
+            className="view-all-btn"
+            onClick={handleViewAll}
           >
             Vedi tutte
           </button>
@@ -150,8 +151,8 @@ const ContractsView = () => {
               {contracts.slice(0, 3).map((contract) => (
                 <tr key={contract.id}>
                   <td className="client-name">
-                    {contract.richiesta ? 
-                      `${contract.richiesta.nome} ${contract.richiesta.cognome}` : 
+                    {contract.richiesta ?
+                      `${contract.richiesta.nome} ${contract.richiesta.cognome}` :
                       'N/A'}
                   </td>
                   <td>

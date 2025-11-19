@@ -1,15 +1,18 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Home, Car, TreePine } from 'lucide-react';
 import ApiService from '../../../../services/api';
-import './AllContracts.css';
+import type { Contratto } from '../../../../services/api.d';
+import './AllContracts.scss';
 
-const AllContracts = () => {
-  const [contracts, setContracts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+type StatusClass = 'status-completed' | 'status-progress' | 'status-pending' | '';
+
+const AllContracts: React.FC = () => {
+  const [contracts, setContracts] = useState<Contratto[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchContracts = async () => {
+    const fetchContracts = async (): Promise<void> => {
       try {
         setLoading(true);
         const data = await ApiService.getContratti();
@@ -25,23 +28,23 @@ const AllContracts = () => {
     fetchContracts();
   }, []);
 
-  const formatDate = (dateString) => {
+  const formatDate = (dateString?: string): string => {
     if (!dateString) return 'N/A';
     return new Date(dateString).toLocaleDateString('it-IT');
   };
 
-  const getDisplayStato = (stato) => {
-    const stateMap = {
+  const getDisplayStato = (stato?: string): string => {
+    const stateMap: Record<string, string> = {
       'in_preparazione': 'In preparazione',
       'firmato': 'Firmato',
       'attivo': 'Attivo',
       'concluso': 'Concluso',
       'annullato': 'Annullato'
     };
-    return stateMap[stato] || stato;
+    return stato ? (stateMap[stato] || stato) : 'N/A';
   };
 
-  const getStatusClass = (stato) => {
+  const getStatusClass = (stato?: string): StatusClass => {
     switch (stato) {
       case 'attivo':
       case 'firmato':
@@ -91,67 +94,67 @@ const AllContracts = () => {
                 </span>
               </div>
             </div>
-            
+
             <div className="contract-details">
               <div className="detail-row">
                 <span className="label">Cliente:</span>
                 <span className="value">
-                  {contract.richiesta ? 
-                    `${contract.richiesta.nome} ${contract.richiesta.cognome}` : 
+                  {contract.richiesta ?
+                    `${contract.richiesta.nome} ${contract.richiesta.cognome}` :
                     'Non specificato'}
                 </span>
               </div>
-              
+
               <div className="detail-row">
                 <span className="label">Indirizzo:</span>
                 <span className="value">
                   {contract.richiesta?.immobile?.indirizzo || 'Non specificato'}
                 </span>
               </div>
-              
+
               <div className="detail-row">
                 <span className="label">Città:</span>
                 <span className="value">
                   {contract.richiesta?.immobile?.citta?.nome || 'Non specificata'}
                 </span>
               </div>
-              
+
               <div className="detail-row">
                 <span className="label">Data inizio:</span>
                 <span className="value">
                   {formatDate(contract.inizioContratto)}
                 </span>
               </div>
-              
+
               <div className="detail-row">
                 <span className="label">Data fine:</span>
                 <span className="value">
                   {formatDate(contract.fineContratto)}
                 </span>
               </div>
-              
+
               <div className="detail-row">
                 <span className="label">Stanze:</span>
                 <span className="value">
                   {contract.richiesta?.immobile?.numeroStanze || 'N/A'}
                 </span>
               </div>
-              
+
               <div className="detail-row">
                 <span className="label">Bagni:</span>
                 <span className="value">
                   {contract.richiesta?.immobile?.numeroBagni || 'N/A'}
                 </span>
               </div>
-              
+
               <div className="detail-row">
                 <span className="label">Piano:</span>
                 <span className="value">
-                  {contract.richiesta?.immobile?.piano !== null ? 
+                  {contract.richiesta?.immobile?.piano !== null && contract.richiesta?.immobile?.piano !== undefined ?
                     contract.richiesta.immobile.piano : 'N/A'}
                 </span>
               </div>
-              
+
               <div className="detail-row">
                 <span className="label">Anno costruzione:</span>
                 <span className="value">
@@ -159,7 +162,7 @@ const AllContracts = () => {
                 </span>
               </div>
             </div>
-            
+
             <div className="property-features">
               {contract.richiesta?.immobile?.balcone && (
                 <span className="feature">
