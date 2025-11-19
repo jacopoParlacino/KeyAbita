@@ -1,6 +1,7 @@
+import React from 'react';
 import { Bell } from 'lucide-react';
 
-const Header = () => {
+const Header: React.FC = () => {
   return (
     <header className="header">
       <div className="header-left">
