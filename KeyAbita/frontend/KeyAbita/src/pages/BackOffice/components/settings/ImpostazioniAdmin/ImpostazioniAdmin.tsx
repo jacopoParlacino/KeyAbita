@@ -1,22 +1,49 @@
 import React, { useState, useEffect } from 'react';
-import './ImpostazioniAdmin.css';
+import './ImpostazioniAdmin.scss';
 import ApiService from '../../../../../services/api';
+import type { Utente } from '../../../../../services/api.d';
 import { Settings, Users, Key, Save, AlertCircle, CheckCircle, Eye, EyeOff, Shield } from 'lucide-react';
 
-const ImpostazioniAdmin = () => {
-  const [activeTab, setActiveTab] = useState('agenti');
-  const [agenti, setAgenti] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState({ text: '', type: '' });
-  const [showPassword, setShowPassword] = useState({});
+interface Message {
+  text: string;
+  type: 'success' | 'error' | 'info' | '';
+}
+
+interface ShowPassword {
+  [key: string]: boolean;
+}
+
+interface ResetPasswordState {
+  utenteId: number | null;
+  newPassword: string;
+  confirmPassword: string;
+}
+
+interface PermessiModulo {
+  visualizza: boolean;
+  [key: string]: boolean;
+}
+
+interface PermessiAgente {
+  [modulo: string]: PermessiModulo;
+}
+
+type TabType = 'agenti';
+
+const ImpostazioniAdmin: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<TabType>('agenti');
+  const [agenti, setAgenti] = useState<Utente[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [message, setMessage] = useState<Message>({ text: '', type: '' });
+  const [showPassword, setShowPassword] = useState<ShowPassword>({});
 
   // Stati per gestione permessi
-  const [selectedAgente, setSelectedAgente] = useState(null);
-  const [permessiAgente, setPermessiAgente] = useState({});
-  const [showPermessiModal, setShowPermessiModal] = useState(false);
+  const [selectedAgente, setSelectedAgente] = useState<Utente | null>(null);
+  const [permessiAgente, setPermessiAgente] = useState<PermessiAgente>({});
+  const [showPermessiModal, setShowPermessiModal] = useState<boolean>(false);
 
   // Stati per il reset password
-  const [resetPassword, setResetPassword] = useState({
+  const [resetPassword, setResetPassword] = useState<ResetPasswordState>({
     utenteId: null,
     newPassword: '',
     confirmPassword: ''
@@ -28,37 +55,37 @@ const ImpostazioniAdmin = () => {
     }
   }, [activeTab]);
 
-  const loadAgenti = async () => {
+  const loadAgenti = async (): Promise<void> => {
     try {
       setLoading(true);
       const data = await ApiService.getAllAgenti();
       setAgenti(data || []);
     } catch (err) {
-      showMessage('Errore nel caricamento degli agenti', 'error');
+      showMessageFunc('Errore nel caricamento degli agenti', 'error');
     } finally {
       setLoading(false);
     }
   };
 
-  const loadPermessiAgente = async (agenteId) => {
+  const loadPermessiAgente = async (agenteId: number): Promise<void> => {
     try {
       setLoading(true);
       const permessi = await ApiService.getPermessiAgente(agenteId);
       setPermessiAgente(permessi || {});
     } catch (err) {
-      showMessage('Errore nel caricamento dei permessi', 'error');
+      showMessageFunc('Errore nel caricamento dei permessi', 'error');
     } finally {
       setLoading(false);
     }
   };
 
-  const handlePermessiClick = async (agente) => {
+  const handlePermessiClick = async (agente: Utente): Promise<void> => {
     setSelectedAgente(agente);
     await loadPermessiAgente(agente.id);
     setShowPermessiModal(true);
   };
 
-  const handlePermessoToggle = (modulo, permesso, value) => {
+  const handlePermessoToggle = (modulo: string, permesso: string, value: boolean): void => {
     setPermessiAgente(prev => ({
       ...prev,
       [modulo]: {
@@ -68,54 +95,54 @@ const ImpostazioniAdmin = () => {
     }));
   };
 
-  const savePermessi = async () => {
+  const savePermessi = async (): Promise<void> => {
     if (!selectedAgente) return;
 
     try {
       setLoading(true);
       await ApiService.updatePermessiAgente(selectedAgente.id, permessiAgente);
-      showMessage(`Permessi aggiornati per ${selectedAgente.nome} ${selectedAgente.cognome}`, 'success');
+      showMessageFunc(`Permessi aggiornati per ${selectedAgente.nome} ${selectedAgente.cognome}`, 'success');
       setShowPermessiModal(false);
     } catch (err) {
-      showMessage('Errore nel salvataggio dei permessi', 'error');
+      showMessageFunc('Errore nel salvataggio dei permessi', 'error');
     } finally {
       setLoading(false);
     }
   };
 
-  const showMessage = (text, type = 'info') => {
+  const showMessageFunc = (text: string, type: 'success' | 'error' | 'info' = 'info'): void => {
     setMessage({ text, type });
     setTimeout(() => setMessage({ text: '', type: '' }), 4000);
   };
 
-  const handleResetPassword = async (utenteId) => {
+  const handleResetPassword = async (utenteId: number): Promise<void> => {
     if (!resetPassword.newPassword || resetPassword.newPassword !== resetPassword.confirmPassword) {
-      showMessage('Le password non corrispondono o sono vuote', 'error');
+      showMessageFunc('Le password non corrispondono o sono vuote', 'error');
       return;
     }
 
     if (resetPassword.newPassword.length < 6) {
-      showMessage('La password deve essere di almeno 6 caratteri', 'error');
+      showMessageFunc('La password deve essere di almeno 6 caratteri', 'error');
       return;
     }
 
     try {
       setLoading(true);
       await ApiService.resetPassword(utenteId, resetPassword.newPassword);
-      showMessage('Password resettata con successo', 'success');
+      showMessageFunc('Password resettata con successo', 'success');
       setResetPassword({ utenteId: null, newPassword: '', confirmPassword: '' });
     } catch (err) {
-      showMessage('Errore nel reset password', 'error');
+      showMessageFunc('Errore nel reset password', 'error');
     } finally {
       setLoading(false);
     }
   };
 
-  const toggleShowPassword = (field) => {
+  const toggleShowPassword = (field: string): void => {
     setShowPassword(prev => ({ ...prev, [field]: !prev[field] }));
   };
 
-  const formatDate = (dateString) => {
+  const formatDate = (dateString?: string): string => {
     if (!dateString) return 'N/A';
     try {
       return new Date(dateString).toLocaleDateString('it-IT');
@@ -143,7 +170,7 @@ const ImpostazioniAdmin = () => {
       <div className="impostazioni-content">
         <div className="tabs-container">
           <div className="tabs">
-            <button 
+            <button
               className={`tab ${activeTab === 'agenti' ? 'active' : ''}`}
               onClick={() => setActiveTab('agenti')}
             >
@@ -240,7 +267,7 @@ const ImpostazioniAdmin = () => {
                     <div className="modal">
                       <div className="modal-header">
                         <h3>Reset Password</h3>
-                        <button 
+                        <button
                           className="close-btn"
                           onClick={() => setResetPassword({ utenteId: null, newPassword: '', confirmPassword: '' })}
                         >
@@ -256,7 +283,7 @@ const ImpostazioniAdmin = () => {
                               value={resetPassword.newPassword}
                               onChange={(e) => setResetPassword({ ...resetPassword, newPassword: e.target.value })}
                               placeholder="Inserisci nuova password"
-                              minLength="6"
+                              minLength={6}
                             />
                             <button
                               type="button"
@@ -275,7 +302,7 @@ const ImpostazioniAdmin = () => {
                               value={resetPassword.confirmPassword}
                               onChange={(e) => setResetPassword({ ...resetPassword, confirmPassword: e.target.value })}
                               placeholder="Conferma nuova password"
-                              minLength="6"
+                              minLength={6}
                             />
                             <button
                               type="button"
@@ -296,7 +323,7 @@ const ImpostazioniAdmin = () => {
                         </button>
                         <button
                           className="save-btn"
-                          onClick={() => handleResetPassword(resetPassword.utenteId)}
+                          onClick={() => handleResetPassword(resetPassword.utenteId!)}
                           disabled={loading}
                         >
                           <Save size={16} />
@@ -313,7 +340,7 @@ const ImpostazioniAdmin = () => {
                     <div className="modal permessi-modal">
                       <div className="modal-header">
                         <h3>Permessi per {selectedAgente.nome} {selectedAgente.cognome}</h3>
-                        <button 
+                        <button
                           className="close-btn"
                           onClick={() => setShowPermessiModal(false)}
                         >
@@ -324,7 +351,7 @@ const ImpostazioniAdmin = () => {
                         <p className="permessi-description">
                           Configura i permessi che l'agente può visualizzare e utilizzare nel sistema.
                         </p>
-                        
+
                         <div className="permessi-grid">
                           {Object.entries(permessiAgente).map(([modulo, permessi]) => (
                             <div key={modulo} className="modulo-section">
