@@ -1,0 +1,220 @@
+// Login.scss
+
+// Variabili
+$bg-color: #FFF8DF;
+$white: white;
+$primary-color: #3B0000;
+$primary-gradient-start: #667eea;
+$primary-gradient-end: #764ba2;
+$text-primary: #333;
+$text-secondary: #666;
+$text-placeholder: #aaa;
+$border-color: #e0e0e0;
+$border-focus: #667eea;
+$error-bg: #fee;
+$error-text: #c33;
+$error-border: #fcc;
+$demo-bg: #f5f5f5;
+$demo-code-bg: #e0e0e0;
+
+// Mixin
+@mixin smooth-transition($property: all, $duration: 0.3s) {
+  transition: $property $duration ease;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-container {
+  min-height: 100vh;
+  @include flex-center;
+  background: $bg-color;
+  padding: 20px;
+}
+
+.login-card {
+  background: $white;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 450px;
+  padding: 40px;
+  animation: slideIn 0.4s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.logo {
+  @include flex-center;
+  gap: 12px;
+  margin-bottom: 12px;
+
+  &-icon {
+    font-size: 48px;
+  }
+
+  h1 {
+    font-size: 36px;
+    font-weight: 700;
+    background: linear-gradient(135deg, $primary-gradient-start 0%, $primary-gradient-end 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0;
+  }
+}
+
+.subtitle {
+  color: $text-secondary;
+  font-size: 14px;
+  margin: 0;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  label {
+    font-weight: 600;
+    color: $text-primary;
+    font-size: 14px;
+  }
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  .input-icon {
+    position: absolute;
+    left: 16px;
+    font-size: 20px;
+    pointer-events: none;
+  }
+
+  input {
+    width: 100%;
+    padding: 14px 16px 14px 52px;
+    border: 2px solid $border-color;
+    border-radius: 12px;
+    font-size: 15px;
+    @include smooth-transition();
+    outline: none;
+
+    &:focus {
+      border-color: $border-focus;
+      box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    }
+
+    &::placeholder {
+      color: $text-placeholder;
+    }
+  }
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: $error-bg;
+  color: $error-text;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  border: 1px solid $error-border;
+
+  .error-icon {
+    font-size: 18px;
+  }
+}
+
+.login-button {
+  background: $primary-color;
+  color: $white;
+  border: none;
+  padding: 16px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  @include smooth-transition();
+  box-shadow: 0 4px 12px rgba(59, 0, 0, 0.3);
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(59, 0, 0, 0.4);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.login-footer {
+  margin-top: 8px;
+  text-align: center;
+}
+
+.demo-info {
+  background: $demo-bg;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: $text-secondary;
+  margin: 0;
+
+  code {
+    background: $demo-code-bg;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    color: $text-primary;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .login-card {
+    padding: 30px 24px;
+  }
+
+  .logo {
+    h1 {
+      font-size: 28px;
+    }
+
+    &-icon {
+      font-size: 40px;
+    }
+  }
+}
