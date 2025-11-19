@@ -1,18 +1,27 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Plus, Edit, Trash2, Search } from 'lucide-react';
 import ApiService from '../../../../services/api';
-import './ValutazioniManager.css';
+import type { Valutazione, Immobile } from '../../../../services/api.d';
+import './ValutazioniManager.scss';
 
-const ValutazioniManager = () => {
-  const [valutazioni, setValutazioni] = useState([]);
-  const [immobili, setImmobili] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [showForm, setShowForm] = useState(false);
-  const [editingValutazione, setEditingValutazione] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  
-  const [formData, setFormData] = useState({
+interface FormData {
+  valoreMassimo: string;
+  valoreStimato: string;
+  valoreMinimo: string;
+  immobileId: string;
+  dataCreazione: string;
+}
+
+const ValutazioniManager: React.FC = () => {
+  const [valutazioni, setValutazioni] = useState<Valutazione[]>([]);
+  const [immobili, setImmobili] = useState<Immobile[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const [showForm, setShowForm] = useState<boolean>(false);
+  const [editingValutazione, setEditingValutazione] = useState<Valutazione | null>(null);
+  const [searchTerm, setSearchTerm] = useState<string>('');
+
+  const [formData, setFormData] = useState<FormData>({
     valoreMassimo: '',
     valoreStimato: '',
     valoreMinimo: '',
@@ -24,7 +33,7 @@ const ValutazioniManager = () => {
     fetchData();
   }, []);
 
-  const fetchData = async () => {
+  const fetchData = async (): Promise<void> => {
     try {
       setLoading(true);
       const [valutazioniData, immobiliData] = await Promise.all([
@@ -41,10 +50,10 @@ const ValutazioniManager = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     try {
-      const valutazioneData = {
+      const valutazioneData: any = {
         ...formData,
         valoreMassimo: parseFloat(formData.valoreMassimo),
         valoreStimato: parseFloat(formData.valoreStimato),
@@ -66,19 +75,19 @@ const ValutazioniManager = () => {
     }
   };
 
-  const handleEdit = (valutazione) => {
+  const handleEdit = (valutazione: Valutazione): void => {
     setEditingValutazione(valutazione);
     setFormData({
-      valoreMassimo: valutazione.valoreMassimo.toString(),
-      valoreStimato: valutazione.valoreStimato.toString(),
-      valoreMinimo: valutazione.valoreMinimo.toString(),
+      valoreMassimo: valutazione.valoreMassimo?.toString() || '',
+      valoreStimato: valutazione.valoreStimato?.toString() || '',
+      valoreMinimo: valutazione.valoreMinimo?.toString() || '',
       immobileId: valutazione.immobile?.id?.toString() || '',
       dataCreazione: valutazione.dataCreazione || new Date().toISOString().split('T')[0]
     });
     setShowForm(true);
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id: number): Promise<void> => {
     if (window.confirm('Sei sicuro di voler eliminare questa valutazione?')) {
       try {
         await ApiService.deleteValutazione(id);
@@ -90,7 +99,7 @@ const ValutazioniManager = () => {
     }
   };
 
-  const resetForm = () => {
+  const resetForm = (): void => {
     setFormData({
       valoreMassimo: '',
       valoreStimato: '',
@@ -102,7 +111,8 @@ const ValutazioniManager = () => {
     setShowForm(false);
   };
 
-  const formatCurrency = (value) => {
+  const formatCurrency = (value?: number): string => {
+    if (value === undefined || value === null) return 'N/A';
     return new Intl.NumberFormat('it-IT', {
       style: 'currency',
       currency: 'EUR',
@@ -124,7 +134,7 @@ const ValutazioniManager = () => {
     <div className="valutazioni-manager">
       <div className="page-header">
         <h1>Gestione Valutazioni</h1>
-        <button 
+        <button
           className="btn btn-primary"
           onClick={() => setShowForm(true)}
         >
@@ -171,19 +181,19 @@ const ValutazioniManager = () => {
                   </span>
                 </td>
                 <td>
-                  {valutazione.dataCreazione ? 
+                  {valutazione.dataCreazione ?
                     new Date(valutazione.dataCreazione).toLocaleDateString('it-IT') : 'N/A'}
                 </td>
                 <td>
                   <div className="actions">
-                    <button 
+                    <button
                       className="btn-edit"
                       onClick={() => handleEdit(valutazione)}
                       title="Modifica"
                     >
                       <Edit size={16} />
                     </button>
-                    <button 
+                    <button
                       className="btn-delete"
                       onClick={() => handleDelete(valutazione.id)}
                       title="Elimina"
@@ -207,13 +217,13 @@ const ValutazioniManager = () => {
                 <label>Immobile</label>
                 <select
                   value={formData.immobileId}
-                  onChange={(e) => setFormData({...formData, immobileId: e.target.value})}
+                  onChange={(e) => setFormData({ ...formData, immobileId: e.target.value })}
                   required
                 >
                   <option value="">Seleziona immobile</option>
                   {immobili.map((immobile) => (
                     <option key={immobile.id} value={immobile.id}>
-                      {immobile.indirizzo} - {immobile.citta?.nome}
+                      {immobile.indirizzo} - {immobile.citta}
                     </option>
                   ))}
                 </select>
@@ -225,7 +235,7 @@ const ValutazioniManager = () => {
                   <input
                     type="number"
                     value={formData.valoreMinimo}
-                    onChange={(e) => setFormData({...formData, valoreMinimo: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, valoreMinimo: e.target.value })}
                     required
                   />
                 </div>
@@ -234,7 +244,7 @@ const ValutazioniManager = () => {
                   <input
                     type="number"
                     value={formData.valoreStimato}
-                    onChange={(e) => setFormData({...formData, valoreStimato: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, valoreStimato: e.target.value })}
                     required
                   />
                 </div>
@@ -243,7 +253,7 @@ const ValutazioniManager = () => {
                   <input
                     type="number"
                     value={formData.valoreMassimo}
-                    onChange={(e) => setFormData({...formData, valoreMassimo: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, valoreMassimo: e.target.value })}
                     required
                   />
                 </div>
@@ -254,7 +264,7 @@ const ValutazioniManager = () => {
                 <input
                   type="date"
                   value={formData.dataCreazione}
-                  onChange={(e) => setFormData({...formData, dataCreazione: e.target.value})}
+                  onChange={(e) => setFormData({ ...formData, dataCreazione: e.target.value })}
                   required
                 />
               </div>

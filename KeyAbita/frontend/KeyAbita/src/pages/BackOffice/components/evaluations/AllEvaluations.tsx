@@ -1,15 +1,16 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Home, Car, TreePine } from 'lucide-react';
 import ApiService from '../../../../services/api';
-import './AllEvaluations.css';
+import type { Valutazione } from '../../../../services/api.d';
+import './AllEvaluations.scss';
 
-const AllEvaluations = () => {
-  const [evaluations, setEvaluations] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const AllEvaluations: React.FC = () => {
+  const [evaluations, setEvaluations] = useState<Valutazione[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchEvaluations = async () => {
+    const fetchEvaluations = async (): Promise<void> => {
       try {
         setLoading(true);
         const data = await ApiService.getValutazioni();
@@ -25,7 +26,8 @@ const AllEvaluations = () => {
     fetchEvaluations();
   }, []);
 
-  const formatCurrency = (value) => {
+  const formatCurrency = (value?: number): string => {
+    if (value === undefined || value === null) return 'N/A';
     return new Intl.NumberFormat('it-IT', {
       style: 'currency',
       currency: 'EUR',
@@ -68,52 +70,52 @@ const AllEvaluations = () => {
                 </span>
               </div>
             </div>
-            
+
             <div className="evaluation-details">
-                            <div className="detail-row">
+              <div className="detail-row">
                 <span className="label">Indirizzo:</span>
                 <span className="value">
                   {evaluation.immobile?.indirizzo || 'Non specificato'}
                 </span>
               </div>
-              
+
               <div className="detail-row">
                 <span className="label">Città:</span>
                 <span className="value">
                   {evaluation.immobile?.citta?.nome || 'Non specificata'}
                 </span>
               </div>
-              
+
               <div className="detail-row">
                 <span className="label">Data valutazione:</span>
                 <span className="value">
-                  {evaluation.dataCreazione ? 
+                  {evaluation.dataCreazione ?
                     new Date(evaluation.dataCreazione).toLocaleDateString('it-IT') : 'N/A'}
                 </span>
               </div>
-              
+
               <div className="detail-row">
                 <span className="label">Stanze:</span>
                 <span className="value">
                   {evaluation.immobile?.numeroStanze || 'N/A'}
                 </span>
               </div>
-              
+
               <div className="detail-row">
                 <span className="label">Bagni:</span>
                 <span className="value">
                   {evaluation.immobile?.numeroBagni || 'N/A'}
                 </span>
               </div>
-              
+
               <div className="detail-row">
                 <span className="label">Piano:</span>
                 <span className="value">
-                  {evaluation.immobile?.piano !== null ? 
+                  {evaluation.immobile?.piano !== null && evaluation.immobile?.piano !== undefined ?
                     evaluation.immobile.piano : 'N/A'}
                 </span>
               </div>
-              
+
               <div className="detail-row">
                 <span className="label">Anno costruzione:</span>
                 <span className="value">
@@ -121,7 +123,7 @@ const AllEvaluations = () => {
                 </span>
               </div>
             </div>
-            
+
             <div className="price-breakdown">
               <div className="price-item">
                 <span className="label">Valore minimo:</span>
@@ -142,7 +144,7 @@ const AllEvaluations = () => {
                 </span>
               </div>
             </div>
-            
+
             <div className="property-features">
               {evaluation.immobile?.balcone && (
                 <span className="feature">

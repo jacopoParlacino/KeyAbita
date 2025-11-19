@@ -30,9 +30,11 @@ export interface Immobile {
 export interface Valutazione {
   id: number;
   immobileId?: number;
-  immobile?: Immobile;
+  immobile?: ImmobileCompleto;
   valore?: number;
   valoreStimato?: number;
+  valoreMinimo?: number;
+  valoreMassimo?: number;
   data?: string;
   dataCreazione?: string;
 }

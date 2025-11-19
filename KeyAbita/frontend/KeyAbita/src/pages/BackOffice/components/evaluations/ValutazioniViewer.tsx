@@ -1,16 +1,17 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Search } from 'lucide-react';
 import ApiService from '../../../../services/api';
-import './ValutazioniViewer.css';
+import type { Valutazione } from '../../../../services/api.d';
+import './ValutazioniViewer.scss';
 
-const ValutazioniViewer = () => {
-  const [valutazioni, setValutazioni] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
+const ValutazioniViewer: React.FC = () => {
+  const [valutazioni, setValutazioni] = useState<Valutazione[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
   useEffect(() => {
-    const fetchValutazioni = async () => {
+    const fetchValutazioni = async (): Promise<void> => {
       try {
         setLoading(true);
         const data = await ApiService.getValutazioni();
@@ -26,7 +27,8 @@ const ValutazioniViewer = () => {
     fetchValutazioni();
   }, []);
 
-  const formatCurrency = (value) => {
+  const formatCurrency = (value?: number): string => {
+    if (value === undefined || value === null) return 'N/A';
     return new Intl.NumberFormat('it-IT', {
       style: 'currency',
       currency: 'EUR',
@@ -98,7 +100,7 @@ const ValutazioniViewer = () => {
                   </span>
                 </td>
                 <td>
-                  {valutazione.dataCreazione ? 
+                  {valutazione.dataCreazione ?
                     new Date(valutazione.dataCreazione).toLocaleDateString('it-IT') : 'N/A'}
                 </td>
               </tr>
