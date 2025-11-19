@@ -1,13 +1,14 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import ApiService from '../../../../services/api';
+import type { Valutazione } from '../../../../services/api.d';
 
-const RecentEvaluations = () => {
-  const [evaluations, setEvaluations] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const RecentEvaluations: React.FC = () => {
+  const [evaluations, setEvaluations] = useState<Valutazione[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchEvaluations = async () => {
+    const fetchEvaluations = async (): Promise<void> => {
       try {
         setLoading(true);
         const data = await ApiService.getValutazioni();
@@ -24,13 +25,17 @@ const RecentEvaluations = () => {
     fetchEvaluations();
   }, []);
 
-  const formatCurrency = (value) => {
+  const formatCurrency = (value: number): string => {
     return new Intl.NumberFormat('it-IT', {
       style: 'currency',
       currency: 'EUR',
       minimumFractionDigits: 0,
       maximumFractionDigits: 0
     }).format(value);
+  };
+
+  const handleViewAll = (): void => {
+    window.dispatchEvent(new CustomEvent('navigate-to-evaluations'));
   };
 
   if (loading) {
@@ -59,7 +64,7 @@ const RecentEvaluations = () => {
     <div className="recent-evaluations">
       <div className="card-header">
         <h2>Valutazioni Recenti</h2>
-        <button className="view-all-btn" onClick={() => window.dispatchEvent(new CustomEvent('navigate-to-evaluations'))}>
+        <button className="view-all-btn" onClick={handleViewAll}>
           Vedi tutte
         </button>
       </div>
@@ -83,10 +88,10 @@ const RecentEvaluations = () => {
                   {evaluation.immobile?.indirizzo || 'N/A'}
                 </td>
                 <td className="value">
-                  {formatCurrency(evaluation.valoreStimato)}
+                  {evaluation.valoreStimato ? formatCurrency(evaluation.valoreStimato) : 'N/A'}
                 </td>
                 <td>
-                  {evaluation.dataCreazione ? 
+                  {evaluation.dataCreazione ?
                     new Date(evaluation.dataCreazione).toLocaleDateString('it-IT') : 'N/A'}
                 </td>
                 <td>Immobile</td>

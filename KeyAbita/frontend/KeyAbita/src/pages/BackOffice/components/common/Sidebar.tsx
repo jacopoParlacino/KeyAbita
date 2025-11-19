@@ -1,8 +1,16 @@
-import './Sidebar.css';
+import React from 'react';
+import './Sidebar.scss';
 import Logo from '../logo/Logo';
 import { BarChart3, FileText, Users, Settings } from 'lucide-react';
 
-const Sidebar = ({ currentView, onNavigate }) => {
+type ViewType = 'dashboard' | 'valutazioni-manager' | 'clienti' | 'contracts' | 'impostazioni';
+
+interface SidebarProps {
+  currentView: ViewType;
+  onNavigate: (view: ViewType) => void;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ currentView, onNavigate }) => {
   return (
     <aside className="sidebar">
       <div className="sidebar-header">

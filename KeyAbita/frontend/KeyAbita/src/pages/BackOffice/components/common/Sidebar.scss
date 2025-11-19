@@ -1,0 +1,132 @@
+// Sidebar.scss
+
+// Variabili
+$sidebar-width: 260px;
+$sidebar-bg: white;
+$sidebar-text: #1e293b;
+$border-color: #e2e8f0;
+$nav-hover-bg: #f8fafc;
+$nav-active-bg: #f1f5f9;
+$primary-color: #3b82f6;
+$secondary-text: #64748b;
+
+// Mixin per transizioni
+@mixin smooth-transition($property: all, $duration: 0.2s) {
+  transition: $property $duration ease;
+}
+
+// Mixin per flex centering
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar {
+  width: $sidebar-width;
+  height: 100vh;
+  background: $sidebar-bg;
+  color: $sidebar-text;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  top: 0;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+
+  &-header {
+    padding: 2.5rem 1.5rem;
+    border-bottom: 1px solid $border-color;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  &-subtitle {
+    margin: 0;
+    font-size: 0.875rem;
+    color: $secondary-text;
+  }
+
+  &-nav {
+    flex: 1;
+    padding: 1.5rem 0;
+    overflow-y: auto;
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+  }
+
+  &-footer {
+    padding: 1.5rem;
+    border-top: 1px solid $border-color;
+  }
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 0.875rem 1.5rem;
+  cursor: pointer;
+  @include smooth-transition();
+  border-left: 3px solid transparent;
+  color: $secondary-text;
+
+  &:hover {
+    background: $nav-hover-bg;
+    color: $sidebar-text;
+  }
+
+  &.active {
+    background: $nav-active-bg;
+    border-left-color: $primary-color;
+    color: $sidebar-text;
+  }
+
+  .icon {
+    margin-right: 0.875rem;
+    font-size: 1.25rem;
+  }
+
+  span {
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: $primary-color;
+    color: white;
+    @include flex-center;
+    font-weight: 700;
+    font-size: 1.125rem;
+  }
+
+  .user-details {
+    flex: 1;
+
+    .user-name {
+      margin: 0;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: $sidebar-text;
+    }
+
+    .user-role {
+      margin: 0.25rem 0 0 0;
+      font-size: 0.8rem;
+      color: $secondary-text;
+    }
+  }
+}

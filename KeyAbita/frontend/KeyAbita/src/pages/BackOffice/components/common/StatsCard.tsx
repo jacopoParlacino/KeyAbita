@@ -1,7 +1,21 @@
+import React from 'react';
 import { DollarSign, Building, Clock, TrendingUp as TrendingUpIcon } from 'lucide-react';
 
-const StatsCard = ({ title, value, icon, trend, trendValue, color }) => {
-  const getIcon = () => {
+type IconType = '$' | 'building' | 'clock' | 'chart' | string;
+type TrendType = 'up' | 'down';
+type ColorType = string;
+
+interface StatsCardProps {
+  title: string;
+  value: string | number;
+  icon: IconType;
+  trend?: TrendType;
+  trendValue?: string;
+  color?: ColorType;
+}
+
+const StatsCard: React.FC<StatsCardProps> = ({ title, value, icon, trend, trendValue, color }) => {
+  const getIcon = (): React.ReactNode => {
     switch(icon) {
       case '$': return <DollarSign size={24} />;
       case 'building': return <Building size={24} />;
@@ -12,7 +26,7 @@ const StatsCard = ({ title, value, icon, trend, trendValue, color }) => {
   };
 
   return (
-    <div className={`stats-card ${color}`}>
+    <div className={`stats-card ${color || ''}`}>
       <div className="stats-icon">
         {getIcon()}
       </div>

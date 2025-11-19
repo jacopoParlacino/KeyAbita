@@ -1,7 +1,21 @@
+import React from 'react';
 import { FileText } from 'lucide-react';
 
-const QuickAccess = ({ onNavigateToContracts }) => {
-  const actions = [
+interface QuickAction {
+  id: number;
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  color: string;
+  onClick?: () => void;
+}
+
+interface QuickAccessProps {
+  onNavigateToContracts?: () => void;
+}
+
+const QuickAccess: React.FC<QuickAccessProps> = ({ onNavigateToContracts }) => {
+  const actions: QuickAction[] = [
     {
       id: 1,
       icon: <FileText size={20} />,

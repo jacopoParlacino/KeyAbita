@@ -1,4 +1,3 @@
-// Type definitions for ApiService
 
 export interface Ruolo {
   id: number;
@@ -15,21 +14,27 @@ export interface Utente {
   dataCreazione?: string;
 }
 
-interface Immobile {
+export interface Immobile {
   id: number;
   titolo?: string;
   descrizione?: string;
   prezzo?: number;
   citta?: string;
   stanze?: number;
+  numeroStanze?: number;
+  numeroBagni?: number;
+  indirizzo?: string;
   statoImmobile?: string;
 }
 
-interface Valutazione {
+export interface Valutazione {
   id: number;
   immobileId?: number;
+  immobile?: Immobile;
   valore?: number;
+  valoreStimato?: number;
   data?: string;
+  dataCreazione?: string;
 }
 
 interface Contratto {
