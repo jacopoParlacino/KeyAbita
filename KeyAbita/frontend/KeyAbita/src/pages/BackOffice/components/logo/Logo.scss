@@ -1,0 +1,107 @@
+// Logo.scss
+
+// Variabili
+$primary-color: #4A90E2;
+$logo-color: #1976d2;
+$text-primary-dark: #ffffff;
+
+// Dimensioni
+$size-small: 32px;
+$size-medium: 48px;
+$size-large: 160px;
+
+// Mixin
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin logo-size($size) {
+  .logo-icon-wrapper,
+  .logo-image {
+    width: $size;
+    height: $size;
+  }
+}
+
+.logo-component {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon-wrapper {
+  position: relative;
+  @include flex-center;
+}
+
+.logo-image {
+  display: block;
+  object-fit: contain;
+}
+
+.logo-fallback {
+  display: none;
+  @include flex-center;
+  color: var(--primary-color, $primary-color);
+}
+
+.logo-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: $logo-color;
+  line-height: 1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Size variants */
+.logo-small {
+  @include logo-size($size-small);
+
+  .logo-title {
+    font-size: 1rem;
+  }
+}
+
+.logo-medium {
+  @include logo-size($size-medium);
+
+  .logo-title {
+    font-size: 1.5rem;
+  }
+}
+
+.logo-large {
+  @include logo-size($size-large);
+
+  .logo-title {
+    font-size: 4rem;
+    color: $logo-color;
+    font-weight: 800;
+  }
+}
+
+/* Variant for icon only */
+.logo-icon-only {
+  .logo-text {
+    display: none;
+  }
+}
+
+/* Dark theme support */
+@media (prefers-color-scheme: dark) {
+  .logo-title {
+    color: var(--text-primary-dark, $text-primary-dark);
+  }
+}
