@@ -1,6 +1,32 @@
 @use "../../../styles/mixins.scss" as *;
 @use "../../../styles/variables.scss" as *;
 
+.icon__wrapper__minus .icon__wrapper__plus {
+
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+        content: "";
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        background: rgba(255, 255, 255, 0.4);
+        border-radius: 50%;
+        transform: scale(0);
+        opacity: 0;
+        transition: transform 0.4s, opacity 0.4s;
+    }
+
+    &:active::after {
+        transform: scale(3);
+        opacity: 1;
+        left: 50%;
+        top: 50%;
+        transform-origin: center;
+    }
+}
+
 .icon__wrapper__minus {
     border-radius: 50%;
     height: 25px;
@@ -11,10 +37,35 @@
     border: 1px solid;
     border-color: $primary-desaturated;
 
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+        content: "";
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        background: $primary-desaturated;
+        border-radius: 50%;
+        transform: scale(0);
+        opacity: 0;
+        transition: transform 0.4s, opacity 0.4s;
+    }
+
+    &:active::after {
+        transform: scale(3);
+        opacity: 1;
+        left: 50%;
+        top: 50%;
+        transform-origin: center;
+    }
+
     @include desktop {
         height: 35px;
         width: 35px;
     }
+
+
 
 }
 
@@ -27,13 +78,36 @@
     justify-content: center;
     border: 1px solid;
     border-color: $primary-desaturated;
-    background-color: $beige;
+    background-color: $primary-color;
+    color: $text-color;
+
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+        content: "";
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        background: rgba(255, 255, 255, 0.4);
+        border-radius: 50%;
+        transform: scale(0);
+        opacity: 0;
+        transition: transform 0.4s, opacity 0.4s;
+    }
+
+    &:active::after {
+        transform: scale(3);
+        opacity: 1;
+        left: 50%;
+        top: 50%;
+        transform-origin: center;
+    }
 
     @include desktop {
         height: 35px;
         width: 35px;
     }
-
 }
 
 .increment__decrement__wrapper {
