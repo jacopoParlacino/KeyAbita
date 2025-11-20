@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /amministrazione/
+Allow: /valutazione/
+Allow: /
+
+Sitemap: https://keyabita.netlify.app/sitemap.xml

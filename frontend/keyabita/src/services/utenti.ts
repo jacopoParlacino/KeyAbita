@@ -1,61 +1,79 @@
 import { http } from './http';
+import type { Utente } from '../types/Utente';
+
+export type UtenteCreatePayload = Omit<Utente, 'id' | 'dataCreazione'> & {
+  password?: string;
+};
+
+export type UtenteUpdatePayload = Partial<Omit<Utente, 'id'>>;
+
+export interface ResetPasswordResponse {
+  success: boolean;
+  message?: string;
+}
+
+export interface DeleteUtenteResponse {
+  success: boolean;
+  message?: string;
+}
+
+export interface PermessiModulo {
+  visualizza: boolean;
+  [permesso: string]: boolean;
+}
+
+export interface PermessiAgente {
+  [modulo: string]: PermessiModulo;
+}
 
 export const UtentiApi = {
-  getAll() {
-    return http('/utenti');
+  getAll(): Promise<Utente[]> {
+    return http<Utente[]>('/utenti');
   },
 
-  getById(id: number) {
-    return http(`/utenti/${id}`);
+  getAgenti(): Promise<Utente[]> {
+    return http<Utente[]>('/utenti/agenti');
   },
 
-  getByEmail(email: string) {
-    return http(`/utenti/email/${encodeURIComponent(email)}`);
+  getById(id: number): Promise<Utente> {
+    return http<Utente>(`/utenti/${id}`);
   },
 
-  search(term: string) {
-    return http(`/utenti/search?q=${encodeURIComponent(term)}`);
+  getPermessiAgente(id: number): Promise<PermessiAgente> {
+    return http<PermessiAgente>(`/utenti/${id}/permessi`);
   },
 
-  getByRuolo(ruolo: string) {
-    return http(`/utenti/ruolo/${encodeURIComponent(ruolo)}`);
-  },
-
-  create(data: unknown) {
-    return http('/utenti', {
-      method: 'POST',
-      body: JSON.stringify(data),
-    });
-  },
-
-  update(id: number, data: unknown) {
-    return http(`/utenti/${id}`, {
+  updatePermessiAgente(id: number, permessi: PermessiAgente): Promise<PermessiAgente> {
+    return http<PermessiAgente>(`/utenti/${id}/permessi`, {
       method: 'PUT',
-      body: JSON.stringify(data),
+      body: JSON.stringify(permessi),
     });
   },
 
-  delete(id: number) {
-    return http(`/utenti/${id}`, {
-      method: 'DELETE',
-    });
-  },
-
-  getAgenti() {
-    return http('/utenti/agenti');
-  },
-
-  resetPassword(id: number, newPassword: string) {
-    return http(`/utenti/${id}/reset-password`, {
+  resetPassword(id: number, newPassword: string): Promise<ResetPasswordResponse> {
+    return http<ResetPasswordResponse>(`/utenti/${id}/reset-password`, {
       method: 'POST',
       body: JSON.stringify({ newPassword }),
     });
   },
 
-  updateAdmin(id: number, data: unknown) {
-    return http(`/utenti/${id}/admin`, {
+  create(data: UtenteCreatePayload): Promise<Utente> {
+    return http<Utente>('/utenti', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  },
+
+  update(id: number, data: UtenteUpdatePayload): Promise<Utente> {
+    return http<Utente>(`/utenti/${id}`, {
       method: 'PUT',
       body: JSON.stringify(data),
     });
-  }
+  },
+
+  delete(id: number): Promise<DeleteUtenteResponse> {
+    return http<DeleteUtenteResponse>(`/utenti/${id}`, {
+      method: 'DELETE',
+    });
+  },
 };

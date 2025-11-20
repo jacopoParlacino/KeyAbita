@@ -1,0 +1,173 @@
+@use "../../../styles/variables.scss" as *;
+@use "../../../styles/mixins.scss" as *;
+
+.allContracts {
+    padding: 20px;
+    min-height: 100vh;
+    background: #f8fafc;
+    color: #1e293b;
+  }
+
+  // --------------------
+  // PAGE HEADER
+  // --------------------
+  .pageHeader {
+    margin-bottom: 30px;
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: #0f172a;
+    }
+
+    p {
+      font-size: 1rem;
+      color: #475569;
+    }
+  }
+
+  // --------------------
+  // LOADING / ERROR
+  // --------------------
+  .loading,
+  .error {
+    text-align: center;
+    padding: 40px;
+    font-size: 1.1rem;
+    border-radius: 12px;
+  }
+
+  .error {
+    color: #d32f2f;
+    background-color: #ffebee;
+    border: 1px solid #ffcdd2;
+  }
+
+  // --------------------
+  // GRID
+  // --------------------
+  .contractsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+    gap: 20px;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  // --------------------
+  // CONTRACT CARD
+  // --------------------
+  .contractCard {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 22px;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+    border: 1px solid #e2e8f0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.12);
+    }
+  }
+
+  // --------------------
+  // HEADER LINE
+  // --------------------
+  .contractHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+    border-bottom: 2px solid #f1f5f9;
+
+    h3 {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #0f172a;
+    }
+  }
+
+  // --------------------
+  // STATUS BADGES
+  // --------------------
+  .statusBadge {
+    font-size: 0.85rem;
+    padding: 4px 12px;
+    border-radius: 14px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .statusCompleted {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+  }
+
+  .statusProgress {
+    background-color: #fff3e0;
+    color: #ef6c00;
+  }
+
+  .statusPending {
+    background-color: #ffebee;
+    color: #c62828;
+  }
+
+  // --------------------
+  // DETAILS SECTION
+  // --------------------
+  .contractDetails {
+    margin-bottom: 18px;
+  }
+
+  .detailRow {
+    display: flex;
+    justify-content: space-between;
+    padding: 7px 0;
+    border-bottom: 1px solid #e2e8f0;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  .label {
+    font-weight: 500;
+    color: #475569;
+    flex: 1;
+  }
+
+  .value {
+    flex: 1;
+    text-align: right;
+    color: #0f172a;
+  }
+
+  // --------------------
+  // FEATURES
+  // --------------------
+  .propertyFeatures {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .feature {
+    background: #e3f2fd;
+    color: #1976d2;
+    padding: 4px 10px;
+    border-radius: 16px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }

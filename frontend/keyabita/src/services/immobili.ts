@@ -1,30 +1,31 @@
 import { http } from './http';
+import type { Immobile } from '../types/Immobile';
 
 export const ImmobiliApi = {
   getAll() {
-    return http('/immobili');
+    return http<Immobile[]>('/immobili');
   },
 
   getById(id: number) {
-    return http(`/immobili/${id}`);
+    return http<Immobile>(`/immobili/${id}`);
   },
 
-  create(data: unknown) {
-    return http('/immobili', {
+  create(data: Partial<Immobile>) {
+    return http<Immobile>('/immobili', {
       method: 'POST',
       body: JSON.stringify(data),
     });
   },
 
   getByCitta(nomeCitta: string) {
-    return http(`/immobili/citta/${encodeURIComponent(nomeCitta)}`);
+    return http<Immobile[]>(`/immobili/citta/${encodeURIComponent(nomeCitta)}`);
   },
 
   getByStato(nomeStato: string) {
-    return http(`/immobili/stato-immobile/${encodeURIComponent(nomeStato)}`);
+    return http<Immobile[]>(`/immobili/stato-immobile/${encodeURIComponent(nomeStato)}`);
   },
 
   getByStanze(numeroStanze: number) {
-    return http(`/immobili/stanze/${numeroStanze}`);
+    return http<Immobile[]>(`/immobili/stanze/${numeroStanze}`);
   },
 };

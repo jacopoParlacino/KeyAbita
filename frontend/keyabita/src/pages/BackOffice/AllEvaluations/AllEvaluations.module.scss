@@ -1,0 +1,171 @@
+/* AllEvaluations.module.scss */
+
+.allEvaluations {
+    padding: 20px;
+  }
+
+  .pageHeader {
+    margin-bottom: 30px;
+
+    h1 {
+      font-size: 2rem;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    p {
+      color: #666;
+      font-size: 1rem;
+    }
+  }
+
+  .loading,
+  .error {
+    text-align: center;
+    padding: 40px;
+    font-size: 1.1rem;
+  }
+
+  .error {
+    color: #d32f2f;
+    background-color: #ffebee;
+    border-radius: 8px;
+    border: 1px solid #ffcdd2;
+  }
+
+  .evaluationsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 20px;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .evaluationCard {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  .evaluationHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #f5f5f5;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    h3 {
+      margin: 0;
+      color: #333;
+      font-size: 1.2rem;
+    }
+  }
+
+  .priceRange .estimatedPrice {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #2e7d32;
+  }
+
+  .evaluationDetails {
+    margin-bottom: 16px;
+  }
+
+  .detailRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px solid #f0f0f0;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .label {
+      font-weight: 500;
+      color: #555;
+      flex: 1;
+    }
+
+    .value {
+      color: #333;
+      text-align: right;
+      flex: 1;
+    }
+  }
+
+  .priceBreakdown {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 16px;
+
+    .priceItem {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .label {
+        font-size: 0.9rem;
+        color: #666;
+      }
+
+      .value {
+        font-weight: bold;
+
+        &.min {
+          color: #f57c00;
+        }
+
+        &.estimated {
+          color: #2e7d32;
+          font-size: 1.1rem;
+        }
+
+        &.max {
+          color: #1976d2;
+        }
+      }
+    }
+  }
+
+  .propertyFeatures {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    .feature {
+      background: #e3f2fd;
+      color: #1976d2;
+      padding: 4px 8px;
+      border-radius: 16px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+  }
