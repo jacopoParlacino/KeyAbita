@@ -1,19 +1,70 @@
-import styles from "./RecentEvaluations.module.scss";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { ValutazioniApi } from "../../../services/index";
+import Loading from "../Loading/Loading";
+import ErrorMessage from "../Error/Error";
 
-const evaluations = [
-  { indirizzo: "Via Jacopo Durandi 10", prezzo: "129,400 €", data: "24/10/2025", tipo: "Casa", stanze: 5, bagni: 2 },
-  { indirizzo: "Piazza Castello 31", prezzo: "400,790 €", data: "12/10/2025", tipo: "Appartamento", stanze: 2, bagni: 1 },
-  { indirizzo: "Corso Sebastopoli 114", prezzo: "249,550 €", data: "10/10/2025", tipo: "Appartamento", stanze: 3, bagni: 2 },
-];
+import styles from "./RecentEvaluations.module.scss";
+import type { Valutazione } from "../../../types/Valutazione";
+
 
 const RecentEvaluations = () => {
+  const [evaluations, setEvaluations] = useState<Valutazione[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchEvaluations = async () => {
+      try {
+        setLoading(true);
+        const data = await ValutazioniApi.getAll();
+        setEvaluations(data.slice(0, 3)); // first three only
+      } catch (err) {
+        setError("Errore nel caricamento delle valutazioni");
+        console.error("Error fetching evaluations:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEvaluations();
+  }, []);
+
+  const formatCurrency = (value: number) => {
+    return new Intl.NumberFormat("it-IT", {
+      style: "currency",
+      currency: "EUR",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(value);
+  };
+
+  // --- Loading ---
+  if (loading) {
+    return <Loading title="Valutazioni Recenti" />;
+  }
+
+  // --- Error ---
+  if (error) {
+    return (
+      <ErrorMessage
+        title="Valutazioni Recenti"
+        message={error}
+      />
+    );
+  }
+
   return (
     <div className={styles.recent}>
-      <h3>Ultime valutazioni</h3>
+      <h3>Valutazioni Recenti</h3>
+      <button className="view-all-btn" onClick={() => navigate("/backoffice/valutazioni")}>
+  Vedi tutte
+</button>
       <table>
         <thead>
           <tr>
-            <th>Indirizzo</th>
+            <th>CAP</th>
             <th>Prezzo</th>
             <th>Data</th>
             <th>Tipo</th>
@@ -22,14 +73,15 @@ const RecentEvaluations = () => {
           </tr>
         </thead>
         <tbody>
-          {evaluations.map((item, idx) => (
+          {evaluations.map((evaluation, idx) => (
             <tr key={idx}>
-              <td>{item.indirizzo}</td>
-              <td>{item.prezzo}</td>
-              <td>{item.data}</td>
-              <td>{item.tipo}</td>
-              <td>{item.stanze}</td>
-              <td>{item.bagni}</td>
+              <td>{evaluation.immobile?.cap ?? "N/A"}</td>
+              <td>{formatCurrency(evaluation.valoreStimato)}</td>
+              <td>{evaluation.dataCreazione ?? "N/A"}</td>
+              <td>{evaluation.immobile?.numeroStanze ?? "N/A"}</td>
+              <td>{evaluation.immobile?.numeroBagni ?? "N/A"}</td>
+
+
             </tr>
           ))}
         </tbody>
