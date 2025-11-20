@@ -3,8 +3,11 @@ import Sidebar from "./Sidebar/Sidebar";
 import Header from "./Header/Header";
 import StatsCard from "./StatsCard/StatsCard";
 import RecentEvaluations from "./RecentEvaluations/RecentEvaluations";
-import QuickAccess from "./QuickAccess/QuickAccess";
+import ClientiViewer from "./Clients/ClientiViewer";
+import ValutazioniManager from "./ValutazioniManager/ValutazioniManager";
+// import QuickAccess from "./QuickAccess/QuickAccess";
 import { DollarSign, Home, Clock, FileText } from "lucide-react";
+import ValutazioniViewer from "./ValutazioniViewer/ValutazioniViewer";
 
 const Dashboard = () => {
   return (
@@ -20,7 +23,10 @@ const Dashboard = () => {
         </div>
         <div className={styles.bottomSection}>
           <RecentEvaluations />
-          <QuickAccess />
+          <ClientiViewer></ClientiViewer>
+          <ValutazioniManager></ValutazioniManager>
+          <ValutazioniViewer></ValutazioniViewer>
+          {/* <QuickAccess /> */}
         </div>
       </main>
     </div>

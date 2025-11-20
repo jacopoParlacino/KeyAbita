@@ -1,4 +1,4 @@
-const API_BASE_URL = '/api';
+const API_BASE_URL = 'http://localhost:8080/api';
 
 export interface HttpOptions extends RequestInit {
   headers?: Record<string, string>;
