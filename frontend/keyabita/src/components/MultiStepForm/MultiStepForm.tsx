@@ -132,21 +132,31 @@ export default function MultiStepForm() {
   type CounterField = 'stanze' | 'piano' | 'bagni';
   type ToggleField = 'ascensore' | 'parcheggio' | 'garage' | 'giardino' | 'balconi';
 
-  const handleCounterChange = (
-    field: CounterField,
-    type: 'increment' | 'decrement'
-  ) => {
-    setFormData(prev => {
-      const currentValue = prev[field];
-      if (type === 'increment') {
-        return { ...prev, [field]: currentValue + 1 };
-      }
-      if (type === 'decrement' && currentValue > 0) {
-        return { ...prev, [field]: currentValue - 1 };
-      }
-      return prev;
-    });
-  };
+const handleCounterChange = (
+  field: CounterField,
+  type: 'increment' | 'decrement'
+) => {
+  setFormData(prev => {
+    const currentValue = prev[field];
+    let newValue = currentValue;
+
+    if (type === 'increment') {
+      newValue = currentValue + 1;
+    } else if (type === 'decrement' && currentValue > 0) {
+      newValue = currentValue - 1;
+    }
+
+    // Aggiornamento dello stato
+    const newFormData = { ...prev, [field]: newValue };
+    
+    // Logica per rimuovere l'errore "stanze"
+    if (field === 'stanze' && newValue > 0 && errors.stanze) {
+      setErrors((prevErrors) => ({ ...prevErrors, stanze: undefined }));
+    }
+
+    return newFormData;
+  });
+};
 
   const handleFormSubmit = async () => {
     console.log("Form submitted with data:", JSON.stringify(formData, null, 2));

@@ -11,8 +11,11 @@
 
 .label {
   font-weight: 500;
-  font-size: 1.1rem;
-  color: $primary-color; 
+  font-size: 0.8rem;
+  color: $teal;
+  @include desktop{
+    font-size: 1.3rem;
+  } 
 }
 
 .switch__wrapper {
