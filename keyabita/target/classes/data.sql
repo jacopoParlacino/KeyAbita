@@ -26,13 +26,20 @@ INSERT INTO stati_immobili (id, nome) VALUES
 (3, 'Buone Condizioni'),
 (4, 'Da ristrutturare');
 
+-- Inserimento dati nelle tabelle metratura
+INSERT INTO metratura (id, descrizione) VALUES
+(1, '25-50'),
+(2, '51-100'),
+(3, '101-150'),
+(4, 'Oltre 150');
+
 -- Inserimento dati nelle tabelle immobili
-INSERT INTO immobili (id, indirizzo, cap, stato_immobile, piano, numero_stanze, numero_bagni, balcone, garage, giardino, ascensore, anno_costruzione) VALUES
-(1, 'Via Roma 15', '10100', 2, 3, 4, 2, TRUE, FALSE, FALSE, TRUE, 2018),
-(2, 'Corso Vittorio Emanuele 42', '10100', 1, 1, 2, 1, TRUE, FALSE, FALSE, FALSE, 2020),
-(3, 'Via Dante 8', '12100', 2, 0, 5, 3, FALSE, TRUE, TRUE, FALSE, 2015),
-(4, 'Piazza Garibaldi 3', '20100', 3, 5, 3, 2, TRUE, TRUE, FALSE, TRUE, 2019),
-(5, 'Via Mazzini 22', '14100', 1, 2, 3, 1, FALSE, FALSE, FALSE, TRUE, 2021);
+INSERT INTO immobili (id, indirizzo, cap, stato_immobile, metratura, piano, numero_stanze, numero_bagni, balcone, garage, giardino, ascensore, anno_costruzione) VALUES
+(1, 'Via Roma 15', '10100', 2, 3, 3, 4, 2, TRUE, FALSE, FALSE, TRUE, 2018),
+(2, 'Corso Vittorio Emanuele 42', '10100', 1, 2, 1, 2, 1, TRUE, FALSE, FALSE, FALSE, 2020),
+(3, 'Via Dante 8', '12100', 2, 4, 0, 5, 3, FALSE, TRUE, TRUE, FALSE, 2015),
+(4, 'Piazza Garibaldi 3', '20100', 3, 3, 5, 3, 2, TRUE, TRUE, FALSE, TRUE, 2019),
+(5, 'Via Mazzini 22', '14100', 1, 2, 2, 3, 1, FALSE, FALSE, FALSE, TRUE, 2021);
 
 -- Inserimento dati nelle tabelle valutazioni
 INSERT INTO valutazioni (id, valore_massimo, valore_stimato, valore_minimo, id_immobiliare) VALUES
@@ -76,6 +83,7 @@ INSERT INTO contratti (id, inizio_contratto, fine_contratto, id_richiesta, stato
 ALTER TABLE ruoli            ALTER COLUMN id RESTART WITH 4;
 ALTER TABLE utenti           ALTER COLUMN id RESTART WITH 5;
 ALTER TABLE stati_immobili   ALTER COLUMN id RESTART WITH 6;
+ALTER TABLE metratura        ALTER COLUMN id RESTART WITH 6;
 ALTER TABLE immobili         ALTER COLUMN id RESTART WITH 6;
 ALTER TABLE valutazioni      ALTER COLUMN id RESTART WITH 6;
 ALTER TABLE stati_richieste  ALTER COLUMN id RESTART WITH 6;

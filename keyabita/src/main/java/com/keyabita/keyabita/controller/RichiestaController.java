@@ -41,10 +41,8 @@ public class RichiestaController {
         if (richiesta.getData() == null) {
             richiesta.setData(java.time.LocalDate.now());
         }
-        // Nota: il salvataggio è gestito attraverso il repository
-        // Per ora utilizziamo trovaTutteRichieste come placeholder
-        // In una implementazione completa, avresti un metodo salvaRichiesta nel service
-        return ResponseEntity.status(HttpStatus.CREATED).body(richiesta);
+        Richiesta salvata = richiestaService.salvaRichiesta(richiesta);
+        return ResponseEntity.status(HttpStatus.CREATED).body(salvata);
     }
     
     // GET: Trova richieste per stato richiesta

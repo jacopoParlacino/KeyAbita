@@ -18,5 +18,8 @@ public interface RichiestaService {
     List<Richiesta> trovaRichiesteConEmail(String email);
 
     List<Richiesta> trovaRichiesteConNumero(String numero);
+    
+    // Salva una richiesta
+    Richiesta salvaRichiesta(Richiesta richiesta);
 
 }

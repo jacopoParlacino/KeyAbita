@@ -50,4 +50,9 @@ public class RichiestaServiceImpl implements RichiestaService {
 
     }
 
+    @Override
+    public Richiesta salvaRichiesta(Richiesta richiesta) {
+        return richiestaRepo.save(richiesta);
+    }
+
 }

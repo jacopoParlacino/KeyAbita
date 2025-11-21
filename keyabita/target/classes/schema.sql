@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS stati_richieste;
 DROP TABLE IF EXISTS valutazioni;
 DROP TABLE IF EXISTS immobili;
 DROP TABLE IF EXISTS stati_immobili;
+DROP TABLE IF EXISTS metratura;
 DROP TABLE IF EXISTS cap;
 DROP TABLE IF EXISTS utenti;
 DROP TABLE IF EXISTS ruoli;
@@ -43,12 +44,19 @@ CREATE TABLE stati_immobili (
     descrizione VARCHAR(255)
 );
 
+-- Tabella metratura (master table)
+CREATE TABLE metratura (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    descrizione VARCHAR(50) NOT NULL
+);
+
 -- Tabella immobili
 CREATE TABLE immobili (
     id INT AUTO_INCREMENT PRIMARY KEY,
     indirizzo VARCHAR(255),
     cap VARCHAR(10),
     stato_immobile INT,
+    metratura INT,
     piano INT,
     numero_stanze INT,
     numero_bagni INT,
@@ -58,7 +66,8 @@ CREATE TABLE immobili (
     ascensore BOOLEAN DEFAULT FALSE,
     anno_costruzione INT,
     FOREIGN KEY (cap) REFERENCES cap(cap) ON DELETE SET NULL,
-    FOREIGN KEY (stato_immobile) REFERENCES stati_immobili(id) ON DELETE SET NULL
+    FOREIGN KEY (stato_immobile) REFERENCES stati_immobili(id) ON DELETE SET NULL,
+    FOREIGN KEY (metratura) REFERENCES metratura(id) ON DELETE SET NULL
 );
 
 -- Tabella valutazioni

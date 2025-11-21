@@ -23,6 +23,10 @@ public class Immobile implements Serializable {
     @JoinColumn(name = "stato_immobile")
     private StatoImmobile statoImmobile; // Condizione dell'immobile (FK)
     
+    @ManyToOne
+    @JoinColumn(name = "metratura")
+    private Metratura metratura; // Metratura/fascia di superficie (FK)
+    
     private Integer piano; // Piano dell'immobile
     
     @Column(name = "numero_stanze")
@@ -51,6 +55,9 @@ public class Immobile implements Serializable {
     
     public StatoImmobile getStatoImmobile() { return statoImmobile; }
     public void setStatoImmobile(StatoImmobile statoImmobile) { this.statoImmobile = statoImmobile; }
+    
+    public Metratura getMetratura() { return metratura; }
+    public void setMetratura(Metratura metratura) { this.metratura = metratura; }
     
     public Integer getPiano() { return piano; }
     public void setPiano(Integer piano) { this.piano = piano; }
