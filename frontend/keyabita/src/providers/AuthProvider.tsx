@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from "react";
-import { AuthContext, type Admin } from "../contexts/AuthContext";
+import { AuthContext} from "../contexts/AuthContext";
+import type { Admin } from "../types/Admin";
 
 /**
  * AuthProvider component wraps the app and provides authentication context.
