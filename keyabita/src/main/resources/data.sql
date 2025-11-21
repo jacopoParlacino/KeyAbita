@@ -20,12 +20,11 @@ INSERT INTO cap (cap, nome_citta, prezzo_metro_quadro) VALUES
 ('14100', 'Asti', 3200.00);
 
 -- Inserimento dati nelle tabelle stati_immobili
-INSERT INTO stati_immobili (id, nome, descrizione) VALUES
-(1, 'in_attesa', 'Immobile in attesa di valutazione'),
-(2, 'valutato', 'Immobile valutato'),
-(3, 'in_vendita', 'Immobile disponibile per la vendita'),
-(4, 'venduto', 'Immobile venduto'),
-(5, 'ritirato', 'Immobile ritirato dal mercato');
+INSERT INTO stati_immobili (id, nome) VALUES
+(1, 'Nuovo'),
+(2, 'Ottime Condizioni'),
+(3, 'Buone Condizioni'),
+(4, 'Da ristrutturare');
 
 -- Inserimento dati nelle tabelle immobili
 INSERT INTO immobili (id, indirizzo, cap, stato_immobile, piano, numero_stanze, numero_bagni, balcone, garage, giardino, ascensore, anno_costruzione) VALUES
