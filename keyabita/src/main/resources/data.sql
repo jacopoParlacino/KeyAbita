@@ -13,11 +13,11 @@ INSERT INTO utenti (id, nome, cognome, email, ruolo, telefono, data_creazione, p
 (4, 'Giulia', 'Verdi', 'giulia.verdi@immobiliaris.it', 3, '+39 347 4567890', '2025-10-23', '$2a$10$vq5u0z9GTyHYY.pYPNIHauHKlIi3j0s1XIdp/MYuXUSEubG6aFx7O');
 
 -- Inserimento dati nelle tabelle citta
-INSERT INTO citta (id, nome, descrizione) VALUES
-(1, 'Torino', 'Città capoluogo del Piemonte'),
-(2, 'Cuneo', 'Città del Piemonte meridionale'),
-(3, 'Milano', 'Città metropolitana della Lombardia'),
-(4, 'Asti', 'Città del Piemonte');
+INSERT INTO cap (cap, nome_citta, prezzo_metro_quadro) VALUES
+('10100', 'Torino', 4500.00),
+('12100', 'Cuneo', 2800.00),
+('20100', 'Milano', 8000.00),
+('14100', 'Asti', 3200.00);
 
 -- Inserimento dati nelle tabelle stati_immobili
 INSERT INTO stati_immobili (id, nome, descrizione) VALUES
@@ -28,12 +28,12 @@ INSERT INTO stati_immobili (id, nome, descrizione) VALUES
 (5, 'ritirato', 'Immobile ritirato dal mercato');
 
 -- Inserimento dati nelle tabelle immobili
-INSERT INTO immobili (id, indirizzo, citta, stato_immobile, piano, numero_stanze, numero_bagni, balcone, garage, giardino, anno_costruzione) VALUES
-(1, 'Via Roma 15', 1, 2, 3, 4, 2, TRUE, FALSE, FALSE, 2018),
-(2, 'Corso Vittorio Emanuele 42', 1, 1, 1, 2, 1, TRUE, FALSE, FALSE, 2020),
-(3, 'Via Dante 8', 2, 2, 0, 5, 3, FALSE, TRUE, TRUE, 2015),
-(4, 'Piazza Garibaldi 3', 3, 3, 5, 3, 2, TRUE, TRUE, FALSE, 2019),
-(5, 'Via Mazzini 22', 4, 1, 2, 3, 1, FALSE, FALSE, FALSE, 2021);
+INSERT INTO immobili (id, indirizzo, cap, stato_immobile, piano, numero_stanze, numero_bagni, balcone, garage, giardino, ascensore, anno_costruzione) VALUES
+(1, 'Via Roma 15', '10100', 2, 3, 4, 2, TRUE, FALSE, FALSE, TRUE, 2018),
+(2, 'Corso Vittorio Emanuele 42', '10100', 1, 1, 2, 1, TRUE, FALSE, FALSE, FALSE, 2020),
+(3, 'Via Dante 8', '12100', 2, 0, 5, 3, FALSE, TRUE, TRUE, FALSE, 2015),
+(4, 'Piazza Garibaldi 3', '20100', 3, 5, 3, 2, TRUE, TRUE, FALSE, TRUE, 2019),
+(5, 'Via Mazzini 22', '14100', 1, 2, 3, 1, FALSE, FALSE, FALSE, TRUE, 2021);
 
 -- Inserimento dati nelle tabelle valutazioni
 INSERT INTO valutazioni (id, valore_massimo, valore_stimato, valore_minimo, id_immobiliare) VALUES
@@ -76,7 +76,6 @@ INSERT INTO contratti (id, inizio_contratto, fine_contratto, id_richiesta, stato
 -- Nota: H2 supporta RESTART WITH solo su colonne IDENTITY/AUTO_INCREMENT
 ALTER TABLE ruoli            ALTER COLUMN id RESTART WITH 4;
 ALTER TABLE utenti           ALTER COLUMN id RESTART WITH 5;
-ALTER TABLE citta            ALTER COLUMN id RESTART WITH 5;
 ALTER TABLE stati_immobili   ALTER COLUMN id RESTART WITH 6;
 ALTER TABLE immobili         ALTER COLUMN id RESTART WITH 6;
 ALTER TABLE valutazioni      ALTER COLUMN id RESTART WITH 6;

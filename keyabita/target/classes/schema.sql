@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS stati_richieste;
 DROP TABLE IF EXISTS valutazioni;
 DROP TABLE IF EXISTS immobili;
 DROP TABLE IF EXISTS stati_immobili;
-DROP TABLE IF EXISTS citta;
+DROP TABLE IF EXISTS cap;
 DROP TABLE IF EXISTS utenti;
 DROP TABLE IF EXISTS ruoli;
 
@@ -29,11 +29,11 @@ CREATE TABLE utenti (
     FOREIGN KEY (ruolo) REFERENCES ruoli(id) ON DELETE SET NULL
 );
 
--- Tabella città
-CREATE TABLE citta (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(50) NOT NULL,
-    descrizione VARCHAR(255)
+-- Tabella cap
+CREATE TABLE cap (
+    cap VARCHAR(10) PRIMARY KEY,
+    nome_citta VARCHAR(100) NOT NULL,
+    prezzo_metro_quadro DOUBLE NOT NULL
 );
 
 -- Tabella stati_immobili (master table)
@@ -47,7 +47,7 @@ CREATE TABLE stati_immobili (
 CREATE TABLE immobili (
     id INT AUTO_INCREMENT PRIMARY KEY,
     indirizzo VARCHAR(255),
-    citta INT,
+    cap VARCHAR(10),
     stato_immobile INT,
     piano INT,
     numero_stanze INT,
@@ -55,8 +55,9 @@ CREATE TABLE immobili (
     balcone BOOLEAN DEFAULT FALSE,
     garage BOOLEAN DEFAULT FALSE,
     giardino BOOLEAN DEFAULT FALSE,
+    ascensore BOOLEAN DEFAULT FALSE,
     anno_costruzione INT,
-    FOREIGN KEY (citta) REFERENCES citta(id) ON DELETE SET NULL,
+    FOREIGN KEY (cap) REFERENCES cap(cap) ON DELETE SET NULL,
     FOREIGN KEY (stato_immobile) REFERENCES stati_immobili(id) ON DELETE SET NULL
 );
 
@@ -111,7 +112,7 @@ CREATE TABLE contratti (
 
 -- Indici per migliorare le performance delle query
 CREATE INDEX idx_ruolo ON utenti(ruolo);
-CREATE INDEX idx_citta ON immobili(citta);
+CREATE INDEX idx_cap ON immobili(cap);
 CREATE INDEX idx_stato_immobile ON immobili(stato_immobile);
 CREATE INDEX idx_id_immobiliare_valutazioni ON valutazioni(id_immobiliare);
 CREATE INDEX idx_id_immobiliare_richieste ON richieste(id_immobiliare);

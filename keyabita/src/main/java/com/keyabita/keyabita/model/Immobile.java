@@ -16,8 +16,8 @@ public class Immobile implements Serializable {
     private String indirizzo; // Indirizzo dell'immobile
     
     @ManyToOne
-    @JoinColumn(name = "citta")
-    private Citta citta; // Città (FK)
+    @JoinColumn(name = "cap")
+    private Cap cap; // CAP (FK)
     
     @ManyToOne
     @JoinColumn(name = "stato_immobile")
@@ -34,6 +34,7 @@ public class Immobile implements Serializable {
     private Boolean balcone = false; // Presenza balcone
     private Boolean garage = false; // Presenza garage
     private Boolean giardino = false; // Presenza giardino
+    private Boolean ascensore = false; // Presenza ascensore
     
     @Column(name = "anno_costruzione")
     private Integer annoCostruzione; // Anno di costruzione
@@ -45,8 +46,8 @@ public class Immobile implements Serializable {
     public String getIndirizzo() { return indirizzo; }
     public void setIndirizzo(String indirizzo) { this.indirizzo = indirizzo; }
     
-    public Citta getCitta() { return citta; }
-    public void setCitta(Citta citta) { this.citta = citta; }
+    public Cap getCap() { return cap; }
+    public void setCap(Cap cap) { this.cap = cap; }
     
     public StatoImmobile getStatoImmobile() { return statoImmobile; }
     public void setStatoImmobile(StatoImmobile statoImmobile) { this.statoImmobile = statoImmobile; }
@@ -68,6 +69,9 @@ public class Immobile implements Serializable {
     
     public Boolean getGiardino() { return giardino; }
     public void setGiardino(Boolean giardino) { this.giardino = giardino; }
+    
+    public Boolean getAscensore() { return ascensore; }
+    public void setAscensore(Boolean ascensore) { this.ascensore = ascensore; }
     
     public Integer getAnnoCostruzione() { return annoCostruzione; }
     public void setAnnoCostruzione(Integer annoCostruzione) { this.annoCostruzione = annoCostruzione; }

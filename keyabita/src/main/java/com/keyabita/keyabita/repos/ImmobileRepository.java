@@ -1,6 +1,6 @@
 package com.keyabita.keyabita.repos;
 
-import com.keyabita.keyabita.model.Citta;
+import com.keyabita.keyabita.model.Cap;
 import com.keyabita.keyabita.model.Immobile;
 import com.keyabita.keyabita.model.StatoImmobile;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,8 +11,8 @@ import java.util.List;
 @Repository
 public interface ImmobileRepository extends JpaRepository<Immobile, Integer> {
     
-    // Trova immobili per città
-    List<Immobile> findByCitta(Citta citta);
+    // Trova immobili per cap
+    List<Immobile> findByCap(Cap cap);
     
     // Trova immobili per stato immobile
     List<Immobile> findByStatoImmobile(StatoImmobile statoImmobile);

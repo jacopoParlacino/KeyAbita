@@ -1,9 +1,9 @@
 package com.keyabita.keyabita.controller;
 
-import com.keyabita.keyabita.model.Citta;
+import com.keyabita.keyabita.model.Cap;
 import com.keyabita.keyabita.model.Immobile;
 import com.keyabita.keyabita.model.StatoImmobile;
-import com.keyabita.keyabita.services.ICittaService;
+import com.keyabita.keyabita.services.ICapService;
 import com.keyabita.keyabita.services.IImmobileService;
 import com.keyabita.keyabita.services.IStatoImmobileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class ImmobileController {
     private IImmobileService immobileService;
     
     @Autowired
-    private ICittaService cittaService;
+    private ICapService capService;
     
     @Autowired
     private IStatoImmobileService statoImmobileService;
@@ -50,15 +50,15 @@ public class ImmobileController {
         return ResponseEntity.status(HttpStatus.CREATED).body(nuovoImmobile);
     }
     
-    // GET: Trova immobili per città
-    @GetMapping("/citta/{nomeCitta}")
-    public ResponseEntity<List<Immobile>> getImmobiliPerCitta(@PathVariable String nomeCitta) {
-        Optional<Citta> cittaOpt = cittaService.trovaCittaPerNome(nomeCitta);
-        if (cittaOpt.isPresent()) {
-            List<Immobile> immobili = immobileService.trovaImmobiliPerCitta(cittaOpt.get());
+    // GET: Trova immobili per cap
+    @GetMapping("/cap/{cap}")
+    public ResponseEntity<List<Immobile>> getImmobiliPerCap(@PathVariable String cap) {
+        Optional<Cap> capOpt = capService.trovaCapPerId(cap);
+        if (capOpt.isPresent()) {
+            List<Immobile> immobili = immobileService.trovaImmobiliPerCap(capOpt.get());
             return ResponseEntity.ok(immobili);
         }
-        return ResponseEntity.ok(List.of()); // Restituisce lista vuota se città non trovata
+        return ResponseEntity.ok(List.of()); // Restituisce lista vuota se cap non trovato
     }
     
     // GET: Trova immobili per stato immobile

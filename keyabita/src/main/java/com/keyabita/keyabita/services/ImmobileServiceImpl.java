@@ -1,6 +1,6 @@
 package com.keyabita.keyabita.services;
 
-import com.keyabita.keyabita.model.Citta;
+import com.keyabita.keyabita.model.Cap;
 import com.keyabita.keyabita.model.Immobile;
 import com.keyabita.keyabita.model.StatoImmobile;
 import com.keyabita.keyabita.repos.ImmobileRepository;
@@ -37,8 +37,8 @@ public class ImmobileServiceImpl implements IImmobileService {
     }
     
     @Override
-    public List<Immobile> trovaImmobiliPerCitta(Citta citta) {
-        return immobileRepository.findByCitta(citta);
+    public List<Immobile> trovaImmobiliPerCap(Cap cap) {
+        return immobileRepository.findByCap(cap);
     }
     
     @Override
