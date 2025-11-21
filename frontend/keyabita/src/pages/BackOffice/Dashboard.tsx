@@ -5,9 +5,8 @@ import StatsCard from "./StatsCard/StatsCard";
 import RecentEvaluations from "./RecentEvaluations/RecentEvaluations";
 import ClientiViewer from "./Clients/ClientiViewer";
 import ValutazioniManager from "./ValutazioniManager/ValutazioniManager";
-// import QuickAccess from "./QuickAccess/QuickAccess";
-import { DollarSign, Home, Clock, FileText } from "lucide-react";
 import ValutazioniViewer from "./ValutazioniViewer/ValutazioniViewer";
+import { DollarSign, Home, Clock, FileText } from "lucide-react";
 
 const Dashboard = () => {
   return (
@@ -15,19 +14,29 @@ const Dashboard = () => {
       <Sidebar />
       <main className={styles.main}>
         <Header />
-        <div className={styles.statsGrid}>
-          <StatsCard title="Prezzo medio" value="€327k" icon={<DollarSign />} />
-          <StatsCard title="Immobili Totale" value="1,278" icon={<Home />} />
-          <StatsCard title="Da completare" value="21" icon={<Clock />} />
-          <StatsCard title="Valutazioni" value="79" icon={<FileText />} />
-        </div>
-        <div className={styles.bottomSection}>
-          <RecentEvaluations />
-          <ClientiViewer></ClientiViewer>
-          <ValutazioniManager></ValutazioniManager>
-          <ValutazioniViewer></ValutazioniViewer>
-          {/* <QuickAccess /> */}
-        </div>
+        
+        <section className={styles.statsSection}>
+          <div className={styles.statsGrid}>
+            <StatsCard title="Prezzo medio" value="€327k" icon={<DollarSign />} />
+            <StatsCard title="Immobili Totale" value="1,278" icon={<Home />} />
+            <StatsCard title="Da completare" value="21" icon={<Clock />} />
+            <StatsCard title="Valutazioni" value="79" icon={<FileText />} />
+          </div>
+        </section>
+
+        <section className={styles.contentSection}>
+          <div className={styles.leftColumn}>
+            <RecentEvaluations />
+          </div>
+          <div className={styles.rightColumn}>
+            <ValutazioniManager />
+            <ValutazioniViewer />
+          </div>
+        </section>
+
+        <section className={styles.clientsSection}>
+          <ClientiViewer />
+        </section>
       </main>
     </div>
   );

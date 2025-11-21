@@ -6,3 +6,5 @@ export * from './utenti';
 export * from './permessi';
 export * from './citta';
 export * from './statiImmobile';
+export * from './statiContratto';
+export * from './richieste';

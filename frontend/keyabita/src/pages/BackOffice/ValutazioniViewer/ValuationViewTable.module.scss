@@ -1,0 +1,77 @@
+.valuation-view-table-container {
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  overflow-x: auto;
+
+  .valuation-view-table {
+    width: 100%;
+    border-collapse: collapse;
+
+    thead {
+      background: #f9f9f9;
+      border-bottom: 2px solid #e0e0e0;
+
+      th {
+        padding: 16px;
+        text-align: left;
+        font-weight: 600;
+        color: #333;
+        font-size: 14px;
+      }
+    }
+
+    tbody {
+      tr {
+        border-bottom: 1px solid #e0e0e0;
+        transition: background 0.2s;
+
+        &:hover {
+          background: #f9f9f9;
+        }
+
+        td {
+          padding: 16px;
+          color: #333;
+          font-size: 14px;
+
+          &.price {
+            font-weight: 600;
+            color: #667eea;
+          }
+
+          &.price-range {
+            display: inline-block;
+            padding: 4px 8px;
+            background: #f0f4ff;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #667eea;
+          }
+        }
+      }
+    }
+  }
+}
+
+.no-valuations {
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  padding: 40px;
+  text-align: center;
+  color: #999;
+}
+
+@media (max-width: 768px) {
+  .valuation-view-table-container {
+    .valuation-view-table {
+      font-size: 12px;
+
+      th,
+      td {
+        padding: 12px;
+      }
+    }
+  }
+}

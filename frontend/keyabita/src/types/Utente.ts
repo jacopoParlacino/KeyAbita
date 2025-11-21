@@ -7,5 +7,4 @@ export interface Utente {
     email?: string;
     telefono?: string;
     ruolo?: Ruolo;
-    dataCreazione?: string;
-  }
+}

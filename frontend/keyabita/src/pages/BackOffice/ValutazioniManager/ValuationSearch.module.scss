@@ -1,0 +1,41 @@
+.valuation-search {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+
+  .search-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    flex: 1;
+
+    svg {
+      color: #999;
+      flex-shrink: 0;
+    }
+
+    input {
+      border: none;
+      background: transparent;
+      outline: none;
+      width: 100%;
+      font-size: 14px;
+      font-family: inherit;
+
+      &::placeholder {
+        color: #999;
+      }
+    }
+  }
+
+  .search-results {
+    font-size: 13px;
+    color: #666;
+    padding: 0 4px;
+  }
+}

@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import type { ChangeEvent } from 'react';
-import { Search } from 'lucide-react';
 import { ValutazioniApi } from '../../../services';
 
 import type { Valutazione } from '../../../types/Valutazione';
 import styles from './ValutazioniViewer.module.scss';
+import ValuationViewSearch from './ValuationViewSearch';
+import ValuationViewTable from './ValuationViewTable';
 
 
 const ValutazioniViewer = () => {
@@ -17,11 +18,14 @@ const ValutazioniViewer = () => {
     const fetchValutazioni = async () => {
       try {
         setLoading(true);
+        setError(null);
         const data = await ValutazioniApi.getAll();
-        setValutazioni(data);
+        setValutazioni(data || []);
       } catch (err) {
-        setError('Errore nel caricamento delle valutazioni');
+        const errorMessage = err instanceof Error ? err.message : 'Errore sconosciuto nel caricamento delle valutazioni';
+        setError(errorMessage);
         console.error('Error fetching valutazioni:', err);
+        setValutazioni([]);
       } finally {
         setLoading(false);
       }
@@ -71,49 +75,15 @@ const ValutazioniViewer = () => {
         <p>Visualizza tutte le valutazioni immobiliari</p>
       </div>
 
-      <div className={styles.searchBar}>
-        <Search size={20} />
-        <input
-          type="text"
-          placeholder="Cerca per indirizzo o città..."
-          value={searchTerm}
-          onChange={handleSearch}
-        />
-      </div>
+      <ValuationViewSearch
+        searchTerm={searchTerm}
+        onSearchChange={setSearchTerm}
+      />
 
-      <div className={styles.valutazioniTable}>
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Immobile</th>
-              <th>Città</th>
-              <th>Valore Stimato</th>
-              <th>Range Valutazione</th>
-              <th>Data</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredValutazioni.map((valutazione) => (
-              <tr key={valutazione.id}>
-                <td>#{valutazione.id}</td>
-                <td>{valutazione.immobile?.indirizzo || 'N/A'}</td>
-                <td>{valutazione.immobile?.citta?.nome || 'N/A'}</td>
-                <td className={styles.price}>{formatCurrency(valutazione.valoreStimato)}</td>
-                <td>
-                  <span className={styles.priceRange}>
-                    {formatCurrency(valutazione.valoreMinimo)} - {formatCurrency(valutazione.valoreMassimo)}
-                  </span>
-                </td>
-                <td>
-                  {valutazione.dataCreazione ?
-                    new Date(valutazione.dataCreazione).toLocaleDateString('it-IT') : 'N/A'}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <ValuationViewTable
+        valutazioni={filteredValutazioni}
+        isLoading={loading}
+      />
     </div>
   );
 };

@@ -63,7 +63,8 @@ export default function Login() {
 
         if (adminData.role?.toUpperCase() === "ADMIN") {
           navigate("/amministrazione");
-
+        } else if (adminData.role?.toUpperCase() === "AGENT") {
+          navigate("/dashboard");
         } else {
           navigate("/");
         }

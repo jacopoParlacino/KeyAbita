@@ -1,0 +1,136 @@
+.contract-card {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  padding: 20px;
+  transition: all 0.3s;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-color: #d0d0d0;
+  }
+
+  .contract-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f0f0f0;
+
+    h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #333;
+      margin: 0;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      flex-shrink: 0;
+
+      &.status-completed {
+        background: #e8f5e9;
+        color: #2e7d32;
+      }
+
+      &.status-progress {
+        background: #fff3e0;
+        color: #e65100;
+      }
+
+      &.status-pending {
+        background: #ffebee;
+        color: #c62828;
+      }
+    }
+  }
+
+  .contract-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 14px;
+
+      .label {
+        font-weight: 600;
+        color: #666;
+        flex-shrink: 0;
+      }
+
+      .value {
+        color: #333;
+        text-align: right;
+        flex: 1;
+      }
+    }
+  }
+
+  .property-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 12px;
+    border-top: 1px solid #f0f0f0;
+
+    .feature {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      background: #f5f5f5;
+      border-radius: 6px;
+      font-size: 12px;
+      color: #666;
+
+      svg {
+        width: 14px;
+        height: 14px;
+        color: #999;
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .contract-card {
+    padding: 16px;
+
+    .contract-header {
+      flex-direction: column;
+      align-items: flex-start;
+
+      h3 {
+        font-size: 14px;
+      }
+
+      .status-badge {
+        align-self: flex-start;
+      }
+    }
+
+    .contract-details {
+      .detail-row {
+        flex-direction: column;
+
+        .value {
+          text-align: left;
+        }
+      }
+    }
+  }
+}

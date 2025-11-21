@@ -1,7 +1,8 @@
 import { http } from './http';
 import type { Utente } from '../types/Utente';
+import type { PermessoAgente } from '../types/PermessoAgente';
 
-export type UtenteCreatePayload = Omit<Utente, 'id' | 'dataCreazione'> & {
+export type UtenteCreatePayload = Omit<Utente, 'id'> & {
   password?: string;
 };
 
@@ -17,15 +18,6 @@ export interface DeleteUtenteResponse {
   message?: string;
 }
 
-export interface PermessiModulo {
-  visualizza: boolean;
-  [permesso: string]: boolean;
-}
-
-export interface PermessiAgente {
-  [modulo: string]: PermessiModulo;
-}
-
 export const UtentiApi = {
   getAll(): Promise<Utente[]> {
     return http<Utente[]>('/utenti');
@@ -37,17 +29,6 @@ export const UtentiApi = {
 
   getById(id: number): Promise<Utente> {
     return http<Utente>(`/utenti/${id}`);
-  },
-
-  getPermessiAgente(id: number): Promise<PermessiAgente> {
-    return http<PermessiAgente>(`/utenti/${id}/permessi`);
-  },
-
-  updatePermessiAgente(id: number, permessi: PermessiAgente): Promise<PermessiAgente> {
-    return http<PermessiAgente>(`/utenti/${id}/permessi`, {
-      method: 'PUT',
-      body: JSON.stringify(permessi),
-    });
   },
 
   resetPassword(id: number, newPassword: string): Promise<ResetPasswordResponse> {

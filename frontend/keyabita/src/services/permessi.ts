@@ -1,35 +1,35 @@
 import { http } from './http';
+import type { PermessoAgente } from '../types/PermessoAgente';
 
 export const PermessiApi = {
-  getByAgente(id: number) {
-    return http(`/permessi/agente/${id}`);
+  getPermessiAgente(id: number) {
+    return http<PermessoAgente[]>(`/permessi/agente/${id}`);
   },
 
-  getModuliByAgente(id: number) {
-    return http(`/permessi/agente/${id}/moduli`);
+  getPermessoByModulo(id: number, modulo: string) {
+    return http<PermessoAgente>(`/permessi/agente/${id}/modulo/${modulo}`);
   },
 
-  check(id: number, modulo: string, permesso: string) {
-    return http(`/permessi/agente/${id}/check/${modulo}/${permesso}`);
+  checkPermesso(id: number, modulo: string, azione: string) {
+    return http<boolean>(`/permessi/agente/${id}/check/${modulo}/${azione}`);
   },
 
-  update(id: number, data: unknown) {
-    return http(`/permessi/agente/${id}`, {
+  initializePermessi(id: number) {
+    return http<void>(`/permessi/agente/${id}/initialize`, {
+      method: 'POST',
+    });
+  },
+
+  updatePermesso(id: number, modulo: string, data: PermessoAgente) {
+    return http<PermessoAgente>(`/permessi/agente/${id}/modulo/${modulo}`, {
       method: 'PUT',
       body: JSON.stringify(data),
     });
   },
 
-  initialize(id: number) {
-    return http(`/permessi/agente/${id}/initialize`, {
-      method: 'POST',
-    });
-  },
-
-  updateSingle(id: number, modulo: string, permesso: string, abilitato: boolean) {
-    return http(`/permessi/agente/${id}/${modulo}/${permesso}`, {
-      method: 'PUT',
-      body: JSON.stringify({ abilitato }),
+  deletePermessiAgente(id: number) {
+    return http<void>(`/permessi/agente/${id}`, {
+      method: 'DELETE',
     });
   }
 };

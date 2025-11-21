@@ -2,25 +2,58 @@
 @use "../../../styles/mixins.scss" as *;
 
 .recent {
-    background: #fff;
-    padding: 1rem;
-    border-radius: 8px;
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  color: $primary-color;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  min-height: 400px;
+
+  h3 {
+    margin: 0 0 1.5rem 0;
+    font-size: 1.25rem;
+    font-weight: 600;
     color: $primary-color;
+  }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 1rem;
+  table {
+    width: 100%;
+    border-collapse: collapse;
 
-      th, td {
-        padding: 0.5rem;
-        text-align: left;
-        border-bottom: 1px solid #eee;
+    th {
+      background: #fafafa;
+      padding: 0.75rem;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: $text-secondary;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    td {
+      padding: 0.875rem 0.75rem;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 0.95rem;
+      color: $primary-color;
+
+      &:first-child {
+        font-weight: 500;
+      }
+    }
+
+    tbody tr {
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: #fafafa;
       }
 
-      th {
-        font-weight: bold;
-
+      &:last-child td {
+        border-bottom: none;
       }
     }
   }
+}

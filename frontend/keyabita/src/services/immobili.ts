@@ -10,13 +10,6 @@ export const ImmobiliApi = {
     return http<Immobile>(`/immobili/${id}`);
   },
 
-  create(data: Partial<Immobile>) {
-    return http<Immobile>('/immobili', {
-      method: 'POST',
-      body: JSON.stringify(data),
-    });
-  },
-
   getByCitta(nomeCitta: string) {
     return http<Immobile[]>(`/immobili/citta/${encodeURIComponent(nomeCitta)}`);
   },
@@ -27,5 +20,25 @@ export const ImmobiliApi = {
 
   getByStanze(numeroStanze: number) {
     return http<Immobile[]>(`/immobili/stanze/${numeroStanze}`);
+  },
+
+  create(data: Partial<Immobile>) {
+    return http<Immobile>('/immobili', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  },
+
+  update(id: number, data: Partial<Immobile>) {
+    return http<Immobile>(`/immobili/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    });
+  },
+
+  delete(id: number) {
+    return http<void>(`/immobili/${id}`, {
+      method: 'DELETE',
+    });
   },
 };

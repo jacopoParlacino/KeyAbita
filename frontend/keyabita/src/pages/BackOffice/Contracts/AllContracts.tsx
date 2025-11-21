@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { Home, Car, TreePine } from "lucide-react";
 import { ContrattiApi } from "../../../services";
 import type { Contratto } from "../../../types/Contratto";
 import styles from "./AllContracts.module.scss";
+import ContractGrid from "./ContractGrid";
 
 const AllContracts = () => {
   const [contracts, setContracts] = useState<Contratto[]>([]);
@@ -70,81 +70,7 @@ const AllContracts = () => {
         <p>Visualizza tutti i contratti presenti nel database</p>
       </div>
 
-      <div className={styles.contractsGrid}>
-        {contracts.map((contract) => {
-          const stato = contract.statoContratto?.nome ?? "";
-
-          return (
-            <div key={contract.id} className={styles.contractCard}>
-              <div className={styles.contractHeader}>
-                <h3>Contratto #{contract.id}</h3>
-                <span
-                  className={`${styles.statusBadge} ${getStatusClass(stato)}`}
-                >
-                  {stateMap[stato] || stato || "N/A"}
-                </span>
-              </div>
-
-              <div className={styles.contractDetails}>
-                <div className={styles.detailRow}>
-                  <span className={styles.label}>Cliente:</span>
-                  <span className={styles.value}>
-                    {contract.richiesta
-                      ? `${contract.richiesta.nome} ${contract.richiesta.cognome}`
-                      : "Non specificato"}
-                  </span>
-                </div>
-
-                <div className={styles.detailRow}>
-                  <span className={styles.label}>CAP:</span>
-                  <span className={styles.value}>
-                    {contract.richiesta?.immobile?.cap || "N/A"}
-                  </span>
-                </div>
-
-                <div className={styles.detailRow}>
-                  <span className={styles.label}>Città:</span>
-                  <span className={styles.value}>
-                    {contract.richiesta?.immobile?.citta?.nome || "N/A"}
-                  </span>
-                </div>
-
-                <div className={styles.detailRow}>
-                  <span className={styles.label}>Data inizio:</span>
-                  <span className={styles.value}>
-                    {formatDate(contract.inizioContratto)}
-                  </span>
-                </div>
-
-                <div className={styles.detailRow}>
-                  <span className={styles.label}>Data fine:</span>
-                  <span className={styles.value}>
-                    {formatDate(contract.fineContratto)}
-                  </span>
-                </div>
-              </div>
-
-              <div className={styles.propertyFeatures}>
-                {contract.richiesta?.immobile?.balconi && (
-                  <span className={styles.feature}>
-                    <Home size={14} /> Balcone
-                  </span>
-                )}
-                {contract.richiesta?.immobile?.garage && (
-                  <span className={styles.feature}>
-                    <Car size={14} /> Garage
-                  </span>
-                )}
-                {contract.richiesta?.immobile?.giardino && (
-                  <span className={styles.feature}>
-                    <TreePine size={14} /> Giardino
-                  </span>
-                )}
-              </div>
-            </div>
-          );
-        })}
-      </div>
+      <ContractGrid contracts={contracts} isLoading={loading} />
     </div>
   );
 };

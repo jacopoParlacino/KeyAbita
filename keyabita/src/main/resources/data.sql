@@ -72,6 +72,15 @@ INSERT INTO contratti (id, inizio_contratto, fine_contratto, id_richiesta, stato
 (2, '2025-11-05', '2026-11-05', 1, 1),
 (3, '2025-10-20', '2025-11-20', 4, 3);
 
+-- Inserimento dati nelle tabelle permessi_agenti
+-- Inizializzazione permessi per Giulia Verdi (AGENT - id 4)
+INSERT INTO permessi_agenti (id_utente, modulo, visualizza, creare, modificare, eliminare) VALUES
+(4, 'clienti', TRUE, FALSE, FALSE, FALSE),
+(4, 'contratti', TRUE, TRUE, TRUE, FALSE),
+(4, 'valutazioni', TRUE, FALSE, FALSE, FALSE),
+(4, 'immobili', TRUE, TRUE, FALSE, FALSE),
+(4, 'richieste', TRUE, TRUE, TRUE, FALSE);
+
 -- Reset delle sequenze IDENTITY per evitare conflitti di PK sui successivi INSERT
 -- Nota: H2 supporta RESTART WITH solo su colonne IDENTITY/AUTO_INCREMENT
 ALTER TABLE ruoli            ALTER COLUMN id RESTART WITH 4;
@@ -84,3 +93,4 @@ ALTER TABLE stati_richieste  ALTER COLUMN id RESTART WITH 6;
 ALTER TABLE richieste        ALTER COLUMN id RESTART WITH 5;
 ALTER TABLE stati_contratti  ALTER COLUMN id RESTART WITH 6;
 ALTER TABLE contratti        ALTER COLUMN id RESTART WITH 4;
+ALTER TABLE permessi_agenti  ALTER COLUMN id RESTART WITH 6;

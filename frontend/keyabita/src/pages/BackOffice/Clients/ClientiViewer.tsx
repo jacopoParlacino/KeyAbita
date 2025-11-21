@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 
 import { UtentiApi } from '../../../services';
 import type { Utente } from '../../../types/Utente';
-import { Users, Search, Filter, Calendar, Mail, Phone, User } from 'lucide-react';
+import { Users, AlertCircle } from 'lucide-react';
+import ClientFilters from './ClientFilters';
+import ClientTable from './ClientTable';
+import styles from './ClientiViewer.module.scss';
 
 const ClientiViewer: React.FC = () => {
   const [clienti, setClienti] = useState<Utente[]>([]);
@@ -15,12 +18,13 @@ const ClientiViewer: React.FC = () => {
   const loadClienti = async (): Promise<void> => {
     try {
       setLoading(true);
-      const data = await UtentiApi.getAll();
-      setClienti(data);
       setError(null);
+      const data = await UtentiApi.getAll();
+      setClienti(data || []);
     } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Errore sconosciuto nel caricamento dei clienti';
       console.error('Errore nel caricamento dei clienti:', err);
-      setError('Errore nel caricamento dei clienti');
+      setError(errorMessage);
       setClienti([]);
     } finally {
       setLoading(false);
@@ -55,15 +59,6 @@ const ClientiViewer: React.FC = () => {
     setFilteredClienti(filtered);
   }, [clienti, searchTerm, selectedRuolo]);
 
-  const formatDate = (dateString?: string): string => {
-    if (!dateString) return 'N/A';
-    try {
-      return new Date(dateString).toLocaleDateString('it-IT');
-    } catch {
-      return 'N/A';
-    }
-  };
-
   const getRuoliUnici = (): string[] => {
     const ruoli = clienti
       .map(cliente => cliente.ruolo?.nome)
@@ -74,9 +69,9 @@ const ClientiViewer: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="clienti-viewer">
-        <div className="loading">
-          <div className="loading-spinner"></div>
+      <div className={styles['clienti-viewer']}>
+        <div className={styles.loading}>
+          <div className={styles['loading-spinner']}></div>
           <p>Caricamento clienti...</p>
         </div>
       </div>
@@ -85,10 +80,16 @@ const ClientiViewer: React.FC = () => {
 
   if (error) {
     return (
-      <div className="clienti-viewer">
-        <div className="error">
-          <p>{error}</p>
-          <button onClick={loadClienti} className="retry-btn">
+      <div className={styles['clienti-viewer']}>
+        <div className={styles['error-container']}>
+          <div className={styles['error-message']}>
+            <AlertCircle size={24} />
+            <div>
+              <p className={styles['error-title']}>Errore nel caricamento</p>
+              <p className={styles['error-text']}>{error}</p>
+            </div>
+          </div>
+          <button onClick={loadClienti} className={styles['retry-btn']}>
             Riprova
           </button>
         </div>
@@ -97,104 +98,32 @@ const ClientiViewer: React.FC = () => {
   }
 
   return (
-    <div className="clienti-viewer">
-      <div className="clienti-header">
-        <div className="header-title">
-          <Users className="header-icon" />
+    <div className={styles['clienti-viewer']}>
+      <div className={styles['clienti-header']}>
+        <div className={styles['header-title']}>
+          <Users className={styles['header-icon']} />
           <h2>Gestione Clienti</h2>
         </div>
       </div>
 
-      <div className="filters-section">
-        <div className="search-box">
-          <Search className="search-icon" />
-          <input
-            type="text"
-            placeholder="Cerca per nome, cognome, email o telefono..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="search-input"
-          />
-        </div>
+      <ClientFilters
+        searchTerm={searchTerm}
+        selectedRuolo={selectedRuolo}
+        ruoliUnici={getRuoliUnici()}
+        onSearchChange={setSearchTerm}
+        onRuoloChange={setSelectedRuolo}
+      />
 
-        <div className="filter-group">
-          <Filter className="filter-icon" />
-          <select
-            value={selectedRuolo}
-            onChange={(e) => setSelectedRuolo(e.target.value)}
-            className="filter-select"
-          >
-            <option value="">Tutti i ruoli</option>
-            {getRuoliUnici().map(ruolo => (
-              <option key={ruolo} value={ruolo}>{ruolo}</option>
-            ))}
-          </select>
-        </div>
-      </div>
-
-      <div className="results-info">
+      <div className={styles['results-info']}>
         <span>
           Mostrando {filteredClienti.length} di {clienti.length} clienti
         </span>
       </div>
 
-      {filteredClienti.length === 0 ? (
-        <div className="no-results">
-          <Users className="no-results-icon" />
-          <h3>Nessun cliente trovato</h3>
-          <p>Non ci sono clienti che corrispondono ai criteri di ricerca.</p>
-        </div>
-      ) : (
-        <div className="clienti-table-container">
-          <table className="clienti-table">
-            <thead>
-              <tr>
-                <th><User className="th-icon" /> Cliente</th>
-                <th><Mail className="th-icon" /> Contatti</th>
-                <th><Filter className="th-icon" /> Ruolo</th>
-                <th><Calendar className="th-icon" /> Data Creazione</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredClienti.map((cliente) => (
-                <tr key={cliente.id} className="cliente-row">
-                  <td className="cliente-info">
-                    <div className="cliente-avatar">
-                      {(cliente.nome?.[0] || '') + (cliente.cognome?.[0] || '')}
-                    </div>
-                    <div className="cliente-details">
-                      <div className="cliente-nome">
-                        {cliente.nome || 'N/A'} {cliente.cognome || ''}
-                      </div>
-                    </div>
-                  </td>
-                  <td className="contatti-info">
-                    <div className="contatto-item">
-                      <Mail className="contatto-icon" />
-                      <span>{cliente.email || 'N/A'}</span>
-                    </div>
-                    <div className="contatto-item">
-                      <Phone className="contatto-icon" />
-                      <span>{cliente.telefono || 'N/A'}</span>
-                    </div>
-                  </td>
-                  <td className="ruolo-cell">
-                    <span className={`ruolo-badge ${cliente.ruolo?.nome?.toLowerCase() || 'default'}`}>
-                      {cliente.ruolo?.nome || 'N/A'}
-                    </span>
-                  </td>
-                  <td className="data-cell">
-                    <div className="data-container">
-                      <Calendar className="data-icon" />
-                      <span>{formatDate(cliente.dataCreazione)}</span>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
+      <ClientTable
+        clienti={filteredClienti}
+        isLoading={loading}
+      />
     </div>
   );
 };

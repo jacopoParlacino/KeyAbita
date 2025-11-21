@@ -1,4 +1,5 @@
 -- Drop existing tables if they exist (in dependency order)
+DROP TABLE IF EXISTS permessi_agenti;
 DROP TABLE IF EXISTS contratti;
 DROP TABLE IF EXISTS stati_contratti;
 DROP TABLE IF EXISTS richieste;
@@ -109,6 +110,19 @@ CREATE TABLE contratti (
     FOREIGN KEY (stato_contratto) REFERENCES stati_contratti(id) ON DELETE SET NULL
 );
 
+-- Tabella permessi_agenti
+CREATE TABLE permessi_agenti (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_utente INT NOT NULL,
+    modulo VARCHAR(100) NOT NULL,
+    visualizza BOOLEAN DEFAULT FALSE,
+    creare BOOLEAN DEFAULT FALSE,
+    modificare BOOLEAN DEFAULT FALSE,
+    eliminare BOOLEAN DEFAULT FALSE,
+    UNIQUE (id_utente, modulo),
+    FOREIGN KEY (id_utente) REFERENCES utenti(id) ON DELETE CASCADE
+);
+
 -- Indici per migliorare le performance delle query
 CREATE INDEX idx_ruolo ON utenti(ruolo);
 CREATE INDEX idx_citta ON immobili(citta);
@@ -118,3 +132,4 @@ CREATE INDEX idx_id_immobiliare_richieste ON richieste(id_immobiliare);
 CREATE INDEX idx_stato_richiesta ON richieste(stato_richiesta);
 CREATE INDEX idx_id_richiesta ON contratti(id_richiesta);
 CREATE INDEX idx_stato_contratto ON contratti(stato_contratto);
+CREATE INDEX idx_permessi_agenti_utente ON permessi_agenti(id_utente);

@@ -2,28 +2,54 @@
 @use "../../styles/mixins.scss" as *;
 
 .dashboard {
-    display: flex;
-    min-height: 100vh;
-  }
+  display: flex;
+  min-height: 100vh;
+}
 
-  .main {
-    flex: 1;
-    padding: 2rem;
-    background: $beige;
-  }
+.main {
+  flex: 1;
+  padding: 2rem;
+  background: $beige;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
 
-  .statsGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    margin-bottom: 2rem;
-  }
+.statsSection {
+  width: 100%;
+}
 
-  .bottomSection {
-    display: flex;
-    gap: 1rem;
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
 
-    > * {
-      flex: 1;
-    }
+.contentSection {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 2rem;
+  
+  @media (max-width: $bp-tablet) {
+    grid-template-columns: 1fr;
   }
+}
+
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  
+  > * {
+    height: fit-content;
+  }
+}
+
+.clientsSection {
+  width: 100%;
+}

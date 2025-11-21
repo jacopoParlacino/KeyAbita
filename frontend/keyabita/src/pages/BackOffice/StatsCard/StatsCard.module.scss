@@ -2,21 +2,42 @@
 @use "../../../styles/mixins.scss" as *;
 
 .card {
-    background: #fff;
-    padding: 1rem;
-    border-radius: 8px;
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: $primary-color;
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  color: $primary-color;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
 
-    .value {
-      font-weight: bold;
-      font-size: 1.2rem;
-    }
-
-    .icon {
-      font-size: 1.5rem;
-    }
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
   }
+
+  > div:first-child {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: $text-secondary;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .value {
+    font-weight: 700;
+    font-size: 1.75rem;
+    color: $primary-color;
+    line-height: 1;
+  }
+
+  .icon {
+    font-size: 1.5rem;
+    color: $cta-color;
+    align-self: flex-start;
+    opacity: 0.8;
+  }
+}
