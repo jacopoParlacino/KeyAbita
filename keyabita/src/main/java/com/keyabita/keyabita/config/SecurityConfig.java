@@ -42,9 +42,8 @@ public class SecurityConfig {
                         // Endpoint pubblici
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
-                        // Endpoint pubblici per creare immobile e richiesta
-                        .requestMatchers("POST", "/api/immobili/con-richiesta").permitAll()
-                        .requestMatchers("POST", "/api/richieste").permitAll()
+                        // Endpoint pubblico per inviare richiesta
+                        .requestMatchers("POST", "/api/invio-richiesta").permitAll()
                         // Endpoint protetti - solo ADMIN
                         .requestMatchers("/api/utenti/**").hasRole("ADMIN")
                         .requestMatchers("/api/ruoli/**").hasRole("ADMIN")
