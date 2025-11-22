@@ -53,6 +53,9 @@ export function validateStep(currentStep: number, formData: FormData): FormError
     } else if (!emailRegex.test(formData.email)) {
       newErrors.email = "Indirizzo email non valido";
     }
+    if (formData.privacy === false) {
+      newErrors.privacy = "Informativa sulla privacy obbligatoria";
+    }
   }
 
   return newErrors;

@@ -4,7 +4,6 @@ import { validateStep, totalSteps } from "../validation";
 
 const initialFormData: FormData = {
     propertyType: null,
-    citta: "",
     cap: "",
     condition: "",
     metratura: "",
@@ -20,7 +19,8 @@ const initialFormData: FormData = {
     cognome: "",
     email: "",
     numeroDiTelefono: "",
-    stato_immobile: "",
+    statoImmobileId: 1,
+    privacy: false,
 };
 
 export default function useMultiStepForm() {
@@ -75,8 +75,7 @@ export default function useMultiStepForm() {
             numeroDiTelefono,
             stanze,
             bagni,
-            citta,
-            stato_immobile,
+            statoImmobileId,
             ...datiImmobile
         } = formData;
 
@@ -85,11 +84,10 @@ export default function useMultiStepForm() {
                 ...datiImmobile,
                 numeroStanze: stanze,
                 numeroBagni: bagni,
-                citta: { id: parseInt(citta) || null },
-                statoImmobile: { id: parseInt(stato_immobile) || null },
+                statoImmobile: statoImmobileId,
             };
 
-            const immobileResponse = await fetch("http://localhost:8080/api/immobili", {
+            const immobileResponse = await fetch("http://localhost:8080/api/invio-richiesta", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(immobilePayload),

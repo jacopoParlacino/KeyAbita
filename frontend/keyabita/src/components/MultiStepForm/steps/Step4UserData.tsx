@@ -44,6 +44,22 @@ export default function Step4UserData({ formData, errors, setField }: Props) {
         placeholder="Inserisci la tua email"
       />
       {errors.email && <p className={styles.error__message}>{errors.email}</p>}
+
+      <label className={styles.checkbox__wrapper}>
+        <input
+          type="checkbox"
+          checked={formData.privacy}
+          onChange={(e) => setField("privacy", e.target.checked)}
+          className={styles.checkbox}
+        />
+        <span className={styles.custom__checkbox}></span>
+        Accetto l’informativa privacy
+      </label>
+
+      {errors.privacy && (
+        <p className={styles.error__message}>{errors.privacy}</p>
+      )}
+
     </>
   );
 }

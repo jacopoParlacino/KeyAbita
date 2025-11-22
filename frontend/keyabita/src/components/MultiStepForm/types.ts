@@ -5,7 +5,6 @@ export type SelectOption = {
 
 export interface FormData {
   propertyType: string | null;
-  citta: string;
   cap: string;
   condition: string;
   metratura: string;
@@ -21,7 +20,8 @@ export interface FormData {
   cognome: string;
   email: string;
   numeroDiTelefono: string;
-  stato_immobile: string;
+  statoImmobileId: number;
+  privacy: boolean;
 }
 
 export type FormErrors = {
