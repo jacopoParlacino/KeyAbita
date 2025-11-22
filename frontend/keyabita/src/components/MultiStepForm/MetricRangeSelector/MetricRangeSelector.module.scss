@@ -28,7 +28,10 @@
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    width: 200px;
+    width: 125px;
     padding: 10px 30px;
     cursor: pointer;
+    @include desktop{
+        width: 198px;
+    }
 }

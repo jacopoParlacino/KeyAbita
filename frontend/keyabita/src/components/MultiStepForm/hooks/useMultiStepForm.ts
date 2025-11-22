@@ -68,56 +68,28 @@ export default function useMultiStepForm() {
     const handleSubmit = async () => {
         console.log("Form submitted with data:", JSON.stringify(formData, null, 2));
 
-        const {
-            nome,
-            cognome,
-            email,
-            numeroDiTelefono,
-            stanze,
-            bagni,
-            statoImmobileId,
-            ...datiImmobile
-        } = formData;
+        // try {
+        //     const immobilePayload = {
+        //         ...formData,
+        //         numeroStanze: formData.stanze,
+        //         numeroBagni: formData.bagni,
+        //         statoImmobile: formData.statoImmobileId,
+        //     };
 
-        try {
-            const immobilePayload = {
-                ...datiImmobile,
-                numeroStanze: stanze,
-                numeroBagni: bagni,
-                statoImmobile: statoImmobileId,
-            };
+        //     const response = await fetch("http://localhost:8080/api/invio-richiesta", {
+        //         method: "POST",
+        //         headers: { "Content-Type": "application/json" },
+        //         body: JSON.stringify(immobilePayload),
+        //     });
 
-            const immobileResponse = await fetch("http://localhost:8080/api/invio-richiesta", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(immobilePayload),
-            });
+        //     if (!response.ok) throw new Error("Errore invio richiesta");
 
-            if (!immobileResponse.ok) throw new Error("Errore creazione immobile");
-
-            const immobile = await immobileResponse.json();
-
-            const valutazionePayload = {
-                id_immobiliare: immobile.id,
-                nome,
-                cognome,
-                email,
-                numeroDiTelefono,
-            };
-
-            const valutazioneResponse = await fetch("http://localhost:8080/api/valutazioni", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(valutazionePayload),
-            });
-
-            if (!valutazioneResponse.ok) throw new Error("Errore creazione valutazione");
-
-            nextStep();
-            console.log("Valutazione inviata con successo!");
-        } catch (err) {
-            console.error(err);
-        }
+        //     nextStep();
+        //     console.log("Richiesta inviata con successo!");
+        // } catch (err) {
+        //     console.error(err);
+        // }
+        nextStep();
     };
 
     return {
