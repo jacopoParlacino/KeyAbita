@@ -20,7 +20,7 @@ export default function MetricRangeSelector ({ label, options, value, onChange }
                 <span className={styles.label}>{label}</span>
 
 
-                <div>
+                <div className={styles.dropdown}>
                     <select
                         className={styles.select}
                         value={value}
